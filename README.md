@@ -11,7 +11,7 @@ This document captures my journey through creating a fully integrated DevOps lab
 - **Action**:
   - [x] Add the files for the initial environment in Terraform (WebServer, MySQLDB).
   - [ ] Create a `main.tf` file specifying VMs, networking, and security groups.
-  - [ ] Run `terraform init` and `terraform apply` to deploy the environment.
+  - [ ] Create a dynamic environment that can be destroyed and recreated swiftfuly.
 - **Key Connection**: This forms the base infrastructure for all subsequent steps, ensuring that VMs are up and networked properly.
 
 ---
