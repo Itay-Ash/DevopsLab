@@ -13,7 +13,7 @@ This document captures my journey through creating a fully integrated DevOps lab
   - [ ] Create a `main.tf` file specifying VMs:
     - [x] **Web server VM**: Upload all neccessary files.
     - [ ] **DB server VM**: Connect to a permanent storage.
-    - [ ] **CI/CD VM**.
+    - [ ] **CI/CD VM**: Connect to a permanent storage.
   - [ ] Manage networking and security groups.
 - **Key Connection**: This forms the base infrastructure for all subsequent steps, ensuring that VMs are up and networked properly.
 
