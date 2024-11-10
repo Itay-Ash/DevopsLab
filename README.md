@@ -9,7 +9,7 @@ This document captures my journey through creating a fully integrated DevOps lab
 ### Step 1: Set Up the Infrastructure with Terraform (Provisioning) 🏗️
 - **Objective**: Use Terraform to provision the base infrastructure for the lab.
 - **Action**:
-  - [x] Add the files for the initial environment in Terraform (WebServer, MySQLDB).
+  - [x] Add the files for the initial environment in Terraform (WebServer, MySQLDB, CI/CD).
   - [ ] Create a `main.tf` file specifying VMs, networking, and security groups.
   - [ ] Create a dynamic environment that can be destroyed and recreated swiftfuly.
 - **Key Connection**: This forms the base infrastructure for all subsequent steps, ensuring that VMs are up and networked properly.
