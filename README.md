@@ -11,10 +11,13 @@ This document captures my journey through creating a fully integrated DevOps lab
 - **Action**:
   - [x] Add the files for the initial environment in Terraform (WebServer, MySQLDB, CI/CD).
   - [ ] Create a `main.tf` file specifying VMs:
-    - [x] **Web server VM**: Upload all neccessary files.
-    - [ ] **DB server VM**: Connect to a permanent storage.
-    - [ ] **CI/CD VM**: Connect to a permanent storage.
-  - [ ] Manage networking and security groups.
+    - [x] **Web server VM** Add a public IP.
+    - [x] **DB server VM**: Connect to a large permanent storage.
+    - [x] **CI/CD VM**: Add a public IP and connect to a permanent storage.
+  - [ ] Create an `infra.tf` file specifying networking and security groups:
+    - [x] Set a static private IP for each VM.
+    - [ ] Set a static private DMS record for each VM.
+    - [ ] Set a security group based on future usage of VMs.
 - **Key Connection**: This forms the base infrastructure for all subsequent steps, ensuring that VMs are up and networked properly.
 
 ---
