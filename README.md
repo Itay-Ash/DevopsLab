@@ -10,7 +10,7 @@ This document captures my journey through creating a fully integrated DevOps lab
 - **Objective**: Use Terraform to provision the base infrastructure for the lab.
 - **Action**:
   - [x] Add the files for the initial environment in Terraform (WebServer, MySQLDB, CI/CD).
-  - [ ] Create a `main.tf` file specifying VMs:
+  - [x] Create a `main.tf` file specifying VMs:
     - [x] **Web server VM** Add a public IP.
     - [x] **DB server VM**: Connect to a large permanent storage.
     - [x] **CI/CD VM**: Add a public IP and connect to a permanent storage.
