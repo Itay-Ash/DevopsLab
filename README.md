@@ -9,16 +9,20 @@ This document captures my journey through creating a fully integrated DevOps lab
 ### Step 1: Set Up the Infrastructure with Terraform (Provisioning) 🏗️
 - **Objective**: Use Terraform to provision the base infrastructure for the lab.
 - **Action**:
-  - [x] Add the files for the initial environment in Terraform (WebServer, MySQLDB, CI/CD).
   - [x] Create a `main.tf` file specifying VMs:
     - [x] **Web server VM** Add a public IP.
     - [x] **DB server VM**: Connect to a large permanent storage.
     - [x] **CI/CD VM**: Add a public IP and connect to a permanent storage.
-  - [ ] Create an `infra.tf` file specifying networking and security groups:
+  - [x] Create a `storage.tf` file specifying VMs:
+    - [x] Add 2 presistent disks.
+  - [x] Create an `infra.tf` file specifying networking:
+    - [x] Create a private internal network. 
     - [x] Set a static private IP for each VM.
-    - [ ] Set a static private DMS record for each VM.
-    - [ ] Set a public DNS record for the web VM.
-    - [ ] Set a security group based on future usage of VMs.
+    - [x] Set a static public IP for each vm.
+  - [x] Create a `dns.tf` file specifying networking and security groups:
+    - [x] Set a static private DMS record for each VM.
+- [x] Set a public DNS record for the web VM (using public provider).
+- [x] Set a firewall policy.
 - **Key Connection**: This forms the base infrastructure for all subsequent steps, ensuring that VMs are up and networked properly.
 
 ---
