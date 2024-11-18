@@ -37,6 +37,8 @@ override.tf.json
 terraform.rc
 .terraform.lock.hcl
 
+firewall_rules.tf
+
 # Logs
 logs
 *.log
