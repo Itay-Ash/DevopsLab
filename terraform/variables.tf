@@ -45,15 +45,3 @@ variable "private_mysql_server_dns_name" {
 variable "private_jenkins_server_dns_name" {
   type = string
 }
-
-variable "public_dns_name" {
-  type = string
-}
-
-variable "public_web_server_dns_name" {
-  type = string
-}
-
-variable "public_jenkins_server_dns_name" {
-  type = string
-}
