@@ -1,0 +1,6 @@
+*
+!.gitignore
+!code/
+!code/*
+!images/
+!images/*
