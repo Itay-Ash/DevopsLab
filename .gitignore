@@ -1,6 +1,6 @@
 *
 !.gitignore
-!code/
-!code/*
+!docs/
+!docs/*
 !images/
 !images/*
