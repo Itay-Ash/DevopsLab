@@ -2,5 +2,7 @@
 !.gitignore
 !docs/
 !docs/*
-!images/
-!images/*
+!docs/images/
+!docs/images/*.png
+!docs/images/*.jpg
+!docs/images/*.jpeg
