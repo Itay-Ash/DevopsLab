@@ -3,10 +3,6 @@ body {
     padding: 0;
 }
 
-.hidden{
-    display: none;
-}
-
 body, h1, ul, li, a {
     margin: 0;
     padding: 0;
@@ -58,7 +54,8 @@ body, h1, ul, li, a {
 }
 
 .navbar-title {
-    font-size: 1.5rem;
+    color: #fff;
+    font-size: 25px;
     font-weight: bold;
 }
 
@@ -81,9 +78,9 @@ body, h1, ul, li, a {
     color: #00aaff;
 }
 
-.title{
-    color: #fff;
-    font-size: 25px;
+.progress-bar-container{
+    padding: 0;
+    margin: 0;
 }
 
 .progress-bar {
@@ -95,18 +92,15 @@ body, h1, ul, li, a {
     gap: 10px;
 }
 
-.progress-bar-container{
-    padding: 0;
-    margin: 0;
-}
-
 .step {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     background-color: #ccc;
     color: white;
+    text-shadow: 0.25px 0.25px black;
     font-size: 14px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -133,12 +127,12 @@ body, h1, ul, li, a {
 }
 
 .step.completed:not(:last-child)::after {
-    background-color: #4caf50;
+    background-color: inherit;
 }
 
-.navbar-center:hover .title {
+.moveup-animation {
     animation-name: moveup;
-    animation-duration: 1s;
+    animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
 
@@ -147,9 +141,31 @@ body, h1, ul, li, a {
     100% {transform: translateY(-40px);}
 }
 
-.appear-animation-class{
+.movedown-animation{
+    animation-name: movedown;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes movedown {
+    0% {transform: translateY(-40px);}
+    100%   {transform: translateY(0px);}
+}
+
+.disappear-animation{
+    animation-name: disappear;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes disappear{
+    0%{opacity: 1;}
+    100%{opacity: 0;}
+}
+
+.appear-animation{
     animation-name: appear;
-    animation-duration: 1s;
+    animation-duration: 0.25s;
     animation-fill-mode: forwards;
 }
 
