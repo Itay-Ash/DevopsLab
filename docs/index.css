@@ -38,8 +38,7 @@ body, h1, ul, li, a {
 }
 
 .navbar-right{
-    padding: 0;
-    margin: 0;
+    padding-right: 2vw;
     justify-content: right;
     display: inherit;
     align-items: inherit;
@@ -66,7 +65,7 @@ body, h1, ul, li, a {
 
 .navbar-menu a {
     color: #fff;
-    font-size: 2vh;
+    font-size: 1.7vh;
     transition: color 0.3s;
 }
 
@@ -217,6 +216,7 @@ body {
     position: relative;
     overflow: hidden;
     filter: blur(0.2px);
+    background-attachment: fixed; /* Create parallax effect */
 }
 
 .hero-content {
@@ -238,19 +238,47 @@ body {
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
-    border-right: 3px solid white;
     width: 0; /* Typing effect starts hidden */
     opacity: 0;
     animation: typing 2s steps(20, end), fadeIn 1s ease-in 0.5s forwards;
     animation-fill-mode: forwards;
 }
 
+.cursor {
+    display: inline-block;
+    animation: blink 0.8s step-start infinite;
+    margin-left: 5px; /* Adjust the position of the cursor */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    50% {
+        visibility: hidden;
+    }
+}
+
+/* Button Animation Timing */
 .hero-buttons {
     display: flex;
     justify-content: center;
     gap: 20px;
     opacity: 0; /* Starts hidden */
-    animation: fadeIn 1.5s ease-out 0.5s forwards;
+    animation: fadeIn 3s ease-out 0.5s forwards;
 }
 
 .hero-buttons button {
@@ -272,29 +300,7 @@ body {
     background-color: #005bb5;
 }
 
-/* Animations */
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes typing {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
-}
-
-@keyframes blink {
-    50% {
-        border-right-color: transparent;
-    }
-}
-
-/* Button Animation Timing */
+/* Individual Button Animations */
 .hero-buttons button:nth-child(1) {
     animation: fadeIn 1.5s ease-out 1s forwards;
     transform: translateY(0);
@@ -304,7 +310,6 @@ body {
     animation: fadeIn 1.5s ease-out 1.2s forwards;
     transform: translateY(0);
 }
-
 
 /* Blur Effect */
 .hero:after {
@@ -317,6 +322,13 @@ body {
     background: inherit;
     filter: blur(10px);
     z-index: 0;
+}
+
+.progress-container{
+    display: flex; 
+    flex-direction: column; /* Align vertically */ 
+    justify-content: center; /* Center items vertically */ 
+    align-items: center;
 }
 
 /* Content Sections */
