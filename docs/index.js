@@ -1,20 +1,22 @@
 $(document).ready(function () {
+    //Coloring all completed steps
     const colors = [
-        '#88beff', // Darker light blue
-        '#77b3ff', 
-        '#66a9ff', // Mid-tone light blue
-        '#339aff', // Vibrant mid-blue
-        '#008cff', 
-        '#0078e6', 
-        '#0063cc', 
-        '#004fb3', 
-        '#003d99',  // Darker blue
-        '#002680'   // Darkest blue
+        '#88beff',
+        '#77b3ff',
+        '#66a9ff',
+        '#339aff',
+        '#008cff',
+        '#0078e6',
+        '#0063cc',
+        '#004fb3',
+        '#003d99',  
+        '#002680'   
     ];
     $('.step.completed').each(function(index) {
         $(this).css('background-color', colors[index]);
     });
-    
+
+    //Adding progress bar and navbar-title animations
     const navbarCenter = $('.navbar-center')
     const title = $('.navbar-title');
     const progressbarContainer = $('#progress-bar-container');
