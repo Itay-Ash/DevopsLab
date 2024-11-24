@@ -55,4 +55,26 @@ $(document).ready(function () {
             progressbarContainer.removeClass('disappear-animation');
         }
     })
+
+    // Hero buttons animations
+    $('.hero-buttons button').each(function(index) {
+        $(this).css('opacity', '1').css('transform', 'translateY(0)');
+    });
+
+    $('.hero-title, .hero-subtitle').css('opacity', '1');
+});
+
+//Adding relative background based on mouse position
+$(document).on('mousemove', function(e) {
+    const $hero = $('.hero');
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+
+    const xPercent = (clientX / $(window).width()) - 0.5;
+    const yPercent = (clientY / $(window).height()) - 0.5;
+
+    $hero.css({
+        'background-position-x': `${50 + xPercent * 10}%`,
+        'background-position-y': `${50 + yPercent * 10}%`
+    });
 });
