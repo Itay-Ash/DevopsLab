@@ -1,0 +1,22 @@
+[
+    {
+        "step-title": "STEP 1 – TERRAFORM",
+        "image-path": "images/terraform.png",
+        "steps": [
+            "Blah blah blah",
+            "- Blah",
+            "- Blah",
+            "Blah blah blah"
+        ]
+    },
+    {
+        "step-title": "STEP 2 – NEXT TOOL",
+        "image-path": "images/next-tool.png",
+        "steps": [
+            "Example step 1",
+            "- Example",
+            "Another example",
+            "- More examples"
+        ]
+    }
+]

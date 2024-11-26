@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    // Scroll to the top on page load
+   /* // Scroll to the top on page load
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
-    $(window).scrollTop(0); 
+    $(window).scrollTop(0); */ //Disabled for testing
 
     //Coloring all completed steps
     const colors = [
@@ -62,6 +62,7 @@ $(document).ready(function () {
         }
     })
 
+    //Hero buttons scroll
     $('.hero-buttons button').on('click', function (e) {
         const targetId =  $(this).data(''); 
         const delay = $(this).data('delay') * 750;
@@ -70,6 +71,7 @@ $(document).ready(function () {
         }, delay); 
     });
 
+    //About section apperance animation
     const aboutSection = $('#about');
     const aboutTitle = $('.about-title');
     const aboutTexts = $('.about-text');

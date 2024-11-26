@@ -28,21 +28,14 @@ body, h1, ul, li, a {
 
 .navbar-left{
     justify-content: left;
-    display: inherit;
-    align-items: inherit;
 }
 
 .navbar-center{
     position: relative;
-    gap: inherit;
 }
 
 .navbar-right{
     padding-right: 2vw;
-    justify-content: right;
-    display: inherit;
-    align-items: inherit;
-    gap: inherit;
 }
 
 .navbar-logo {  
@@ -354,8 +347,38 @@ body {
     line-height: 1.6;
 }
 
+.progress-section{
+    padding: 40px 10px;
+    text-align: center;
+}
+
+.progress-container {
+    padding: 0; /* Removes inner space */
+    margin: 0; /* Removes outer space */
+    display: flex; /* Enables Flexbox */
+    width: 100%; /* Ensures the container spans the full viewport width */
+    height: auto; /* Adjusts height automatically based on content */
+    box-sizing: border-box; /* Includes padding in width/height */
+}
+
+.progress-container-left {
+    flex: 4; /* 40% width */
+    background-color: #fff; /* Example background */
+    color: #222;
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
+}
+
+.progress-container-right {
+    flex: 6; /* 60% width */
+    background-color: #222; /* Example background */
+    color:#fff;
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
+}
+
 /* Content Sections */
-.content-section {
+.quote-section {
     padding: 40px 20px;
     text-align: center;
 }

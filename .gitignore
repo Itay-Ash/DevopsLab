@@ -6,3 +6,7 @@
 !docs/images/*.png
 !docs/images/*.jpg
 !docs/images/*.jpeg
+!docs/icons/*.png
+!docs/icons/*.jpg
+!docs/icons/*.jpeg
+!docs/json/*.json
