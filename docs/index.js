@@ -73,7 +73,7 @@ $(document).ready(function () {
 
     //About section apperance animation
     const aboutSection = $('#about');
-    const aboutTitle = $('.about-title');
+    const aboutTitle = $('#about-title');
     const aboutTexts = $('.about-text');
 
     $(window).on('scroll', function () {
@@ -108,3 +108,36 @@ $(document).on('mousemove', function(e) {
         'background-position-y': `${50 + yPercent * 10}%`
     });
 });
+
+
+function convertPixelsToViewportUnits(pixels, type) {
+    const viewportWidth = window.innerWidth;  // Width of the viewport in pixels
+    const viewportHeight = window.innerHeight; // Height of the viewport in pixels
+
+    if (type === 'vw') {
+        return (pixels / viewportWidth) * 100; // Convert to vw
+    } else if (type === 'vh') {
+        return (pixels / viewportHeight) * 100; // Convert to vh
+    } else {
+        console.error("Invalid type. Use 'vw' or 'vh'.");
+        return null;
+    }
+}
+
+// Example usage:
+var pixels = 20;
+console.log("pixles:")
+console.log(`${pixels}px in vw: ${convertPixelsToViewportUnits(pixels, 'vw')}vw`);
+console.log(`${pixels}px in vh: ${convertPixelsToViewportUnits(pixels, 'vh')}vh`);
+var pixels = 10;
+console.log("pixles:")
+console.log(`${pixels}px in vw: ${convertPixelsToViewportUnits(pixels, 'vw')}vw`);
+console.log(`${pixels}px in vh: ${convertPixelsToViewportUnits(pixels, 'vh')}vh`);
+var pixels = 4;
+console.log("pixles:")
+console.log(`${pixels}px in vw: ${convertPixelsToViewportUnits(pixels, 'vw')}vw`);
+console.log(`${pixels}px in vh: ${convertPixelsToViewportUnits(pixels, 'vh')}vh`);
+var pixels = 6;
+console.log("pixles:")
+console.log(`${pixels}px in vw: ${convertPixelsToViewportUnits(pixels, 'vw')}vw`);
+console.log(`${pixels}px in vh: ${convertPixelsToViewportUnits(pixels, 'vh')}vh`);

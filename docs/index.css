@@ -173,7 +173,7 @@ body {
 /* Navbar */
 .navbar {
     background-color: rgba(0, 0, 0, 0.8);
-    padding: 10px;
+    padding: 1.2vh;
     position: fixed;
     top: 0;
     width: 100%;
@@ -186,10 +186,6 @@ body {
     list-style: none;
     margin: 0;
     padding: 0;
-}
-
-.navbar-menu li {
-    margin: 0 15px;
 }
 
 .navbar-menu a {
@@ -208,26 +204,25 @@ body {
     background: url('images/devops_lab_background.jpeg') no-repeat center center / cover;
     position: relative;
     overflow: hidden;
-    filter: blur(0.2px);
     background-attachment: fixed; /* Create parallax effect */
 }
 
 .hero-content {
     z-index: 1;
     color: white;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    text-shadow: 0 0 0.5vw rgba(0, 0, 0, 0.7);
 }
 
 .hero-title {
-    font-size: 3rem;
-    margin-bottom: 20px;
+    font-size: 6vh;
+    margin-bottom: 2vh;
     opacity: 0; /* Starts hidden */
-    animation: fadeIn 1s ease-out forwards;
+    animation: fadeIn 2s ease-out forwards;
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+    font-size: 3vh;
+    margin-bottom: 2.5vh;
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
@@ -240,7 +235,7 @@ body {
 .cursor {
     display: inline-block;
     animation: blink 0.8s step-start infinite;
-    margin-left: 5px; /* Adjust the position of the cursor */
+    margin-left: 0.2vw; /* Adjust the position of the cursor */
 }
 
 /* Animations */
@@ -269,24 +264,25 @@ body {
 .hero-buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 1vw;
     opacity: 0; /* Starts hidden */
     animation: fadeIn 3s ease-out 0.5s forwards;
 }
 
 .hero-buttons button {
-    padding: 10px 20px;
-    font-size: 1rem;
+    margin: 0;
+    padding: 1.1vh 1.5vw;
+    font-size: 2vh;
     font-weight: bold;
     color: white;
     background-color: #0078e6;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.35vw;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transform: translateY(20px);
+    box-shadow: 0 0.3vh 0.45vw rgba(0, 0, 0, 0.1);
+    transform: translateY(2.2vh);
     opacity: 0; /* Starts hidden */
-    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    transition: transform 0.8s ease-out, opacity 0.4s ease-out;
 }
 
 .hero-buttons button:hover {
@@ -313,19 +309,19 @@ body {
     right: 0;
     bottom: 0;
     background: inherit;
-    filter: blur(10px);
+    filter: blur(1.5vh);
     z-index: 0;
 }
 
 .about-section {
-    padding: 20px;
-    max-width: 800px;
+    padding: 2.2vh;
+    max-width: 60vw;
     margin: 0 auto;
 }
 
 .hidden {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(2.2vh);
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
@@ -334,22 +330,17 @@ body {
     transform: translateY(0);
 }
 
-.about-title {
-    margin-bottom: 20px;
-    font-size: 2em;
+.section-title {
+    margin-bottom: 2.2vh;
+    font-size: 3.5vh;
     text-align: center;
 }
 
 
 .about-text {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.2vw;
     line-height: 1.6;
-}
-
-.progress-section{
-    padding: 40px 10px;
-    text-align: center;
 }
 
 .progress-container {
@@ -369,6 +360,11 @@ body {
     margin: 0; /* No margin */
 }
 
+.progress-bar-container .img{
+    width: 23.8vw;
+    height: 34vh;
+}
+
 .progress-container-right {
     flex: 6; /* 60% width */
     background-color: #222; /* Example background */
@@ -378,23 +374,29 @@ body {
 }
 
 /* Content Sections */
-.quote-section {
-    padding: 40px 20px;
+.content-section {
+    padding: 4.5vh 0.8vw;
     text-align: center;
 }
 
 blockquote {
-    font-size: 1.5rem;
+    font-size: 3vh;
     font-style: italic;
-    margin: 20px auto;
-    max-width: 600px;
+    margin: 2.2vh auto;
+    max-width: 40vw;
     text-align: center;
 }
 
 .footer {
     text-align: center;
-    padding: 20px;
+    padding: 2.2vh;
     background: #000;
 }
 
+.footer h3{
+    font-size: 2vh;
+}
 
+.footer p{
+    font-size: 1.7vh;
+}
