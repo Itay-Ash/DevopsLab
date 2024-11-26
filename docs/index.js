@@ -62,6 +62,28 @@ $(document).ready(function () {
     });
 
     $('.hero-title, .hero-subtitle').css('opacity', '1');
+
+
+    const aboutSection = $('#about');
+    const aboutTitle = $('.about-title');
+    const aboutTexts = $('.about-text');
+
+    $(window).on('scroll', function () {
+        const scrollPosition = $(window).scrollTop();
+        const sectionOffset = aboutSection.offset().top - window.innerHeight / 2;
+
+        if (scrollPosition > sectionOffset) {
+            aboutTitle.addClass('visible');
+
+            aboutTexts.each(function (index) {
+                const delay = $(this).data('delay') * 500;
+                setTimeout(() => {
+                        $(this).addClass('visible');
+                }, delay);
+            });
+        }
+    });
+
 });
 
 //Adding relative background based on mouse position

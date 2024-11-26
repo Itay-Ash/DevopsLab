@@ -212,7 +212,7 @@ body {
     align-items: center;
     text-align: center;
     height: 100vh;
-    background: url('images/devops-lab-background.jpeg') no-repeat center center / cover;
+    background: url('images/devops_lab_background.jpeg') no-repeat center center / cover;
     position: relative;
     overflow: hidden;
     filter: blur(0.2px);
@@ -324,22 +324,40 @@ body {
     z-index: 0;
 }
 
-.progress-container{
-    display: flex; 
-    flex-direction: column; /* Align vertically */ 
-    justify-content: center; /* Center items vertically */ 
-    align-items: center;
+.about-section {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-title {
+    margin-bottom: 20px;
+    font-size: 2em;
+    text-align: center;
+}
+
+
+.about-text {
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.6;
 }
 
 /* Content Sections */
 .content-section {
     padding: 40px 20px;
     text-align: center;
-}
-
-.tools-icons img {
-    width: 50px;
-    margin: 10px;
 }
 
 blockquote {
@@ -355,3 +373,5 @@ blockquote {
     padding: 20px;
     background: #000;
 }
+
+
