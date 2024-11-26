@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    // Scroll to the top on page load
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    $(window).scrollTop(0); 
+
     //Coloring all completed steps
     const colors = [
         '#88beff',
@@ -56,13 +62,13 @@ $(document).ready(function () {
         }
     })
 
-    // Hero buttons animations
-    $('.hero-buttons button').each(function(index) {
-        $(this).css('opacity', '1').css('transform', 'translateY(0)');
+    $('.hero-buttons button').on('click', function (e) {
+        const targetId =  $(this).data(''); 
+        const delay = $(this).data('delay') * 750;
+        $('html, body').animate({
+            scrollTop: $(targetId).offset().top
+        }, delay); 
     });
-
-    $('.hero-title, .hero-subtitle').css('opacity', '1');
-
 
     const aboutSection = $('#about');
     const aboutTitle = $('.about-title');
