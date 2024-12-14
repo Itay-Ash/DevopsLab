@@ -91,7 +91,79 @@ $(document).ready(function () {
             });
         }
     });
+    
+    let steps = [];
+    let currentStep = 0;
 
+    // Load steps from the JSON file
+    $.getJSON("json/steps.json", function(data) {
+        steps = data;
+        renderStep();
+    });
+
+    // Render the current step
+    function renderStep(direction) {
+        if (steps.length === 0) return;
+
+        const step = steps[currentStep];
+        $("#step-image").attr("src", step.image);
+        $("#step-title").text(step.title);
+
+        // Populate actions list
+        $("#step-actions").empty();
+        step.action.forEach(function(action) {
+            $("#step-actions").append("<li>" + action + "</li>");
+        });
+
+        // Disable/enable navigation buttons
+        $("#prev-step").prop("disabled", currentStep === 0);
+        $("#next-step").prop("disabled", currentStep === steps.length - 1);
+
+        // Update step indicators
+        const selectedStepButton = chooseActiveButton(currentStep, direction);
+        $(".step-btn").removeClass("active");
+        $(".step-btn").eq(selectedStepButton).addClass("active");
+
+        // Update completion bar
+        if (step.completed) {
+            $("#completion-bar").removeClass("not-completed").addClass("completed").text("STEP COMPLETED");
+        } else {
+            $("#completion-bar").removeClass("completed").addClass("not-completed").text("STEP NOT COMPLETED");
+        }
+    }
+
+    function chooseActiveButton(currentStep, direction){
+        //If the current step is first or second
+        if (currentStep <= 1)
+            return currentStep;
+        //If the last step is selected select the last button
+        if(currentStep === steps.length -1)
+            return 3;
+        //If the one step before last is selected
+        if(currentStep === steps.length - 2)
+            return 2;
+        //Move selected step based on users movement
+        if(direction === '-')
+            return 1;
+        if(direction === '+')
+            return 2;
+    }
+
+    // Handle "Prev" button click
+    $("#prev-step").click(function() {
+        if (currentStep > 0) {
+            currentStep--;
+            renderStep('-');
+        }
+    });
+
+    // Handle "Next" button click
+    $("#next-step").click(function() {
+        if (currentStep < steps.length - 1) {
+            currentStep++;
+            renderStep('+');
+        }
+    });
 });
 
 //Adding relative background based on mouse position
@@ -109,35 +181,3 @@ $(document).on('mousemove', function(e) {
     });
 });
 
-
-function convertPixelsToViewportUnits(pixels, type) {
-    const viewportWidth = window.innerWidth;  // Width of the viewport in pixels
-    const viewportHeight = window.innerHeight; // Height of the viewport in pixels
-
-    if (type === 'vw') {
-        return (pixels / viewportWidth) * 100; // Convert to vw
-    } else if (type === 'vh') {
-        return (pixels / viewportHeight) * 100; // Convert to vh
-    } else {
-        console.error("Invalid type. Use 'vw' or 'vh'.");
-        return null;
-    }
-}
-
-// Example usage:
-var pixels = 20;
-console.log("pixles:")
-console.log(`${pixels}px in vw: ${convertPixelsToViewportUnits(pixels, 'vw')}vw`);
-console.log(`${pixels}px in vh: ${convertPixelsToViewportUnits(pixels, 'vh')}vh`);
-var pixels = 10;
-console.log("pixles:")
-console.log(`${pixels}px in vw: ${convertPixelsToViewportUnits(pixels, 'vw')}vw`);
-console.log(`${pixels}px in vh: ${convertPixelsToViewportUnits(pixels, 'vh')}vh`);
-var pixels = 4;
-console.log("pixles:")
-console.log(`${pixels}px in vw: ${convertPixelsToViewportUnits(pixels, 'vw')}vw`);
-console.log(`${pixels}px in vh: ${convertPixelsToViewportUnits(pixels, 'vh')}vh`);
-var pixels = 6;
-console.log("pixles:")
-console.log(`${pixels}px in vw: ${convertPixelsToViewportUnits(pixels, 'vw')}vw`);
-console.log(`${pixels}px in vh: ${convertPixelsToViewportUnits(pixels, 'vh')}vh`);

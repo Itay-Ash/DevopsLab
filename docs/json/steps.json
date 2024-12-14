@@ -1,22 +1,154 @@
 [
     {
-        "step-title": "STEP 1 – TERRAFORM",
-        "image-path": "images/terraform.png",
-        "steps": [
-            "Blah blah blah",
-            "- Blah",
-            "- Blah",
-            "Blah blah blah"
-        ]
+        "title": "Step 1: Set Up the Infrastructure with Terraform (Provisioning) 🏗️",
+        "objective": "Use Terraform to provision the base infrastructure for the lab.",
+        "action": [
+            "Create a main.tf file specifying VMs:",
+            "- Web server VM: Add a public IP.",
+            "- DB server VM: Connect to a large permanent storage.",
+            "- CI/CD VM: Add a public IP and connect to a permanent storage.",
+            "Create a storage.tf file specifying VMs:",
+            "- Add 2 persistent disks.",
+            "Create an infra.tf file specifying networking:",
+            "- Create a private internal network.",
+            "- Set a static private IP for each VM.",
+            "- Set a static public IP for each VM.",
+            "Create a dns.tf file specifying networking and security groups:",
+            "- Set a static private DNS record for each VM.",
+            "- Set a public DNS record for the web VM (using a public provider).",
+            "- Set a firewall policy."
+        ],
+        "key-connection": "This forms the base infrastructure for all subsequent steps, ensuring that VMs are up and networked properly.",
+        "completed": false,
+        "image": "icons/terraform.png",
+        "issue": ""
     },
     {
-        "step-title": "STEP 2 – NEXT TOOL",
-        "image-path": "images/next-tool.png",
-        "steps": [
-            "Example step 1",
-            "- Example",
-            "Another example",
-            "- More examples"
-        ]
+        "title": "Step 2: Configure VMs with Ansible (Automation & Consistency) 🔄",
+        "objective": "Use Ansible to automate the installation and configuration of services on the VMs.",
+        "action": [
+            "Create an Ansible inventory listing Terraform-provisioned VMs (e.g., web, DB, CI/CD servers).",
+            "Write playbooks to install necessary services:",
+            "Web server VM: Install NGINX, PHP, etc.",
+            "DB server VM: Install MySQL or PostgreSQL.",
+            "CI/CD VM: Install Jenkins.",
+            "Run Ansible playbooks to configure all VMs."
+        ],
+        "key-connection": "Ansible ensures all machines are consistently configured, minimizing manual intervention and maintaining uniformity.",
+        "completed": false,
+        "image": "icons/ansible.png",
+        "issue": ""
+    },
+    {
+        "title": "Step 3: Set Up Jenkins for CI/CD (Automation Integration) 🧩",
+        "objective": "Install and configure Jenkins to automate the build, test, and deployment processes.",
+        "action": [
+            "Access the Jenkins VM (created in Step 1, configured in Step 2).",
+            "Install required plugins for Docker, GitHub, Ansible, and Terraform.",
+            "Create a Jenkins pipeline to:",
+            "Pull code from a Git repository.",
+            "Build a Docker image.",
+            "Deploy the image to the web server VM.",
+            "Configure Jenkins to trigger on every Git push (via webhooks or polling)."
+        ],
+        "key-connection": "Jenkins brings the entire CI/CD process together, automating code-to-deployment steps for streamlined updates.",
+        "completed": false,
+        "image": "icons/jenkins.png",
+        "issue": ""
+    },
+    {
+        "title": "Step 4: Containerize the Application with Docker (Isolation & Portability) 🐳",
+        "objective": "Use Docker to containerize the application, ensuring consistency across environments.",
+        "action": [
+            "Create a Dockerfile in the app’s Git repository.",
+            "Modify the Jenkins pipeline to build and push the Docker image to a private Docker registry (can be on Jenkins VM or cloud).",
+            "Use Docker Compose to define services (e.g., web server, database) if needed.",
+            "Run the Docker container on the web server VM."
+        ],
+        "key-connection": "Containerization allows the application to run reliably in any environment, and Jenkins automates the container builds.",
+        "completed": false,
+        "image": "icons/docker.png",
+        "issue": ""
+    },
+    {
+        "title": "Step 5: Orchestrate with Kubernetes (Scalability & Reliability) ☸️",
+        "objective": "Deploy and manage the Dockerized application using Kubernetes for orchestration.",
+        "action": [
+            "Set up a Kubernetes cluster using kubeadm or a managed service (e.g., AWS EKS, GKE).",
+            "Create Kubernetes manifests (e.g., deployment and service files) to define app runtime.",
+            "Update the Jenkins pipeline to deploy the Docker image to the Kubernetes cluster (use kubectl or Helm from Jenkins).",
+            "Configure auto-scaling and load balancing for the app using Kubernetes."
+        ],
+        "key-connection": "Kubernetes manages containerized applications across multiple nodes, allowing for scaling, redundancy, and self-healing.",
+        "completed": false,
+        "image": "icons/kubernetes.png",
+        "issue": ""
+    },
+    {
+        "title": "Step 6: Implement Monitoring with Prometheus and Grafana (Visibility & Metrics) 📊",
+        "objective": "Set up monitoring for infrastructure, services, and the application.",
+        "action": [
+            "Install Prometheus on your infrastructure (using Ansible).",
+            "Configure Prometheus to scrape metrics from the Kubernetes cluster (e.g., pod usage, CPU, memory).",
+            "Install Grafana and configure dashboards to visualize Prometheus data.",
+            "Set up alerts in Grafana for key issues (e.g., high CPU usage, pod failures)."
+        ],
+        "key-connection": "Monitoring ensures you can observe system health and proactively respond to potential issues.",
+        "completed": false,
+        "image": "icons/prometheus_and_grafana.png",
+        "issue": ""
+    },
+    {
+        "title": "Step 7: Centralize Logging with ELK Stack (Visibility & Debugging) 📜",
+        "objective": "Set up centralized logging to track logs across all VMs and containers.",
+        "action": [
+            "Install Elasticsearch, Logstash, and Kibana (ELK) on a VM (using Docker or Ansible).",
+            "Configure Logstash to collect logs from all VMs and containers (use Filebeat/Logstash).",
+            "Set up Kibana to visualize logs for easier troubleshooting."
+        ],
+        "key-connection": "Centralized logging provides a single source of truth for logs, aiding in debugging and analysis.",
+        "completed": false,
+        "image": "icons/elk_stack.png",
+        "issue": ""
+    },
+    {
+        "title": "Step 8: Secure Your Infrastructure (Security & Compliance) 🔒",
+        "objective": "Implement security measures across the environment for compliance and vulnerability reduction.",
+        "action": [
+            "Set up a firewall using Ansible (e.g., ufw or iptables) to control traffic between VMs.",
+            "Install and configure SSL certificates for the web server (using Let's Encrypt or another provider).",
+            "Set up role-based access control (RBAC) in Kubernetes to limit access.",
+            "Run regular vulnerability scans (e.g., with OpenVAS) and address any issues."
+        ],
+        "key-connection": "Security layers protect all services and ensure compliance with best practices.",
+        "completed": false,
+        "image": "icons/security.png",
+        "issue": ""
+    },
+    {
+        "title": "Step 9: Automate Backups and Disaster Recovery (Reliability & Resilience) 🛡️",
+        "objective": "Set up automated backup solutions for resilience.",
+        "action": [
+            "Use Ansible to automate database and application backups (e.g., daily snapshots).",
+            "Store backups in a remote location (e.g., AWS S3, Google Cloud Storage).",
+            "Test disaster recovery by simulating VM failure and restoring from backups."
+        ],
+        "key-connection": "Automated backups ensure resilience, enabling quick recovery after a failure.",
+        "completed": false,
+        "image": "icons/backup.png",
+        "issue": ""
+    },
+    {
+        "title": "Step 10: Load Balancing and Auto-Scaling (High Availability) 🔄",
+        "objective": "Ensure high availability and scalability of the web application.",
+        "action": [
+            "Set up an NGINX or HAProxy load balancer to distribute traffic across multiple web server VMs or Kubernetes pods.",
+            "Configure auto-scaling in Kubernetes to add/remove pods based on traffic demand.",
+            "Implement health checks to detect and reroute traffic from failed instances."
+        ],
+        "key-connection": "Load balancing and auto-scaling ensure the system is available and adapts to changing traffic.",
+        "completed": false,
+        "image": "icons/load_balance.png",
+        "issue": ""
     }
 ]
