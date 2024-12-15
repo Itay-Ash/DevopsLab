@@ -94,61 +94,106 @@ $(document).ready(function () {
     
     let steps = [];
     let currentStep = 0;
-
+    
     // Load steps from the JSON file
     $.getJSON("json/steps.json", function(data) {
         steps = data;
         renderStep();
     });
-
-    // Render the current step
+    
+    // Render the current step with animation
     function renderStep(direction) {
         if (steps.length === 0) return;
-
+    
         const step = steps[currentStep];
-        $("#step-image").attr("src", step.image);
-        $("#step-title").text(step.title);
-
-        // Populate actions list
-        $("#step-actions").empty();
-        step.action.forEach(function(action) {
-            $("#step-actions").append("<li>" + action + "</li>");
+    
+        // Animate content out, then update and fade in
+        $(".progress-container-right, .progress-container-left img").fadeOut(350, function() {
+            $("#step-image").attr("src", step.image);
+    
+            $("#step-title").text(step.title);
+    
+            // Populate actions list
+            $("#step-actions").empty();
+            step.action.forEach(function(action) {
+                $("#step-actions").append("<li>" + action + "</li>");
+            });
+    
+            // Update step indicators
+            const selectedStepButton = chooseActiveButton(currentStep, direction);
+            $(".step-btn").removeClass("active");
+            $(".step-btn").eq(selectedStepButton).addClass("active");
+    
+            // Update completion bar
+            if (step.completed) {
+                $("#completion-bar")
+                    .removeClass("not-completed")
+                    .addClass("completed")
+                    .text("STEP COMPLETED");
+    
+                // Add clickable issue link if exists
+                if (step.issue) {
+                    $("#completion-bar")
+                        .css("cursor", "pointer")
+                        .off("click")
+                        .on("click", function() {
+                            window.open(step.issue, '_blank');
+                        });
+                }
+            } else {
+                $("#completion-bar")
+                    .removeClass("completed")
+                    .addClass("not-completed")
+                    .text("STEP NOT COMPLETED")
+                    .css("cursor", "default")
+                    .off("click");
+            }
+    
+            // Fade content back in
+            $(".progress-container-right, .progress-container-left img").fadeIn(500);
         });
-
+    
         // Disable/enable navigation buttons
         $("#prev-step").prop("disabled", currentStep === 0);
         $("#next-step").prop("disabled", currentStep === steps.length - 1);
+    }
+    
+    // Logic for choosing the active step button
+    function chooseActiveButton(currentStep, direction) {
+        if (currentStep <= 1) return currentStep;
+        if (currentStep === steps.length - 1) return 3; // Last button
+        if (currentStep === steps.length - 2) return 2; // One before last
+        return direction === '-' ? 1 : 2;
+    }
 
-        // Update step indicators
-        const selectedStepButton = chooseActiveButton(currentStep, direction);
-        $(".step-btn").removeClass("active");
-        $(".step-btn").eq(selectedStepButton).addClass("active");
-
-        // Update completion bar
-        if (step.completed) {
-            $("#completion-bar").removeClass("not-completed").addClass("completed").text("STEP COMPLETED");
-        } else {
-            $("#completion-bar").removeClass("completed").addClass("not-completed").text("STEP NOT COMPLETED");
+    $("#step-btn-1").click(function () {
+        if (currentStep !== 0) {
+            currentStep = 0;
+            renderStep('-');
         }
-    }
+    });
 
-    function chooseActiveButton(currentStep, direction){
-        //If the current step is first or second
-        if (currentStep <= 1)
-            return currentStep;
-        //If the last step is selected select the last button
-        if(currentStep === steps.length -1)
-            return 3;
-        //If the one step before last is selected
-        if(currentStep === steps.length - 2)
-            return 2;
-        //Move selected step based on users movement
-        if(direction === '-')
-            return 1;
-        if(direction === '+')
-            return 2;
-    }
+    $("#step-btn-2").click(function (){
+        if (currentStep !== 1) {
+            currentStep = 1;
+            renderStep('-');
+        }
+    });
 
+    $("#step-btn-3").click(function (){
+        if (currentStep !== 8) {
+            currentStep = 8;
+            renderStep('-');
+        }
+    });
+
+    $("#step-btn-4").click(function (){
+        if (currentStep !== 9) {
+            currentStep = 9;
+            renderStep('-');
+        }
+    });
+    
     // Handle "Prev" button click
     $("#prev-step").click(function() {
         if (currentStep > 0) {
@@ -156,7 +201,7 @@ $(document).ready(function () {
             renderStep('-');
         }
     });
-
+    
     // Handle "Next" button click
     $("#next-step").click(function() {
         if (currentStep < steps.length - 1) {
@@ -164,6 +209,7 @@ $(document).ready(function () {
             renderStep('+');
         }
     });
+    
 });
 
 //Adding relative background based on mouse position

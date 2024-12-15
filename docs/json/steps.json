@@ -19,9 +19,9 @@
             "- Set a firewall policy."
         ],
         "key-connection": "This forms the base infrastructure for all subsequent steps, ensuring that VMs are up and networked properly.",
-        "completed": false,
+        "completed": true,
         "image": "icons/terraform.png",
-        "issue": ""
+        "issue": "https://github.com/OwwFire/DevopsLab/issues/5"
     },
     {
         "title": "Step 2: Configure VMs with Ansible (Automation & Consistency) 🔄",

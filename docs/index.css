@@ -374,34 +374,52 @@ h2.section-title {
 .progress-container-left img {
     width: 30vw;
     height: 50vh;
+    transition: opacity 1 ease-in-out;
 }
 
 .step-indicators {
-    text-align: center;
-    margin-top: 20px;
+    display: flex; 
+    align-items: center;
+    justify-content: center; 
+    gap: 3px; 
+    padding: 20px;
 }
 
 .step-arrow {
-    background-color: #007bff;
-    color: white;
+    color: #004080; /* Light blue color for arrows */
+    background: none; /* No background color */
     border: none;
-    padding: 10px;
+    font-size: 30px;
+    font-weight: bold;
     cursor: pointer;
-    margin: 0 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
+.step-arrow:hover {
+    color: #007FFF; /* Darker blue on hover */
+    transform: scale(1.2); /* Slight zoom effect */
+}
+
+/* Step Buttons */
 .step-btn {
+    background: none;
+    border: 2px solid #007FFF; /* Light blue border */
     width: 20px;
     height: 20px;
     border-radius: 50%;
     margin: 0 5px;
-    background-color: #ccc;
-    display: inline-block;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.step-btn:hover {
+    border-color: #004080; /* Darker blue border on hover */
 }
 
 .step-btn.active {
-    background-color: #007bff;
+    background: #007FFF; /* Solid light blue for active */
+    border-color: #004080; /* Darker border for active */
+    transform: scale(1.2); /* Slightly bigger for active */
 }
 
 .progress-container-right {
@@ -410,6 +428,17 @@ h2.section-title {
     color: #fff;
     text-shadow: 0.1vw 0.1vw black;
     padding: 20px;
+}
+
+/* Completion bar styling */
+#completion-bar {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 3px;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
 .progress-container-right h3 {
@@ -426,20 +455,15 @@ h2.section-title {
     margin-top: 20px;
 }
 
-#completion-bar {
-    font-size: 18px;
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
 #completion-bar.completed {
     background-color: #28a745;
+    text-shadow: 0.03vw 0.03vw black;
     color: white;
 }
 
 #completion-bar.not-completed {
     background-color: #dc3545;
+    text-shadow: 0.03vw 0.03vw black;
     color: white;
 }
 
