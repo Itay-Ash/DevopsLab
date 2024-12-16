@@ -108,16 +108,27 @@ $(document).ready(function () {
         const step = steps[currentStep];
     
         // Animate content out, then update and fade in
-        $(".progress-container-right, .progress-container-left img").fadeOut(350, function() {
+        $(".progress-container-right, .progress-container-left img").fadeOut(350, function () {
+            // Update image
             $("#step-image").attr("src", step.image);
     
+            // Update title
             $("#step-title").text(step.title);
     
             // Populate actions list
             $("#step-actions").empty();
-            step.action.forEach(function(action) {
+            step.action.forEach(function (action) {
                 $("#step-actions").append("<li>" + action + "</li>");
             });
+    
+            // Update documentation icon visibility and link
+            if (step.issue) {
+                $("#documentation-link")
+                    .attr("href", step.issue)
+                    .show(); // Show the icon if issue exists
+            } else {
+                $("#documentation-link").hide(); // Hide the icon if no issue
+            }
     
             // Update step indicators
             const selectedStepButton = chooseActiveButton(currentStep, direction);
@@ -136,8 +147,8 @@ $(document).ready(function () {
                     $("#completion-bar")
                         .css("cursor", "pointer")
                         .off("click")
-                        .on("click", function() {
-                            window.open(step.issue, '_blank');
+                        .on("click", function () {
+                            window.open(step.issue, "_blank");
                         });
                 }
             } else {
@@ -209,7 +220,44 @@ $(document).ready(function () {
             renderStep('+');
         }
     });
+
+    let autoSlideInterval;
+
+    // Start auto-sliding with a configurable delay
+    function startAutoSlide(delay = 5000) {
+        stopAutoSlide(); // Clear any existing interval
+        autoSlideInterval = setInterval(function() {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+            } else {
+                currentStep = 0; // Restart to the first slide after the last
+            }
+            renderStep('+'); // Move to the next step
+        }, delay); // Set the delay
+    }
     
+    // Stop auto-sliding
+    function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+    }
+    
+    // Restart auto-slide with 20-second delay when a button is clicked
+    function resetAutoSlideOnInteraction() {
+        stopAutoSlide();
+        startAutoSlide(10000); // Restart with 20 seconds delay
+    }
+    
+    // Bind to navigation buttons
+    $("#prev-step, #next-step, .step-btn").click(function() {
+        resetAutoSlideOnInteraction(); // Extend delay on interaction
+    });
+    
+    // Call startAutoSlide() when the JSON data is loaded
+    $.getJSON("json/steps.json", function(data) {
+        steps = data;
+        renderStep(); 
+        startAutoSlide(); // Start automatic slide switching with default 5 seconds
+    });
 });
 
 //Adding relative background based on mouse position

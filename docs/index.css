@@ -428,6 +428,7 @@ h2.section-title {
     color: #fff;
     text-shadow: 0.1vw 0.1vw black;
     padding: 20px;
+    position: relative;
 }
 
 /* Completion bar styling */
@@ -453,6 +454,48 @@ h2.section-title {
     padding-left: 0;
     text-align: left;
     margin-top: 20px;
+}
+
+.doc-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 40px;
+    text-decoration: none;
+    color: #007FFF; /* Light blue */
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Tooltip Styling */
+.doc-icon .tooltip {
+    visibility: hidden;
+    width: 90px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    position: absolute;
+    bottom: 30px; /* Position above the icon */
+    right: 50%;
+    transform: translateX(50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+/* Show Tooltip on Hover */
+.doc-icon:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Hover Effect for the Icon */
+.doc-icon:hover {
+    color: #004080; /* Darker blue on hover */
+    transform: scale(1.2);
 }
 
 #completion-bar.completed {
