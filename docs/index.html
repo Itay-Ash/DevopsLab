@@ -70,9 +70,9 @@
         </p>
     </section>    
     <section id="progress" class="content-section">
-        <h2 class="section-title">Project Progress</h2>
+        <h2 class="section-title hidden">Project Progress</h2>
         <div class="progress-container">
-            <div class="progress-container-left">
+            <div class="progress-container-left hidden">
                 <img id="step-image"/>
                 <div class="step-indicators">
                     <button id="prev-step" class="step-arrow prev">&lt;&lt;</button>
@@ -83,7 +83,7 @@
                     <button id="next-step" class="step-arrow next">&gt;&gt;</button>
                 </div>
             </div>
-            <div class="progress-container-right">
+            <div class="progress-container-right hidden">
                 <h3 id="step-title">Step 1 - Terraform</h3>
                 <ul id="step-actions"></ul>
                 <a id="documentation-link" href="#" target="_blank" class="doc-icon" style="display: none;">
@@ -92,9 +92,7 @@
                 </a>
             </div>
         </div>
-        <div id="completion-bar" class="not-completed">
-            STEP NOT COMPLETED
-        </div>
+        <div id="completion-bar" class="hidden"></div>
     </section>
 
     <section id="quote" class="content-section">

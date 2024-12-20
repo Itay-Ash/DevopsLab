@@ -70,13 +70,13 @@ $(document).ready(function () {
             scrollTop: $(targetId).offset().top
         }, delay); 
     });
-
+    
     //About section apperance animation
     const aboutSection = $('#about');
     const aboutTitle = $('#about-title');
     const aboutTexts = $('.about-text');
 
-    $(window).on('scroll', function () {
+    function aboutSectionApperance(){
         const scrollPosition = $(window).scrollTop();
         const sectionOffset = aboutSection.offset().top - window.innerHeight / 2;
 
@@ -90,8 +90,9 @@ $(document).ready(function () {
                 }, delay);
             });
         }
-    });
-    
+    }
+
+    //Progress section Data loading
     let steps = [];
     let currentStep = 0;
     
@@ -108,7 +109,7 @@ $(document).ready(function () {
         const step = steps[currentStep];
     
         // Animate content out, then update and fade in
-        $(".progress-container-right, .progress-container-left img").fadeOut(350, function () {
+        $(".progress-container-right, .progress-container-left img").fadeOut(500, function () {
             // Update image
             $("#step-image").attr("src", step.image);
     
@@ -177,6 +178,7 @@ $(document).ready(function () {
         return direction === '-' ? 1 : 2;
     }
 
+    //Slider buttons functions
     $("#step-btn-1").click(function () {
         if (currentStep !== 0) {
             currentStep = 0;
@@ -224,7 +226,7 @@ $(document).ready(function () {
     let autoSlideInterval;
 
     // Start auto-sliding with a configurable delay
-    function startAutoSlide(delay = 5000) {
+    function startAutoSlide() {
         stopAutoSlide(); // Clear any existing interval
         autoSlideInterval = setInterval(function() {
             if (currentStep < steps.length - 1) {
@@ -233,7 +235,7 @@ $(document).ready(function () {
                 currentStep = 0; // Restart to the first slide after the last
             }
             renderStep('+'); // Move to the next step
-        }, delay); // Set the delay
+        }, 10000); // Set the delay
     }
     
     // Stop auto-sliding
@@ -256,7 +258,36 @@ $(document).ready(function () {
     $.getJSON("json/steps.json", function(data) {
         steps = data;
         renderStep(); 
-        startAutoSlide(); // Start automatic slide switching with default 5 seconds
+        // Start automatic slide switching with default 5 seconds
+    });
+
+    //Progress section apperance
+    const progressSection = $('#progress');
+    const progressTitle = $('.section-title');
+    const progreesContainerLeft = $('.progress-container-left');
+    const progressContainerRight = $('.progress-container-right');
+
+    function progressSectionApperance(){
+        startAutoSlide();
+        const scrollPosition = $(window).scrollTop();
+        const sectionOffset = progressSection.offset().top - window.innerHeight / 2;
+
+        if (scrollPosition > sectionOffset) {
+            progressTitle.addClass('visible');
+
+            setTimeout(() => {
+                progreesContainerLeft.addClass('visible');
+            }, 500);
+            setTimeout(() =>{
+                progressContainerRight.addClass('visible');
+            }, 800);
+        };
+    }
+    
+    //Sections appearnces
+    $(window).on('scroll', function () {
+        aboutSectionApperance();
+        progressSectionApperance();
     });
 });
 
