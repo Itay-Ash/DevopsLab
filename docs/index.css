@@ -414,6 +414,7 @@ h2.section-title {
 
 .step-btn:hover {
     border-color: #004080; /* Darker blue border on hover */
+    scale: 1.1;
 }
 
 .step-btn.active {

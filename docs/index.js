@@ -109,61 +109,66 @@ $(document).ready(function () {
         const step = steps[currentStep];
     
         // Animate content out, then update and fade in
-        $(".progress-container-right, .progress-container-left img").fadeOut(500, function () {
-            // Update image
-            $("#step-image").attr("src", step.image);
-    
-            // Update title
-            $("#step-title").text(step.title);
-    
-            // Populate actions list
-            $("#step-actions").empty();
-            step.action.forEach(function (action) {
-                $("#step-actions").append("<li>" + action + "</li>");
-            });
-    
-            // Update documentation icon visibility and link
-            if (step.issue) {
-                $("#documentation-link")
-                    .attr("href", step.issue)
-                    .show(); // Show the icon if issue exists
-            } else {
-                $("#documentation-link").hide(); // Hide the icon if no issue
-            }
-    
-            // Update step indicators
-            const selectedStepButton = chooseActiveButton(currentStep, direction);
-            $(".step-btn").removeClass("active");
-            $(".step-btn").eq(selectedStepButton).addClass("active");
-    
-            // Update completion bar
-            if (step.completed) {
-                $("#completion-bar")
-                    .removeClass("not-completed")
-                    .addClass("completed")
-                    .text("STEP COMPLETED");
-    
-                // Add clickable issue link if exists
-                if (step.issue) {
-                    $("#completion-bar")
-                        .css("cursor", "pointer")
-                        .off("click")
-                        .on("click", function () {
-                            window.open(step.issue, "_blank");
-                        });
-                }
-            } else {
-                $("#completion-bar")
-                    .removeClass("completed")
-                    .addClass("not-completed")
-                    .text("STEP NOT COMPLETED")
-                    .css("cursor", "default")
-                    .off("click");
-            }
-    
-            // Fade content back in
-            $(".progress-container-right, .progress-container-left img").fadeIn(500);
+        $(".progress-container-right, .progress-container-left img")
+    .fadeOut(500, function () {
+        // Ensure content is completely hidden before updating
+        $(this).hide();
+
+        // Update image
+        $("#step-image").attr("src", step.image);
+
+        // Update title
+        $("#step-title").text(step.title);
+
+        // Populate actions list
+        $("#step-actions").empty();
+        step.action.forEach(function (action) {
+            $("#step-actions").append("<li>" + action + "</li>");
         });
+
+        // Update documentation icon visibility and link
+        if (step.issue) {
+            $("#documentation-link")
+                .attr("href", step.issue)
+                .show(); // Show the icon if issue exists
+        } else {
+            $("#documentation-link").hide(); // Hide the icon if no issue
+        }
+
+        // Update step indicators
+        const selectedStepButton = chooseActiveButton(currentStep, direction);
+        $(".step-btn").removeClass("active");
+        $(".step-btn").eq(selectedStepButton).addClass("active");
+
+        // Update completion bar
+        if (step.completed) {
+            $("#completion-bar")
+                .removeClass("not-completed")
+                .addClass("completed")
+                .text("STEP COMPLETED");
+
+            // Add clickable issue link if exists
+            if (step.issue) {
+                $("#completion-bar")
+                    .css("cursor", "pointer")
+                    .off("click")
+                    .on("click", function () {
+                        window.open(step.issue, "_blank");
+                    });
+            }
+        } else {
+            $("#completion-bar")
+                .removeClass("completed")
+                .addClass("not-completed")
+                .text("STEP NOT COMPLETED")
+                .css("cursor", "default")
+                .off("click");
+        }
+
+        // Fade content back in
+        $(this).fadeIn(50);
+    });
+
     
         // Disable/enable navigation buttons
         $("#prev-step").prop("disabled", currentStep === 0);
@@ -178,34 +183,61 @@ $(document).ready(function () {
         return direction === '-' ? 1 : 2;
     }
 
-    //Slider buttons functions
+    // Slider buttons functions
     $("#step-btn-1").click(function () {
+        // First button: Always go to the first step
         if (currentStep !== 0) {
             currentStep = 0;
             renderStep('-');
         }
     });
 
-    $("#step-btn-2").click(function (){
-        if (currentStep !== 1) {
-            currentStep = 1;
-            renderStep('-');
+    $("#step-btn-2").click(function () {
+        // Second button: Dynamically handle backward and specific jumps
+        if (currentStep === 0) {
+            currentStep = 1; // Move forward to step 1 from step 0
+            renderStep('+');
+            return;
         }
+        if (currentStep === 9) {
+            currentStep = 7; // Jump back to step 7 from step 9
+            renderStep('-');
+            return;
+        }
+        if (currentStep === 1) {
+            return; // Do nothing if already at step 1
+        }
+        currentStep--; // Default: Move backward by 1 step
+        renderStep('-');
     });
 
-    $("#step-btn-3").click(function (){
-        if (currentStep !== 8) {
-            currentStep = 8;
+    $("#step-btn-3").click(function () {
+        // Third button: Dynamically handle forward and specific jumps
+        if (currentStep === 9) {
+            currentStep = 8; // Jump back to step 8 from step 9
             renderStep('-');
+            return;
         }
+        if (currentStep === 0) {
+            currentStep = 2; // Jump forward to step 2 from step 0
+            renderStep('+');
+            return;
+        }
+        if (currentStep === 8) {
+            return; // Do nothing if already at step 8
+        }
+        currentStep++; // Default: Move forward by 1 step
+        renderStep('+');
     });
 
-    $("#step-btn-4").click(function (){
+    $("#step-btn-4").click(function () {
+        // Last button: Always go to the last step
         if (currentStep !== 9) {
             currentStep = 9;
             renderStep('-');
         }
     });
+
     
     // Handle "Prev" button click
     $("#prev-step").click(function() {
@@ -226,7 +258,7 @@ $(document).ready(function () {
     let autoSlideInterval;
 
     // Start auto-sliding with a configurable delay
-    function startAutoSlide() {
+    function startAutoSlide(delay = 10000) {
         stopAutoSlide(); // Clear any existing interval
         autoSlideInterval = setInterval(function() {
             if (currentStep < steps.length - 1) {
@@ -235,7 +267,7 @@ $(document).ready(function () {
                 currentStep = 0; // Restart to the first slide after the last
             }
             renderStep('+'); // Move to the next step
-        }, 10000); // Set the delay
+        }, delay); // Set the delay
     }
     
     // Stop auto-sliding
@@ -243,10 +275,10 @@ $(document).ready(function () {
         clearInterval(autoSlideInterval);
     }
     
-    // Restart auto-slide with 20-second delay when a button is clicked
+    // Restart auto-slide with 15-second delay when a button is clicked
     function resetAutoSlideOnInteraction() {
         stopAutoSlide();
-        startAutoSlide(10000); // Restart with 20 seconds delay
+        startAutoSlide(15000); // Restart with 15 seconds delay
     }
     
     // Bind to navigation buttons
