@@ -305,6 +305,7 @@ $(document).ready(function () {
     const progreesContainerLeft = $('.progress-container-left');
     const progressContainerRight = $('.progress-container-right');
     const completionBar = $('#completion-bar');
+    const qouteSection = $('#quote');
 
     function progressSectionApperance(){
         startAutoSlide();
@@ -329,6 +330,9 @@ $(document).ready(function () {
                     completionBar.addClass('visible');
             };
             }, 1100);
+            setTimeout(() => {
+                qouteSection.addClass('visible');
+            }, 1500)
         };
     }
     
