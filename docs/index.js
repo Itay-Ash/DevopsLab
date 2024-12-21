@@ -141,7 +141,7 @@ $(document).ready(function () {
         $(".step-btn").eq(selectedStepButton).addClass("active");
 
         // Update completion bar
-        if (step.completed) {
+        if (step.issue) {
             $("#completion-bar")
                 .removeClass("not-completed")
                 .addClass("completed")
@@ -298,6 +298,7 @@ $(document).ready(function () {
     const progressTitle = $('.section-title');
     const progreesContainerLeft = $('.progress-container-left');
     const progressContainerRight = $('.progress-container-right');
+    const completionBar = $('#completion-bar');
 
     function progressSectionApperance(){
         startAutoSlide();
@@ -313,6 +314,13 @@ $(document).ready(function () {
             setTimeout(() =>{
                 progressContainerRight.addClass('visible');
             }, 800);
+            setTimeout(() =>{
+                completionBar.addClass('appear-animation');
+                setTimeout(() => {
+                    completionBar.removeClass('appear-animation');
+                }, 250)
+                completionBar.addClass('visible');
+            }, 1100);
         };
     }
     

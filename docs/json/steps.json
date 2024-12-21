@@ -19,7 +19,6 @@
             "- Set a firewall policy."
         ],
         "key-connection": "This forms the base infrastructure for all subsequent steps, ensuring that VMs are up and networked properly.",
-        "completed": true,
         "image": "icons/terraform.png",
         "issue": "https://github.com/OwwFire/DevopsLab/issues/5"
     },
@@ -35,7 +34,6 @@
             "Run Ansible playbooks to configure all VMs."
         ],
         "key-connection": "Ansible ensures all machines are consistently configured, minimizing manual intervention and maintaining uniformity.",
-        "completed": false,
         "image": "icons/ansible.png",
         "issue": ""
     },
@@ -52,7 +50,6 @@
             "Configure Jenkins to trigger on every Git push (via webhooks or polling)."
         ],
         "key-connection": "Jenkins brings the entire CI/CD process together, automating code-to-deployment steps for streamlined updates.",
-        "completed": false,
         "image": "icons/jenkins.png",
         "issue": ""
     },
@@ -66,7 +63,6 @@
             "Run the Docker container on the web server VM."
         ],
         "key-connection": "Containerization allows the application to run reliably in any environment, and Jenkins automates the container builds.",
-        "completed": false,
         "image": "icons/docker.png",
         "issue": ""
     },
@@ -80,7 +76,6 @@
             "Configure auto-scaling and load balancing for the app using Kubernetes."
         ],
         "key-connection": "Kubernetes manages containerized applications across multiple nodes, allowing for scaling, redundancy, and self-healing.",
-        "completed": false,
         "image": "icons/kubernetes.png",
         "issue": ""
     },
@@ -94,7 +89,6 @@
             "Set up alerts in Grafana for key issues (e.g., high CPU usage, pod failures)."
         ],
         "key-connection": "Monitoring ensures you can observe system health and proactively respond to potential issues.",
-        "completed": false,
         "image": "icons/prometheus_and_grafana.png",
         "issue": ""
     },
@@ -107,7 +101,6 @@
             "Set up Kibana to visualize logs for easier troubleshooting."
         ],
         "key-connection": "Centralized logging provides a single source of truth for logs, aiding in debugging and analysis.",
-        "completed": false,
         "image": "icons/elk_stack.png",
         "issue": ""
     },
@@ -121,7 +114,6 @@
             "Run regular vulnerability scans (e.g., with OpenVAS) and address any issues."
         ],
         "key-connection": "Security layers protect all services and ensure compliance with best practices.",
-        "completed": false,
         "image": "icons/security.png",
         "issue": ""
     },
@@ -134,7 +126,6 @@
             "Test disaster recovery by simulating VM failure and restoring from backups."
         ],
         "key-connection": "Automated backups ensure resilience, enabling quick recovery after a failure.",
-        "completed": false,
         "image": "icons/backup.png",
         "issue": ""
     },
@@ -147,7 +138,6 @@
             "Implement health checks to detect and reroute traffic from failed instances."
         ],
         "key-connection": "Load balancing and auto-scaling ensure the system is available and adapts to changing traffic.",
-        "completed": false,
         "image": "icons/load_balance.png",
         "issue": ""
     }
