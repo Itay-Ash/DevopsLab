@@ -1,9 +1,9 @@
 $(document).ready(function () {
-   /* // Scroll to the top on page load
+    // Scroll to the top on page load
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
-    $(window).scrollTop(0); */ //Disabled for testing
+    $(window).scrollTop(0);
 
     //Coloring all completed steps
     const colors = [
