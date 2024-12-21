@@ -75,6 +75,7 @@ $(document).ready(function () {
     const aboutSection = $('#about');
     const aboutTitle = $('#about-title');
     const aboutTexts = $('.about-text');
+    const aboutSeparator = $('#about-separator');
 
     function aboutSectionApperance(){
         const scrollPosition = $(window).scrollTop();
@@ -83,12 +84,17 @@ $(document).ready(function () {
         if (scrollPosition > sectionOffset) {
             aboutTitle.addClass('visible');
 
+            let delay = 0;
             aboutTexts.each(function (index) {
-                const delay = $(this).data('delay') * 500;
+                delay = $(this).data('delay') * 500;
                 setTimeout(() => {
                         $(this).addClass('visible');
                 }, delay);
             });
+
+            setTimeout(() => {
+                aboutSeparator.addClass('visible');
+            }, delay + 500)
         }
     }
 

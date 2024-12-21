@@ -333,6 +333,12 @@ body, h1, ul, li, a {
     text-align: center;
 }
 
+.separator {
+    height: 0.1vh;
+    background-color: #d3d3d3; /* Light grey for contrast */
+    margin-bottom: 2vh;
+    border: none;
+}
 
 .about-text {
     text-align: center;
