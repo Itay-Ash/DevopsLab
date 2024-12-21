@@ -342,18 +342,12 @@ body, h1, ul, li, a {
 
 .content-section {
     width: 100%;
-    padding: 20px;
+    padding: 2.2vh;
     box-sizing: border-box;
 }
 
 #progress {
-    padding: 20px;
-}
-
-h2.section-title {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 30px;
+    padding: 2.2vh;
 }
 
 .progress-container {
@@ -381,15 +375,15 @@ h2.section-title {
     display: flex; 
     align-items: center;
     justify-content: center; 
-    gap: 3px; 
-    padding: 20px;
+    gap: 0.16vw;
+    padding: 2.20vh;
 }
 
 .step-arrow {
     color: #004080; /* Light blue color for arrows */
-    background: none; /* No background color */
+    background: none;
     border: none;
-    font-size: 30px;
+    font-size: 3.3vh;
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s ease, transform 0.3s ease;
@@ -397,17 +391,17 @@ h2.section-title {
 
 .step-arrow:hover {
     color: #007FFF; /* Darker blue on hover */
-    transform: scale(1.2); /* Slight zoom effect */
+    transform: scale(1.2);
 }
 
 /* Step Buttons */
 .step-btn {
     background: none;
-    border: 2px solid #007FFF; /* Light blue border */
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin: 0 5px;
+    border: 0.22vh solid #007FFF; /* Light blue border */
+    width: 1.04vw;
+    height: 2.20vh;
+    border-radius: 50vw;
+    margin: 0 0.55vh;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
@@ -428,17 +422,17 @@ h2.section-title {
     background-color: #222;
     color: #fff;
     text-shadow: 0.1vw 0.1vw black;
-    padding: 20px;
+    padding: 2.20vh;
     position: relative;
 }
 
 /* Completion bar styling */
 #completion-bar {
     text-align: center;
-    font-size: 18px;
-    margin-top: 3px;
-    padding: 10px;
-    border-radius: 10px;
+    font-size: 1.98vh;
+    margin-top: 0.33vh;
+    padding: 1.10vh;
+    border-radius: 0.73vw;
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
@@ -454,35 +448,38 @@ h2.section-title {
     list-style-type: none;
     padding-left: 0;
     text-align: left;
-    margin-top: 20px;
+    margin-top: 2.20vh;
+}
+
+#step-actions li{
+    font-size: 2vh;
 }
 
 .doc-icon {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
-    font-size: 40px;
+    bottom: 1.10vh;
+    right: 0.73vw;
+    font-size: 4.40vh;
     text-decoration: none;
     color: #007FFF; /* Light blue */
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/* Tooltip Styling */
 .doc-icon .tooltip {
     visibility: hidden;
-    width: 90px;
+    width: 9vw;
     background-color: #333;
     color: #fff;
     text-align: center;
-    border-radius: 5px;
-    padding: 5px 0;
+    border-radius: 0.5vw;
+    padding: 0.5vh 0;
     position: absolute;
-    bottom: 30px; /* Position above the icon */
+    bottom: 3vh;
     right: 50%;
     transform: translateX(50%);
     opacity: 0;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    font-size: 12px;
+    font-size: 1.2vw;
     white-space: nowrap;
     z-index: 10;
 }

@@ -258,7 +258,7 @@ $(document).ready(function () {
     let autoSlideInterval;
 
     // Start auto-sliding with a configurable delay
-    function startAutoSlide(delay = 10000) {
+    function startAutoSlide(delay = 8000) {
         stopAutoSlide(); // Clear any existing interval
         autoSlideInterval = setInterval(function() {
             if (currentStep < steps.length - 1) {
@@ -275,10 +275,10 @@ $(document).ready(function () {
         clearInterval(autoSlideInterval);
     }
     
-    // Restart auto-slide with 15-second delay when a button is clicked
+    // Restart auto-slide with 12-second delay when a button is clicked
     function resetAutoSlideOnInteraction() {
         stopAutoSlide();
-        startAutoSlide(15000); // Restart with 15 seconds delay
+        startAutoSlide(12000);
     }
     
     // Bind to navigation buttons
@@ -305,9 +305,8 @@ $(document).ready(function () {
         const scrollPosition = $(window).scrollTop();
         const sectionOffset = progressSection.offset().top - window.innerHeight / 2;
 
-        if (scrollPosition > sectionOffset) {
+        if (progressTitle.hasClass('hidden') && scrollPosition > sectionOffset) {
             progressTitle.addClass('visible');
-
             setTimeout(() => {
                 progreesContainerLeft.addClass('visible');
             }, 500);
@@ -315,11 +314,14 @@ $(document).ready(function () {
                 progressContainerRight.addClass('visible');
             }, 800);
             setTimeout(() =>{
-                completionBar.addClass('appear-animation');
-                setTimeout(() => {
-                    completionBar.removeClass('appear-animation');
-                }, 250)
-                completionBar.addClass('visible');
+                if(!completionBar.hasClass('appear-animation') && completionBar.hasClass('hidden')){
+                    completionBar.addClass('appear-animation');
+                    setTimeout(() => {
+                        completionBar.removeClass('appear-animation');
+                        completionBar.removeClass('hidden');
+                    }, 250);
+                    completionBar.addClass('visible');
+            };
             }, 1100);
         };
     }
@@ -346,3 +348,17 @@ $(document).on('mousemove', function(e) {
     });
 });
 
+function pxToVhVw(pxValue) {
+    // Get the current viewport dimensions
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+
+    // Convert px to vh and vw
+    const vhValue = (pxValue / viewportHeight) * 100;
+    const vwValue = (pxValue / viewportWidth) * 100;
+
+    // Log the results to the console
+    console.log(`Input: ${pxValue}px`);
+    console.log(`Equivalent in vh: ${vhValue.toFixed(2)}vh`);
+    console.log(`Equivalent in vw: ${vwValue.toFixed(2)}vw`);
+}
