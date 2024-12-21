@@ -299,6 +299,18 @@ $(document).ready(function () {
         // Start automatic slide switching with default 5 seconds
     });
 
+    //Navbar buttons on click directs to specific step
+    document.querySelectorAll('.step').forEach((stepElement, index) => {
+        stepElement.onclick = () => {
+            //Render speficic step
+            currentStep = index;
+            renderStep();
+            $('html, body').animate({
+                scrollTop: $(progress).offset().top
+            }, 1000); 
+        };
+    });
+
     //Progress section apperance
     const progressSection = $('#progress');
     const progressTitle = $('.section-title');

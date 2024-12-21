@@ -101,6 +101,7 @@ body, h1, ul, li, a {
     font-weight: bold;
     transition: background-color 0.3s, transform 0.3s;
     position: relative;
+    cursor: pointer;
 }
 
 .step.completed {
