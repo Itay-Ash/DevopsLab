@@ -309,6 +309,44 @@ $(document).ready(function () {
                 scrollTop: $(progress).offset().top
             }, 1000); 
         };
+        stepElement.addEventListener('mouseenter', function () {
+            if (steps[index] && steps[index].image) {
+                // Create or update the preview container
+                let preview = document.querySelector('#step-preview');
+                if (!preview) {
+                    preview = document.createElement('div');
+                    preview.id = 'step-preview';
+                    preview.style.position = 'absolute';
+                    preview.style.backgroundColor = '#fff';
+                    preview.style.padding = '5px';
+                    preview.style.border = '1px solid #ccc';
+                    preview.style.borderRadius = '8px';
+                    preview.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+                    preview.style.zIndex = '1000';
+                    preview.style.display = 'none';
+                    document.body.appendChild(preview);
+                }
+    
+                // Add the image to the preview container
+                preview.innerHTML = `<img src="${steps[index].image}" alt="Step Preview" style="width: 100px; height: auto; display: block;">`;
+                preview.style.display = 'block';
+            }
+        stepElement.addEventListener('mousemove', function (e) {
+                const preview = document.querySelector('#step-preview');
+                if (preview) {
+                    preview.style.top = `${e.pageY + 15}px`; // Offset the preview slightly from the cursor
+                    preview.style.left = `${e.pageX + 15}px`;
+                }
+            });
+
+        // Hide the preview on mouse leave
+        stepElement.addEventListener('mouseleave', function () {
+            const preview = document.querySelector('#step-preview');
+            if (preview) {
+                preview.style.display = 'none';
+            }
+            });
+        });
     });
 
     //Progress section apperance

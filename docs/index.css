@@ -124,6 +124,11 @@ body, h1, ul, li, a {
     background-color: inherit;
 }
 
+#step-preview {
+    pointer-events: none; /* Ensure the preview doesn't block interactions */
+    max-width: 150px; /* Limit the preview size */
+}
+
 .moveup-animation {
     animation-name: moveup;
     animation-duration: 0.5s;
