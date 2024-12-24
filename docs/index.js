@@ -174,11 +174,6 @@ $(document).ready(function () {
         // Fade content back in
         $(this).fadeIn(50);
     });
-
-    
-        // Disable/enable navigation buttons
-        $("#prev-step").prop("disabled", currentStep === 0);
-        $("#next-step").prop("disabled", currentStep === steps.length - 1);
     }
     
     // Logic for choosing the active step button
@@ -251,12 +246,20 @@ $(document).ready(function () {
             currentStep--;
             renderStep('-');
         }
+        else{
+            currentStep = steps.length - 1;
+            renderStep('-');
+        }
     });
     
     // Handle "Next" button click
     $("#next-step").click(function() {
         if (currentStep < steps.length - 1) {
             currentStep++;
+            renderStep('+');
+        }
+        else{
+            currentStep = 0;
             renderStep('+');
         }
     });
