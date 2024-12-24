@@ -305,12 +305,23 @@ $(document).ready(function () {
     //Navbar buttons on click directs to specific step
     document.querySelectorAll('.step').forEach((stepElement, index) => {
         stepElement.onclick = () => {
-            //Render speficic step
+            // Prevent clicks on all step elements
+            document.querySelectorAll('.step').forEach((stepElement) => {
+                $(this).addClass('disabled');
+            })
+            // Render specific step
             currentStep = index;
             renderStep();
+        
+            // Animate scroll
             $('html, body').animate({
                 scrollTop: $(progress).offset().top
-            }, 1000); 
+            }, 500, () => {
+                // Re-enable clicks after the animation is complete
+                document.querySelectorAll('.step').forEach((stepElement) => {
+                    $(this).removeClass('disabled');
+                })
+            });
         };
         stepElement.addEventListener('mouseenter', function () {
             if (steps[index] && steps[index].image) {
