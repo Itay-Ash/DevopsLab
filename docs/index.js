@@ -409,30 +409,18 @@ $(document).ready(function () {
 
 //Adding relative background based on mouse position
 $(document).on('mousemove', function(e) {
-    const $hero = $('.hero');
-    const clientX = e.clientX;
-    const clientY = e.clientY;
+    // Check if the user is on pc
+    if ($(window).width() > 1024) {
+        const $hero = $('.hero');
+        const clientX = e.clientX;
+        const clientY = e.clientY;
 
-    const xPercent = (clientX / $(window).width()) - 0.5;
-    const yPercent = (clientY / $(window).height()) - 0.5;
+        const xPercent = (clientX / $(window).width()) - 0.5;
+        const yPercent = (clientY / $(window).height()) - 0.5;
 
-    $hero.css({
-        'background-position-x': `${50 + xPercent * 10}%`,
-        'background-position-y': `${50 + yPercent * 10}%`
-    });
+        $hero.css({
+            'background-position-x': `${50 + xPercent * 10}%`,
+            'background-position-y': `${50 + yPercent * 10}%`
+        });
+    }
 });
-
-function pxToVhVw(pxValue) {
-    // Get the current viewport dimensions
-    const viewportHeight = window.innerHeight;
-    const viewportWidth = window.innerWidth;
-
-    // Convert px to vh and vw
-    const vhValue = (pxValue / viewportHeight) * 100;
-    const vwValue = (pxValue / viewportWidth) * 100;
-
-    // Log the results to the console
-    console.log(`Input: ${pxValue}px`);
-    console.log(`Equivalent in vh: ${vhValue.toFixed(2)}vh`);
-    console.log(`Equivalent in vw: ${vwValue.toFixed(2)}vw`);
-}
