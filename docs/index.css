@@ -635,10 +635,6 @@ blockquote {
         font-size: 1.4vh;
     }
 
-    
-    .hero-buttons button {
-    }
-    
     .step{
         width: 3.8vw;
         height: 3.8vw;
@@ -649,7 +645,7 @@ blockquote {
     }
     
     .about-text {
-        font-size: 2.8vw;
+        font-size: 3vw;
         line-height: 2;
     }
 
@@ -703,7 +699,7 @@ blockquote {
     }
 
     #step-actions li{
-        font-size: 1.2vh;
+        font-size: 1.5vh;
     }
 
     .step-btn {
