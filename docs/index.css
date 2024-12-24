@@ -358,10 +358,6 @@ body, h1, ul, li, a {
     box-sizing: border-box;
 }
 
-#progress {
-    padding: 2.2vh;
-}
-
 .progress-container {
     display: flex;
     width: 100%;
@@ -616,7 +612,7 @@ blockquote {
     
 }
 
-@media (max-width: 599px) { 
+@media (max-width: 768px) { 
     .navbar-logo{
         width: 35vw;
         height: 2.20vh;
@@ -657,27 +653,51 @@ blockquote {
         line-height: 2;
     }
 
-    .progress-container-right {
-        flex: 8;
-        padding: 0;
-        margin: 0;
-        padding-top: 0.5vh;
-        padding-left: 2vw;
+     #progress {
+        padding: 1.5vh; /* Adjust padding for mobile */
     }
 
-    .progress-container-right h3 {
-        display: none;
+    .progress-container {
+        flex-direction: column-reverse;
+        align-items: center;
     }
 
-    .progress-container-left {
-        flex: 2;
+    .progress-container-left, .progress-container-right {
+        width: 100%;
     }
 
-    .progress-container-left img {
+    .progress-container-left img{
         width: 50vw;
         height: 30vh;
     }
 
+    /* Show only text and buttons */
+    #step-title {
+        font-size: 4vh; /* Adjust text size for mobile */
+        text-align: center;
+        margin-bottom: 2vh;
+    }
+
+    .step-indicators {
+        justify-content: center;
+        flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+        gap: 1vh;
+    }
+
+    .step-btn {
+        width: 2.5vw; /* Resize buttons for mobile */
+        height: 2.5vw;
+    }
+
+    .step-arrow {
+        font-size: 3vh; /* Resize arrows for mobile */
+    }
+
+    #completion-bar {
+        display: block; /* Ensure the completion bar is visible */
+        font-size: 2vh; /* Adjust font size for mobile */
+        margin: 1.5vh 0;
+    }
     #step-actions{
         margin-top: 0;
     }
