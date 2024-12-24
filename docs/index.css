@@ -410,8 +410,8 @@ body, h1, ul, li, a {
 .step-btn {
     background: none;
     border: 0.22vh solid #007FFF; /* Light blue border */
-    width: 1.04vw;
-    height: 2.20vh;
+    width: 1vw;
+    height: 1vw;
     border-radius: 50vw;
     margin: 0 0.55vh;
     cursor: pointer;
@@ -487,7 +487,7 @@ body, h1, ul, li, a {
     padding: 0.5vh 0;
     position: absolute;
     bottom: 4vh;
-    right: 65%;
+    right: 1.9vw;
     transform: translateX(50%);
     opacity: 0;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -547,4 +547,75 @@ blockquote {
 
 .footer p{
     font-size: 1.7vh;
+}
+
+
+@media (max-width: 1024px) and (min-height: 1024px) { 
+    .navbar-logo{
+        width: 20vw;
+        height: 2.20vh;
+    }
+
+    .hero-title{
+        font-size: 4vh;
+    }
+
+    .hero-subtitle{
+        font-size: 2vh;
+    }
+    
+    .step{
+        width: 3.8vw;
+        height: 3.8vw;
+    }
+
+    #step-preview{
+        visibility: hidden;
+    }
+
+    .section-title {
+        margin-bottom: 2vh;
+    }
+    
+    .about-text {
+        font-size: 2.5vw;
+        line-height: 2;
+    }
+
+    .progress-container-right h3 {
+        font-size: 2.5vh;
+        text-align: left;
+    }
+
+    .progress-container-left img {
+        width: 40vw;
+        height: 40vh;
+    }
+
+    #step-actions li{
+        font-size: 1.6vh;
+    }
+
+    .doc-icon {
+        font-size: 3.40vh;
+    }
+
+    .doc-icon:hover .tooltip {
+        visibility: hidden;
+    }
+
+    .step-btn {
+        width: 2vh;
+        height: 2vh;
+    }
+
+    blockquote {
+        font-size: 2vh;
+        max-width: 60vw;
+    }
+    
+}
+
+@media (max-width: 599px) { 
+
 }
