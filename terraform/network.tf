@@ -53,17 +53,3 @@ resource "google_compute_address" "jenkins_public_ip" {
   region  = var.region
   description = "Static public IP for Jenkins CI/CD server"
 }
-
-#Initially I used the default network, whichj required me to assign static IPs to a vpc I didn't create.
-#I decide to use the following module as the solution:
-/*
-#Save static IP addresses
-module "address" {
-  source     = "terraform-google-modules/address/google"
-  version    = "~> 4.0"
-  project_id = var.project_id
-  region     = var.region
-  subnetwork = google_compute_subnetwork.private_subnet.self_link
-  names      = ["web-server-static-ip", "mysql-server-static-ip", "jenkins-server-static-ip"]
-  addresses  = [var.web_server_static_ip, var.mysql_server_static_ip, var.jenkins_server_static_ip]
-}*/
