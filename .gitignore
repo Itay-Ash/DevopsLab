@@ -172,3 +172,8 @@ dist
 
 #My files
 terraform-details.json
+
+#pages
+docs/images/*.psd
+#external
+external/*
