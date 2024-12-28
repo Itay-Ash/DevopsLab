@@ -6,7 +6,8 @@ This document captures my journey through creating a fully integrated DevOps lab
 
 ## 🛠️ Step-by-Step DevOps Lab Setup: Connected Workflow
 
-### Step 1: Set Up the Infrastructure with Terraform (Provisioning) 🏗️
+## Step 1: Set Up the Infrastructure with Terraform (Provisioning) 🏗️  
+[View Related Issue](https://github.com/OwwFire/DevopsLab/issues/5)
 - **Objective**: Use Terraform to provision the base infrastructure for the lab.
 - **Action**:
   - [x] Create a `main.tf` file specifying VMs:
