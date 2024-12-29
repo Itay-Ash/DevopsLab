@@ -170,6 +170,14 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# Ansible logs and output
+*.retry
+ansible.log
+
+# SSH keys
+*.pem
+*.key
+
 #My files
 terraform-details.json
 
