@@ -30,6 +30,10 @@ variable "jenkins_server_static_ip" {
   type = string
 }
 
+variable "ansible_server_static_ip" {
+  type = string
+}
+
 variable "private_dns_name" {
   type = string
 }

@@ -38,6 +38,15 @@ resource "google_compute_address" "jenkins_server_private_ip" {
   subnetwork   = google_compute_subnetwork.private_subnet.self_link
 }
 
+resource "google_compute_address" "ansible_server_private_ip" {
+  name         = "ansible-server-static-ip"
+  address      = var.ansible_server_static_ip
+  region       = var.region
+  address_type = "INTERNAL"
+  subnetwork   = google_compute_subnetwork.private_subnet.self_link
+}
+
+
 ########################################
 #     Public Network Configuration     #
 ########################################
