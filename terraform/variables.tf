@@ -6,6 +6,10 @@ variable "region" {
   type = string
 }
 
+variable "location" {
+  type = string
+}
+
 variable "credentials_path" {
   type = string
 }
@@ -47,5 +51,9 @@ variable "private_mysql_server_dns_name" {
 }
 
 variable "private_jenkins_server_dns_name" {
+  type = string
+}
+
+variable "ansible_bucket_name" {
   type = string
 }

@@ -100,4 +100,3 @@ resource "google_compute_instance" "ansible_vm" {
   tags = ["ansible-server", "ansible"]
   allow_stopping_for_update = true
 }
-
