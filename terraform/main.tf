@@ -91,7 +91,7 @@ resource "google_compute_instance" "ansible_vm" {
 
   network_interface {
     subnetwork = google_compute_subnetwork.private_subnet.self_link
-    network_ip = google_compute_address.jenkins_server_private_ip.address
+    network_ip = google_compute_address.ansible_server_private_ip.address
     access_config {
 
     }
