@@ -1,13 +1,17 @@
 #!/bin/bash
+
+#If user doesn't exist yet, add it.
 if ! id -u mysql &>/dev/null; then
   sudo groupadd mysql
   sudo useradd -r -g mysql -s /bin/false mysql
 fi
 
+#If the new partion doesnt have a file system, assign ext4
 if ! sudo blkid /dev/sdb; then
   sudo mkfs.ext4 -F /dev/sdb
 fi
 
+#If the new partion is not mounted, mount it
 if ! grep -qs '/mnt/mysql-disk' /etc/fstab; then
   sudo mkdir /mnt/mysql-disk
   sudo mount /dev/sdb /mnt/mysql-disk
