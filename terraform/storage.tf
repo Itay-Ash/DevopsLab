@@ -55,3 +55,19 @@ resource "google_storage_bucket_object" "ansible_files" {
   bucket = google_storage_bucket.ansible_bucket.name
   source = "${path.module}/../ansible/${each.value}"
 }
+
+resource "google_pubsub_topic" "ansible_bucket_topic" {
+  name = "ansible-bucket-topic"
+}
+
+resource "google_storage_notification" "bucket_notification" {
+  bucket                  = google_storage_bucket.ansible_bucket.name
+  topic                   = google_pubsub_topic.ansible_bucket_topic.id
+  event_types             = ["OBJECT_FINALIZE", "OBJECT_DELETE"]
+  payload_format          = "JSON_API_V1"
+}
+
+resource "google_pubsub_subscription" "ansible_bucket_subscription" {
+  name  = "ansible-bucket-subscription"
+  topic = google_pubsub_topic.ansible_bucket_topic.name
+}
