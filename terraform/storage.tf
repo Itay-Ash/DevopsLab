@@ -56,6 +56,7 @@ resource "google_storage_bucket_object" "ansible_files" {
   source = "${path.module}/../ansible/${each.value}"
 }
 
+#Create a pub sub topic for bucket file changes.
 resource "google_pubsub_topic" "ansible_bucket_topic" {
   name = "ansible-bucket-topic"
 }
