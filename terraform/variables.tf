@@ -57,3 +57,7 @@ variable "private_jenkins_server_dns_name" {
 variable "ansible_bucket_name" {
   type = string
 }
+
+variable "gcp_storage_iam_account_email" {
+  type = string
+}

@@ -61,6 +61,13 @@ resource "google_pubsub_topic" "ansible_bucket_topic" {
   name = "ansible-bucket-topic"
 }
 
+resource "google_pubsub_topic_iam_member" "ansible_bucket_publisher" {
+  topic = google_pubsub_topic.ansible_bucket_topic.name
+
+  role   = "roles/pubsub.publisher"
+  member = "serviceAccount:${var.gcp_storage_iam_account_email}"
+}
+
 resource "google_storage_notification" "bucket_notification" {
   bucket                  = google_storage_bucket.ansible_bucket.name
   topic                   = google_pubsub_topic.ansible_bucket_topic.id
