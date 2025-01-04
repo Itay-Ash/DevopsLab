@@ -31,6 +31,10 @@ This document captures my journey through creating a fully integrated DevOps lab
 ### Step 2: Configure VMs with Ansible (Automation & Consistency) 🔄
 - **Objective**: Use Ansible to automate the installation and configuration of services on the VMs.
 - **Action**:
+- [x] Enhance Terraform infrastructure:  
+  - [x] Provision an Ansible VM.  
+  - [x] Create a bucket for Ansible code and dynamically update files on the Ansible VM.  
+  - [x] Create a bucket to store all necessary scripts for other VMs.
   - [ ] Create an Ansible inventory listing Terraform-provisioned VMs (e.g., web, DB, CI/CD servers).
   - Write playbooks to install necessary services:
     - [ ] **Web server VM**: Install NGINX, PHP, etc.
