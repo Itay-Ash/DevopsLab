@@ -58,6 +58,10 @@ variable "ansible_bucket_name" {
   type = string
 }
 
+variable "ansible_vm_iam_account_email" {
+  type = string
+}
+
 variable "gcp_storage_iam_account_email" {
   type = string
 }

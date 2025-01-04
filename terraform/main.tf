@@ -97,6 +97,13 @@ resource "google_compute_instance" "ansible_vm" {
     }
   }
 
+    metadata_startup_script = file("scripts/ansible-vm-startup-script.sh")
+
+    service_account {
+    email  = var.ansible_vm_iam_account_email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
+
   tags = ["ansible-server", "ansible"]
   allow_stopping_for_update = true
 }
