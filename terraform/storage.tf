@@ -36,15 +36,54 @@ resource "google_storage_bucket" "ansible_bucket" {
   }
 }
 
-# Create an env variable for folder locatiom
-locals {
-  ansibleFiles = fileset("../ansible", "**")
+resource "google_storage_bucket" "code_bucket" {
+  name     = var.code_bucket_name
+  location = var.location
+  force_destroy = true
+
+  lifecycle {
+    prevent_destroy = false
+  }
 }
 
+# Create an env variable for folders locations
+locals {
+  ansibleFiles = fileset("../ansible", "**")
+  frontendFiles = fileset("../code/web/frontend", "**") 
+  backendFiles = fileset("../code/web/backend", "**")
+  dbFiles =  fileset("../code/db", "**")
+}
+
+# Create folders for buckets
 resource "google_storage_bucket_object" "ansible_folder" {
   name   = "ansible/" 
   content = " "
   bucket = google_storage_bucket.ansible_bucket.name
+}
+
+resource "google_storage_bucket_object" "code_folder" {
+  name   = "Web/" 
+  content = " "
+  bucket = google_storage_bucket.code_bucket.name
+}
+
+resource "google_storage_bucket_object" "frontend_folder" {
+  name   = "Web/frontend/" 
+  content = " "
+  bucket = google_storage_bucket.code_bucket.name
+}
+
+
+resource "google_storage_bucket_object" "backend_folder" {
+  name   = "Web/backend/" 
+  content = " "
+  bucket = google_storage_bucket.code_bucket.name
+}
+
+resource "google_storage_bucket_object" "db_folder" {
+  name   = "DB/" 
+  content = " "
+  bucket = google_storage_bucket.code_bucket.name
 }
 
 # Upload ansible folder files
@@ -56,7 +95,37 @@ resource "google_storage_bucket_object" "ansible_files" {
   source = "${path.module}/../ansible/${each.value}"
 }
 
-#Create a pub sub topic for bucket file changes.
+# Upload frontend folder files
+resource "google_storage_bucket_object" "frontend_files" {
+  for_each = local.frontendFiles
+
+  name   = "${google_storage_bucket_object.frontend_folder.name}${each.value}"
+  bucket = google_storage_bucket.code_bucket.name
+  source = "${path.module}/../code/web/frontend/${each.value}"
+}
+
+# Upload backend folder files
+resource "google_storage_bucket_object" "backend_files" {
+  for_each = local.backendFiles
+
+  name   = "${google_storage_bucket_object.backend_folder.name}${each.value}"
+  bucket = google_storage_bucket.code_bucket.name
+  source = "${path.module}/../code/web/backend/${each.value}"
+}
+
+# Upload db folder files
+resource "google_storage_bucket_object" "db_files" {
+  for_each = local.dbFiles
+
+  name   = "${google_storage_bucket_object.db_folder.name}${each.value}"
+  bucket = google_storage_bucket.code_bucket.name
+  source = "${path.module}/../code/db/${each.value}"
+}
+
+########################################
+#               PUB/SUBs               #
+########################################
+
 resource "google_pubsub_topic" "ansible_bucket_topic" {
   name = "ansible-bucket-topic"
 }
