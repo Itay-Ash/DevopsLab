@@ -2,6 +2,7 @@
 
 # Variables
 SUBSCRIPTION_NAME="ansible-bucket-subscription"
+BUCKET_NAME_SECRET="ansible-bucket-name-secret"
 DOWNLOAD_DIR="/usr/ansible"
 LOG_FILE="/var/log/bucket_download.log"
 TIMEOUT=30
@@ -26,7 +27,7 @@ if ! command -v jq &>/dev/null || ! command -v gsutil &>/dev/null; then
 fi
 
 # Gather bucket name
-BUCKET_NAME=$(timeout $TIMEOUT gcloud secrets versions access latest --secret="bucket-name-secret")
+BUCKET_NAME=$(timeout $TIMEOUT gcloud secrets versions access latest --secret="$BUCKET_NAME_SECRET")
 
 # Check if bucket name is retrieved
 if [ -z "$BUCKET_NAME" ]; then
