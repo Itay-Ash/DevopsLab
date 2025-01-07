@@ -22,8 +22,8 @@ This document captures my journey through creating a fully integrated DevOps lab
     - [x] Set a static public IP for each vm.
   - [x] Create a `dns.tf` file specifying networking and security groups:
     - [x] Set a static private DMS record for each VM.
-- [x] Set a public DNS record for the web VM (using public provider).
-- [x] Set a firewall policy.
+  - [x] Set a public DNS record for the web VM (using public provider).
+  - [x] Set a firewall policy.
 - **Key Connection**: This forms the base infrastructure for all subsequent steps, ensuring that VMs are up and networked properly.
 
 ---
