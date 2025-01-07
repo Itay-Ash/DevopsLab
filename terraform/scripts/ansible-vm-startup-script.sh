@@ -21,9 +21,13 @@ sudo chown -R ansible:ansible "$DOWNLOAD_DIR"
 touch "$LOG_FILE"
 
 # Install necessary tools if not already installed
-if ! command -v jq &>/dev/null || ! command -v gsutil &>/dev/null; then
+if ! command -v jq &>/dev/null || ! command -v gsutil &>/dev/null || ! command -v ansible &>/dev/null; then
+    #Disabling a var that would make install ansible require manual confirmation
+    ORIGINAL_DEBIAN_FRONTEND=$DEBIAN_FRONTEND
+    export DEBIAN_FRONTEND=noninteractive
     echo "[$(date)] Installing necessary tools..." >> "$LOG_FILE"
-    sudo apt-get update && apt-get install -y jq google-cloud-sdk >> "$LOG_FILE" 2>&1
+    sudo apt-get update && sudo apt-get install -y jq google-cloud-sdk ansible >> "$LOG_FILE" 2>&1
+    export DEBIAN_FRONTEND=$ORIGINAL_DEBIAN_FRONTEND
 fi
 
 # Gather bucket name
