@@ -185,3 +185,5 @@ terraform-details.json
 docs/images/*.psd
 #external
 external/*
+
+vars.yml

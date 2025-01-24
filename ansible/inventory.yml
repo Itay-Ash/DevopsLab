@@ -1,0 +1,13 @@
+all:
+  vars:
+    ansible_user: "{{ ansible_user }}"
+    ansible_ssh_executable: "{{ ansible_path }}/gcp-ssh-wraper.sh"
+    ansible_ssh_common_args: "--internal-ip --zone={{ zone }} --strict-host-key-checking=no"
+
+  hosts:
+    web_vm:
+      ansible_host: web-server
+    mysql_vm:
+      ansible_host: mysql-server
+    jenkins_vm:
+      ansible_host: jenkins-server
