@@ -30,6 +30,9 @@ if ! command -v jq &>/dev/null || ! command -v gsutil &>/dev/null || ! command -
     export DEBIAN_FRONTEND=$ORIGINAL_DEBIAN_FRONTEND
 fi
 
+#Generate SSH KEY
+yes Y | gcloud compute config-ssh >> "$LOG_FILE"
+
 # Gather bucket name
 BUCKET_NAME=$(timeout $TIMEOUT gcloud secrets versions access latest --secret="$BUCKET_NAME_SECRET")
 
@@ -48,6 +51,7 @@ fetch_and_replace_files() {
     echo "[$(date)] Initiating download of all files from bucket: $BUCKET_NAME" >> "$LOG_FILE"
     gsutil -m cp -r gs://"$BUCKET_NAME"/ansible/* "$DOWNLOAD_DIR" >> "$LOG_FILE" 2>&1
     sudo chown -R ansible:ansible "$DOWNLOAD_DIR"
+    sudo chmod -Rf +x "$DOWNLOAD_DIR"
     echo "[$(date)] Replaced all files" >> "$LOG_FILE"
 }
 
