@@ -1,6 +1,7 @@
 all:
   vars:
     ansible_user: "{{ ansible_user }}"
+    ansible_become: true
     ansible_ssh_executable: "{{ ansible_path }}/gcp-ssh-wraper.sh"
     ansible_ssh_common_args: "--internal-ip --zone={{ zone }} --strict-host-key-checking=no"
 
