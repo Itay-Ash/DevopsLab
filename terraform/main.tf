@@ -15,7 +15,6 @@ resource "google_compute_instance" "web_vm" {
     access_config {
 
     }
-
   }
   tags = ["web-server", "web"]
   allow_stopping_for_update = true
@@ -41,6 +40,9 @@ resource "google_compute_instance" "mysql_vm" {
   network_interface {
     subnetwork = google_compute_subnetwork.private_subnet.self_link
     network_ip = google_compute_address.mysql_server_private_ip.address
+    access_config {
+
+    }
   }
   metadata_startup_script = file("scripts/sql-vm-startup-script.sh")
 
