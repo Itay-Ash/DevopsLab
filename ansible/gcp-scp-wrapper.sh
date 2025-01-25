@@ -1,20 +1,18 @@
 #!/bin/bash
-# This is a wrapper script allowing to use GCP's IAP option to connect
+# This is a wrapper script allowing to use GCP's IAP SSH option to connect
 # to our servers.
 
-# Ansible passes a large number of SSH parameters along with the hostname as the
-# second to last argument and the command as the last. We will pop the last two
-# arguments off of the list and then pass all of the other SSH flags through
-# without modification:
-cmd="${@: -1: 1}"  # Grabs the last argument sent
-host="${@: -2: 1}" # Grabs the second to last argument
+cmd="${@: -1: 1}"  # Grabs the last argument sent, the command to execute.
+host="${@: -2: 1}" # Grabs the second to last argument, the host itself.
 
-# Unfortunately ansible has hardcoded ssh options, so we need to filter these out.
-# It's an ugly hack, but for now we'll only accept the options starting with '--'.
+# Only takes arguments with --, starts at the last argument and stops after gathering all -- arguments.
 declare -a opts
-for scp_arg in "${@: 1: $# -3}" ; do
-    if [[ "${scp_arg}" == --* ]] ; then
-        opts+=("${scp_arg}")  
+for (( i=$# - 3; i>=1; i-- )); do
+    ssh_arg="${!i}"
+    if [[ "${ssh_arg}" == --* ]]; then
+        opts+=("${ssh_arg}")
+    elif [ ${#opts[@]} -gt 0 ]; then
+        break
     fi
 done
 
