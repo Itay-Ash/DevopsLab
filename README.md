@@ -31,19 +31,19 @@ This document captures my journey through creating a fully integrated DevOps lab
 ### Step 2: Configure VMs with Ansible (Automation & Consistency) 🔄
 - **Objective**: Use Ansible to automate the installation and configuration of services on the VMs.
 - **Action**:
-- [x] Enhance Terraform infrastructure:  
-  - [x] Provision an Ansible VM.  
-  - [x] Create a bucket for Ansible code and dynamically update files on the Ansible VM.  
-  - [x] Create a bucket to store all necessary scripts for other VMs.
-- [x] Configure an Ansible inventory for Terraform-provisioned VMs (e.g., web, database, and CI/CD servers).
-  - [x] Implement a wrapper script for GCP SSH and SCP.
-  - [x] Define connection details.
-- Write playbooks to install necessary services:
-  - [ ] **Web server VM**: Install NGINX, PHP, etc.
-  - [ ] **DB server VM**: Install MySQL or PostgreSQL.
-  - [ ] **CI/CD VM**: Install Jenkins.
-- [ ] Run Ansible playbooks to configure all VMs.
-- [ ] Optimize Ansible Run Time.
+  - [x] Enhance Terraform infrastructure:  
+    - [x] Provision an Ansible VM.  
+    - [x] Create a bucket for Ansible code and dynamically update files on the Ansible VM.  
+    - [x] Create a bucket to store all necessary scripts for other VMs.
+  - [x] Configure an Ansible inventory for Terraform-provisioned VMs (e.g., web, database, and CI/CD servers).
+    - [x] Implement a wrapper script for GCP SSH and SCP.
+    - [x] Define connection details.
+  - [ ] Write playbooks to install necessary services:
+    - [ ] **Web server VM**: Install NGINX, PHP, etc.
+    - [ ] **DB server VM**: Install MySQL or PostgreSQL.
+    - [ ] **CI/CD VM**: Install Jenkins.
+  - [ ] Run Ansible playbooks to configure all VMs.
+  - [ ] Optimize Ansible Run Time.
 - **Key Connection**: Ansible ensures all machines are consistently configured, minimizing manual intervention and maintaining uniformity.
 
 ---
