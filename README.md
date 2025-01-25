@@ -43,6 +43,7 @@ This document captures my journey through creating a fully integrated DevOps lab
   - [ ] **DB server VM**: Install MySQL or PostgreSQL.
   - [ ] **CI/CD VM**: Install Jenkins.
 - [ ] Run Ansible playbooks to configure all VMs.
+- [ ] Optimize Ansible Run Time.
 - **Key Connection**: Ansible ensures all machines are consistently configured, minimizing manual intervention and maintaining uniformity.
 
 ---
