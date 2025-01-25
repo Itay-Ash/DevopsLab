@@ -186,4 +186,4 @@ docs/images/*.psd
 #external
 external/*
 
-vars.yml
+project_vars.yml
