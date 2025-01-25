@@ -1,5 +1,5 @@
 ---
-- name: Setup Servers
+- name: Test Connection
   hosts: all
   gather_facts: no
   vars_files:
