@@ -53,6 +53,7 @@ fetch_and_replace_files() {
     sudo chown -R ansible:ansible "$DOWNLOAD_DIR"
     sudo chmod -Rf +x "$DOWNLOAD_DIR"
     echo "[$(date)] Replaced all files" >> "$LOG_FILE"
+    wall -n "Replaced all ansible files"
 }
 
 # Fetch files upon VM startup
