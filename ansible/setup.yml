@@ -3,8 +3,8 @@
   hosts: all
   gather_facts: no
   vars_files:
-    - project_vars.yml
-    - general_vars.yml
+    - vars/project_vars.yml
+    - vars/general_vars.yml
   tasks:
     - name: Update package list
       apt:
