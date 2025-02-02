@@ -28,7 +28,8 @@ if ! command -v jq &>/dev/null || ! command -v gsutil &>/dev/null || ! command -
     ORIGINAL_DEBIAN_FRONTEND=$DEBIAN_FRONTEND
     export DEBIAN_FRONTEND=noninteractive
     echo "[$(date)] Installing necessary tools..." >> "$GENERAL_LOG_FILE"
-    sudo apt-get update && sudo apt-get install -y jq google-cloud-sdk ansible >> "$GENERAL_LOG_FILE" 2>&1
+    sudo apt-get update && sudo apt-get install -y jq google-cloud-sdk ansible pip >> "$GENERAL_LOG_FILE" 2>&1
+    ansible-galaxy collection install google.cloud >> "$GENERAL_LOG_FILE" 2>&1
     export DEBIAN_FRONTEND=$ORIGINAL_DEBIAN_FRONTEND
 fi
 
@@ -67,10 +68,10 @@ while true; do
     MESSAGES=$(gcloud pubsub subscriptions pull "$SUBSCRIPTION_NAME" --format="json")
 
     if [[ "$MESSAGES" != "[]" ]]; then
-        #Download all files again
-        fetch_and_replace_files
         # Acknowledge the message
         ACK_ID=$(echo "$MESSAGES" | jq -r '.[].ackId')
+        #Download all files again
+        fetch_and_replace_files
         if [[ -n "$ACK_ID" ]]; then
             gcloud pubsub subscriptions ack "$SUBSCRIPTION_NAME" --ack-ids="$ACK_ID" >> "$BUCKET_LOG_FILE" 2>&1
             echo "[$(date)] Acknowledged message with ack ID: $ACK_ID" >> "$BUCKET_LOG_FILE"
