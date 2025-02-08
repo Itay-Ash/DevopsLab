@@ -16,6 +16,14 @@ resource "google_compute_instance" "web_vm" {
 
     }
   }
+
+  metadata_startup_script = file("scripts/web-vm-startup-script.sh")
+
+  service_account {
+    email  = var.web_vm_iam_account_email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
+
   tags = ["web-server", "web"]
   allow_stopping_for_update = true
 }
@@ -46,6 +54,11 @@ resource "google_compute_instance" "mysql_vm" {
   }
   metadata_startup_script = file("scripts/sql-vm-startup-script.sh")
 
+  service_account {
+    email  = var.mysql_vm_iam_account_email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
+
   tags = ["mysql-server", "db"]
   allow_stopping_for_update = true
 }
@@ -75,7 +88,7 @@ resource "google_compute_instance" "jenkins_vm" {
     }
   }
   metadata_startup_script = file("scripts/jenkins-vm-startup-script.sh")
-
+  
   tags = ["jenkins-server", "ci-cd"]
   allow_stopping_for_update = true
 }

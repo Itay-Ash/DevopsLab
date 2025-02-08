@@ -66,6 +66,14 @@ variable "ansible_vm_iam_account_email" {
   type = string
 }
 
+variable "web_vm_iam_account_email" {
+  type = string
+}
+
+variable "mysql_vm_iam_account_email" {
+  type = string
+}
+
 variable "gcp_storage_iam_account_email" {
   type = string
 }
