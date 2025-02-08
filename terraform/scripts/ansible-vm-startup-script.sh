@@ -10,13 +10,13 @@ TIMEOUT=30
 
 # If user doesn't exist yet, add it.
 if ! id -u ansible &>/dev/null; then
-  sudo groupadd ansible
-  sudo useradd -r -g ansible -s /bin/false ansible
+  groupadd ansible
+  useradd -r -g ansible -s /bin/false ansible
 fi
 
 # Create a directory for ansible files
 mkdir -p "$DOWNLOAD_DIR"
-sudo chown -R ansible:ansible "$DOWNLOAD_DIR"
+chown -R ansible:ansible "$DOWNLOAD_DIR"
 
 # Create log files
 touch "$GENERAL_LOG_FILE"
@@ -28,7 +28,7 @@ if ! command -v jq &>/dev/null || ! command -v gsutil &>/dev/null || ! command -
     ORIGINAL_DEBIAN_FRONTEND=$DEBIAN_FRONTEND
     export DEBIAN_FRONTEND=noninteractive
     echo "[$(date)] Installing necessary tools..." >> "$GENERAL_LOG_FILE"
-    sudo apt-get update && sudo apt-get install -y jq google-cloud-sdk ansible pip >> "$GENERAL_LOG_FILE" 2>&1
+    apt-get update && apt-get install -y jq google-cloud-sdk ansible pip >> "$GENERAL_LOG_FILE" 2>&1
     ansible-galaxy collection install google.cloud >> "$GENERAL_LOG_FILE" 2>&1
     export DEBIAN_FRONTEND=$ORIGINAL_DEBIAN_FRONTEND
 fi
@@ -53,8 +53,8 @@ fetch_and_replace_files() {
     echo "[$(date)] Removed all files from "$DOWNLOAD_DIR"" >> "$BUCKET_LOG_FILE"
     echo "[$(date)] Initiating download of all files from bucket: $BUCKET_NAME" >> "$BUCKET_LOG_FILE"
     gsutil -m cp -r gs://"$BUCKET_NAME"/ansible/* "$DOWNLOAD_DIR" >> "$BUCKET_LOG_FILE" 2>&1
-    sudo chown -R ansible:ansible "$DOWNLOAD_DIR"
-    sudo chmod -Rf +x "$DOWNLOAD_DIR"
+    chown -R ansible:ansible "$DOWNLOAD_DIR"
+    chmod -Rf +x "$DOWNLOAD_DIR"
     echo "[$(date)] Replaced all files" >> "$BUCKET_LOG_FILE"
     wall -n "Replaced all ansible files"
 }
