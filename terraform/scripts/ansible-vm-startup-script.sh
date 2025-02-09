@@ -70,14 +70,14 @@ while true; do
     if [[ "$MESSAGES" != "[]" ]]; then
         # Acknowledge the message
         ACK_ID=$(echo "$MESSAGES" | jq -r '.[].ackId')
-        #Download all files again
-        fetch_and_replace_files
         if [[ -n "$ACK_ID" ]]; then
             gcloud pubsub subscriptions ack "$SUBSCRIPTION_NAME" --ack-ids="$ACK_ID" >> "$BUCKET_LOG_FILE" 2>&1
             echo "[$(date)] Acknowledged message with ack ID: $ACK_ID" >> "$BUCKET_LOG_FILE"
         else
             echo "[$(date)] No ack ID found in message." >> "$BUCKET_LOG_FILE"
         fi
+        #Download all files again
+        fetch_and_replace_files
     else
         echo "[$(date)] No messages found. Sleeping for 1 seconds..." >> "$BUCKET_LOG_FILE"
         sleep 1
