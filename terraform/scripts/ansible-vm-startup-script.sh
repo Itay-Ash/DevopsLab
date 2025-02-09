@@ -28,13 +28,13 @@ if ! command -v jq &>/dev/null || ! command -v gsutil &>/dev/null || ! command -
     ORIGINAL_DEBIAN_FRONTEND=$DEBIAN_FRONTEND
     export DEBIAN_FRONTEND=noninteractive
     echo "[$(date)] Installing necessary tools..." >> "$GENERAL_LOG_FILE"
-    apt-get update && apt-get install -y jq google-cloud-sdk ansible pip >> "$GENERAL_LOG_FILE" 2>&1
+    apt-get update && apt-get install -y jq google-cloud-sdk ansible >> "$GENERAL_LOG_FILE" 2>&1
     ansible-galaxy collection install google.cloud >> "$GENERAL_LOG_FILE" 2>&1
     export DEBIAN_FRONTEND=$ORIGINAL_DEBIAN_FRONTEND
 fi
 
 #Generate SSH KEY
-yes Y | gcloud compute config-ssh >> "$LOG_FILE"
+yes Y | gcloud compute config-ssh >> "$GENERAL_LOG_FILE"
 
 # Gather bucket name
 BUCKET_NAME=$(timeout $TIMEOUT gcloud secrets versions access latest --secret="$BUCKET_NAME_SECRET")
