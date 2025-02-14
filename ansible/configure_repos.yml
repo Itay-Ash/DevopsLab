@@ -1,0 +1,26 @@
+---
+- name: Configure Repositories
+  hosts: all
+  gather_facts: no
+  vars_files:
+    - vars/project_vars.yml
+    - vars/general_vars.yml
+  tasks:
+    - name: Update repositories cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install necessary tools 
+      apt:
+        pkg:
+          - curl
+          - vim
+          - htop
+          - google-cloud-sdk
+        state: present
+    
+    - name: Install Web Group Tools
+      apt:
+        pkg: "{{group_packages.webservers}}"
+      when: "'webservers' in group_names"

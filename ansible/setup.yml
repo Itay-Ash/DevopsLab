@@ -1,0 +1,5 @@
+---
+- name: Running configure_repos.yml
+  import_playbook: configure_repos.yml
+- name: Running setup_web.yml
+  import_playbook: setup_web.yml

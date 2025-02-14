@@ -1,0 +1,7 @@
+---
+- name: Run Web Servers
+  hosts: webservers
+  gather_facts: no
+  vars_files:
+    - vars/project_vars.yml
+    - vars/general_vars.yml
