@@ -6,17 +6,17 @@ all:
     ansible_scp_executable: "{{ ansible_path }}/scripts/gcp-scp-wrapper.sh"
     ansible_ssh_common_args: "--internal-ip --zone={{ zone }} --strict-host-key-checking=no"
 
-web_servers:
+webservers:
   hosts:
     web_vm:
       ansible_host: web-server
 
-mysql_servers:
+mysqlservers:
   hosts:
     mysql_vm:
       ansible_host: mysql-server
 
-jenkins_servers:
+jenkinsservers:
   hosts:
     jenkins_vm:
       ansible_host: jenkins-server
