@@ -6,7 +6,11 @@ group_packages:
     - pip
 
 webservers:
-  nginx_paths:
-    backend:  /usr/nginx/backend
-    frontend: /usr/nginx/frontend
+  paths:
+    nginx:
+      backend:  /usr/nginx/backend
+      frontend: /usr/nginx/frontend
+    bucket:
+        backend:  Web/backend
+        frontend: Web/frontend
   linux_user: nginx
