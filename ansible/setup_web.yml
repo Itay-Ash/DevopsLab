@@ -5,3 +5,23 @@
   vars_files:
     - vars/project_vars.yml
     - vars/general_vars.yml
+  tasks:
+    - name: Create the destination directory
+      ansible.builtin.file:
+        path: "{{ webservers.nginx_paths.frontend }}"
+        state: directory
+        mode: '0755'
+        owner: "{{ webservers.linux_user }}"
+        group: "{{ webservers.linux_user }}"
+
+    - name: Copy Web files to Web-Server
+      google.cloud.gcp_storage_object:
+        action: download
+        bucket: "{{ code_bucket_name }}"
+        src: "Web/frontend/app.tsx"
+        dest: "{{ webservers.nginx_paths.frontend }}/app.tsx"
+        auth_kind: "application"
+        scopes: [
+                "https://www.googleapis.com/auth/devstorage.read_only"
+                ]
+      become_user: "{{ webservers.linux_user }}"

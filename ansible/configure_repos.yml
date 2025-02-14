@@ -6,12 +6,12 @@
     - vars/project_vars.yml
     - vars/general_vars.yml
   tasks:
-    - name: Update repositories cache
+    - name: All groups - Update repositories cache
       apt:
         update_cache: yes
         cache_valid_time: 3600
 
-    - name: Install necessary tools 
+    - name: All groups - Install necessary tools 
       apt:
         pkg:
           - curl
@@ -20,7 +20,13 @@
           - google-cloud-sdk
         state: present
     
-    - name: Install Web Group Tools
+    - name: Web Group - Install Tools
       apt:
         pkg: "{{group_packages.webservers}}"
+      when: "'webservers' in group_names"
+
+    - name: Web Group - Install python google storage distribution
+      ansible.builtin.pip:
+        name: google-cloud-storage
+        state: present
       when: "'webservers' in group_names"

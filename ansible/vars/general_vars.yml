@@ -4,3 +4,9 @@ group_packages:
   webservers:
     - nginx
     - pip
+
+webservers:
+  nginx_paths:
+    backend:  /usr/nginx/backend
+    frontend: /usr/nginx/frontend
+  linux_user: nginx
