@@ -22,11 +22,12 @@
     
     - name: Web Group - Install Tools
       apt:
-        pkg: "{{group_packages.webservers}}"
+        pkg: "{{group_packages.webservers.apt}}"
+        state: present
       when: "'webservers' in group_names"
 
     - name: Web Group - Install python google storage distribution
       ansible.builtin.pip:
-        name: google-cloud-storage
+        name: "{{ group_packages.webservers.pip }}"
         state: present
       when: "'webservers' in group_names"

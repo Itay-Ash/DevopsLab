@@ -2,8 +2,11 @@ ansible_path: /usr/ansible
 
 group_packages:
   webservers:
-    - nginx
-    - pip
+    apt:
+      - nginx
+      - pip
+    pip:
+      - google-cloud-storage
 
 webservers:
   paths:
