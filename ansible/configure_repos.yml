@@ -32,6 +32,31 @@
         state: present
       when: "'webservers' in group_names"
     
+    - name: Mysql Group - Create mysql deb file
+      ansible.builtin.file:
+        path: "/tmp/mysql-apt-config_0.8.33-1_all.deb"
+        state: touch
+        mode: '0755'
+      when: "'mysqlservers' in group_names"
+
+    - name: Mysql Group - Download Mysql repository deb package
+      ansible.builtin.get_url:
+        url: https://repo.mysql.com/mysql-apt-config_0.8.33-1_all.deb
+        dest: /tmp/mysql-apt-config_0.8.33-1_all.deb
+        checksum: md5:e1716b19b84b92f32e94dfd34892322c
+      when: "'mysqlservers' in group_names"
+
+    - name: Mysql Group - Add Mysql repositories
+      apt:
+        deb: /tmp/mysql-apt-config_0.8.33-1_all.deb
+        update_cache: yes
+      when: "'mysqlservers' in group_names"
+    
+    - name: Mysql Group - Add Mysql package
+      apt:
+        name: mysql-server
+      when: "'mysqlservers' in group_names"
+
     - name: Jenkins Group - Install Tools
       apt:
         pkg: "{{group_packages.jenkinsservers.apt}}"
@@ -52,10 +77,6 @@
         keyring: "{{ jenkinsservers.jenkins_key.keyring_path}}"
       when: "'jenkinsservers' in group_names"
     
-    - name: Debug
-      ansible.builtin.debug:
-        msg: "deb [signed-by={{ jenkinsservers.jenkins_key.keyring_path}}] {{ jenkinsservers.jenkins_repository.url }} binary/"
-
     - name: Jenkins Group - Adding jenkins repository
       ansible.builtin.apt_repository:
         repo: "deb [signed-by={{ jenkinsservers.jenkins_key.keyring_path}}] {{ jenkinsservers.jenkins_repository.url }} binary/"
