@@ -33,3 +33,12 @@ webservers:
         backend:  Web/backend
         frontend: Web/frontend
   linux_user: nginx
+
+mysqlservers:
+  mysql_repository:
+    deb_url:
+      https://repo.mysql.com/mysql-apt-config_0.8.33-1_all.deb
+    deb_file_checksum:
+      md5:e1716b19b84b92f32e94dfd34892322c
+    deb_file:
+      /tmp/mysql-apt-config_0.8.33-1_all.deb

@@ -38,7 +38,7 @@
     
     - name: Mysql Group - Create mysql deb file
       ansible.builtin.file:
-        path: "/tmp/mysql-apt-config_0.8.33-1_all.deb"
+        path: "{{mysqlservers.mysql_repository.deb_file}}"
         state: touch
         mode: '0755'
       when: "'mysqlservers' in group_names"
@@ -46,15 +46,15 @@
 
     - name: Mysql Group - Download Mysql repository deb package
       ansible.builtin.get_url:
-        url: https://repo.mysql.com/mysql-apt-config_0.8.33-1_all.deb
-        dest: /tmp/mysql-apt-config_0.8.33-1_all.deb
-        checksum: md5:e1716b19b84b92f32e94dfd34892322c
+        url: "{{mysqlservers.mysql_repository.deb_url}}"
+        dest: "{{mysqlservers.mysql_repository.deb_file}}"
+        checksum: "{{mysqlservers.mysql_repository.deb_file_checksum}}"
       when: "'mysqlservers' in group_names"
       tags: mysqlservers
 
     - name: Mysql Group - Add Mysql repositories
       apt:
-        deb: /tmp/mysql-apt-config_0.8.33-1_all.deb
+        deb: "{{mysqlservers.mysql_repository.deb_file}}"
         update_cache: yes
       when: "'mysqlservers' in group_names"
       tags: mysqlservers
