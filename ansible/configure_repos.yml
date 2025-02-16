@@ -10,6 +10,7 @@
       apt:
         update_cache: yes
         cache_valid_time: 3600
+      tags: all
 
     - name: All groups - Install necessary tools 
       apt:
@@ -19,18 +20,21 @@
           - htop
           - google-cloud-sdk
         state: present
+      tags: all
     
     - name: Web Group - Install Tools
       apt:
         pkg: "{{group_packages.webservers.apt}}"
         state: present
       when: "'webservers' in group_names"
+      tags: webservers
 
     - name: Web Group - Install python google storage distribution
       ansible.builtin.pip:
         name: "{{ group_packages.webservers.pip }}"
         state: present
       when: "'webservers' in group_names"
+      tags: webservers
     
     - name: Mysql Group - Create mysql deb file
       ansible.builtin.file:
@@ -38,6 +42,7 @@
         state: touch
         mode: '0755'
       when: "'mysqlservers' in group_names"
+      tags: mysqlservers
 
     - name: Mysql Group - Download Mysql repository deb package
       ansible.builtin.get_url:
@@ -45,23 +50,27 @@
         dest: /tmp/mysql-apt-config_0.8.33-1_all.deb
         checksum: md5:e1716b19b84b92f32e94dfd34892322c
       when: "'mysqlservers' in group_names"
+      tags: mysqlservers
 
     - name: Mysql Group - Add Mysql repositories
       apt:
         deb: /tmp/mysql-apt-config_0.8.33-1_all.deb
         update_cache: yes
       when: "'mysqlservers' in group_names"
+      tags: mysqlservers
     
     - name: Mysql Group - Add Mysql package
       apt:
         name: mysql-server
       when: "'mysqlservers' in group_names"
+      tags: mysqlservers
 
     - name: Jenkins Group - Install Tools
       apt:
         pkg: "{{group_packages.jenkinsservers.apt}}"
         state: present
       when: "'jenkinsservers' in group_names"
+      tags: jenkinsservers
     
     - name: Jenkins Group - Create jenkins keyring file
       ansible.builtin.file:
@@ -69,6 +78,7 @@
         state: touch
         mode: '0755'
       when: "'jenkinsservers' in group_names"
+      tags: jenkinsservers
 
     - name: Jenkins Group - Add Jenkins repository key
       apt_key:
@@ -76,6 +86,7 @@
         state: present
         keyring: "{{ jenkinsservers.jenkins_key.keyring_path}}"
       when: "'jenkinsservers' in group_names"
+      tags: jenkinsservers
     
     - name: Jenkins Group - Adding jenkins repository
       ansible.builtin.apt_repository:
@@ -83,6 +94,7 @@
         filename: "{{ jenkinsservers.jenkins_repository.file }}"
         state: present
       when: "'jenkinsservers' in group_names"
+      tags: jenkinsservers
     
     - name: Jenkins Group - Install jenkins
       apt:
@@ -90,3 +102,4 @@
         state: present
         update_cache: yes
       when: "'jenkinsservers' in group_names"
+      tags: jenkinsservers
