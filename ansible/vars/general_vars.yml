@@ -21,7 +21,7 @@ jenkinsservers:
     url:
       "https://pkg.jenkins.io/debian-stable"
     file:
-      jenkins.list
+      jenkins
     
 
 webservers:
