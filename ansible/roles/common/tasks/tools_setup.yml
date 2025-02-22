@@ -1,11 +1,11 @@
 ---
 - name: Update repositories cache
-  apt:
+  ansible.builtin.apt:
     update_cache: yes
     cache_valid_time: "{{ cache_check_time }}"
 
 - name: Install necessary tools
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     state: present
   loop: "{{ tools }}"
