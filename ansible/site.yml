@@ -22,3 +22,12 @@
     - vars/project_vars.yml
   roles:
     - mysqlserver
+
+- name: Configure jenkins servers
+  hosts: jenkinsservers
+  gather_facts: no
+  vars_files:
+    - vars/project_vars.yml
+  roles:
+    - jenkinsserver
+

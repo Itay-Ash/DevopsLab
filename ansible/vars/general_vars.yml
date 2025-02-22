@@ -1,20 +1,4 @@
-group_packages:
-  jenkinsservers:
-    apt:
-      - openjdk-17-jre
 
-jenkinsservers:
-  jenkins_key:
-    url: 
-      https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-    keyring_path:
-        /usr/share/keyrings/jenkins-keyring.asc
-  jenkins_repository:
-    url:
-      "https://pkg.jenkins.io/debian-stable"
-    file:
-      jenkins
-    
 
 webservers:
   paths:
