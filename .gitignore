@@ -186,3 +186,5 @@ docs/images/*.psd
 #external
 external/*
 
+# Run git update-index --assume-unchanged project_vars.yml
+project_vars.yml
