@@ -1,10 +1,4 @@
 group_packages:
-  webservers:
-    apt:
-      - nginx
-      - pip
-    pip:
-      - google-cloud-storage
   jenkinsservers:
     apt:
       - openjdk-17-jre

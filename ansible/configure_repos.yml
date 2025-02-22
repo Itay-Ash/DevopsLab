@@ -6,20 +6,6 @@
     - vars/project_vars.yml
     - vars/general_vars.yml
   tasks:
-  
-    - name: Web Group - Install Tools
-      apt:
-        pkg: "{{group_packages.webservers.apt}}"
-        state: present
-      when: "'webservers' in group_names"
-      tags: webservers
-
-    - name: Web Group - Install python google storage distribution
-      ansible.builtin.pip:
-        name: "{{ group_packages.webservers.pip }}"
-        state: present
-      when: "'webservers' in group_names"
-      tags: webservers
     
     - name: Mysql Group - Create mysql deb file
       ansible.builtin.file:
