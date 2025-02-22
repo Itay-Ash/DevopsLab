@@ -5,3 +5,14 @@ tools:
     - pip
   pip:
     - google-cloud-storage
+
+# Nginx
+nginx_paths:
+  backend:  /usr/nginx/backend
+  frontend: /usr/nginx/frontend
+nginx_linux_user: nginx
+
+# Cloud
+bucket_paths:
+    backend:  Web/backend
+    frontend: Web/frontend

@@ -1,0 +1,28 @@
+---
+- name: Create frontend directory
+  ansible.builtin.file:
+    path: "{{ nginx_paths.frontend }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ nginx_linux_user }}"
+    group: "{{ nginx_linux_user }}"
+
+- name: List all frontend files
+  shell: >
+    gsutil ls gs://"{{ code_bucket_name }}"/{{bucket_paths.frontend}} |
+    grep -v /$ |
+    awk -F/ '{print $NF}'
+  register: frontend_files
+
+- name: Fetch all frontend files
+  google.cloud.gcp_storage_object:
+    action: download
+    bucket: "{{ code_bucket_name }}"
+    src:  "{{ bucket_paths.frontend }}/{{ item }}"
+    dest: "{{ nginx_paths.frontend }}/{{ item }}"
+    auth_kind: "application"
+    scopes:
+      - "https://www.googleapis.com/auth/devstorage.read_only"
+  loop: "{{ frontend_files.stdout_lines }}"
+  when: frontend_files.stdout_lines is defined
+  become_user: "{{ nginx_linux_user }}"
