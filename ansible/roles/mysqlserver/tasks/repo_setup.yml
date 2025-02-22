@@ -1,3 +1,4 @@
+---
 - name: Create mysql deb package file
   ansible.builtin.file:
     path: "{{ mysql_repository.deb_file }}"
