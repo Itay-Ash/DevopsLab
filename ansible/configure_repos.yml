@@ -6,35 +6,6 @@
     - vars/project_vars.yml
     - vars/general_vars.yml
   tasks:
-    
-    - name: Mysql Group - Create mysql deb file
-      ansible.builtin.file:
-        path: "{{mysqlservers.mysql_repository.deb_file}}"
-        state: touch
-        mode: '0755'
-      when: "'mysqlservers' in group_names"
-      tags: mysqlservers
-
-    - name: Mysql Group - Download Mysql repository deb package
-      ansible.builtin.get_url:
-        url: "{{mysqlservers.mysql_repository.deb_url}}"
-        dest: "{{mysqlservers.mysql_repository.deb_file}}"
-        checksum: "{{mysqlservers.mysql_repository.deb_file_checksum}}"
-      when: "'mysqlservers' in group_names"
-      tags: mysqlservers
-
-    - name: Mysql Group - Add Mysql repositories
-      apt:
-        deb: "{{mysqlservers.mysql_repository.deb_file}}"
-        update_cache: yes
-      when: "'mysqlservers' in group_names"
-      tags: mysqlservers
-    
-    - name: Mysql Group - Add Mysql package
-      apt:
-        name: mysql-server
-      when: "'mysqlservers' in group_names"
-      tags: mysqlservers
 
     - name: Jenkins Group - Install Tools
       apt:

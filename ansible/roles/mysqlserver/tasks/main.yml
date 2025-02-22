@@ -1,0 +1,6 @@
+---
+- name: Add mysql repo
+  ansible.builtin.import_tasks: repo_setup.yml
+
+- name: Download mysql specific tools
+  ansible.builtin.import_tasks: tools_setup.yml
