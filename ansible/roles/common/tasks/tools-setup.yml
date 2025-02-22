@@ -1,0 +1,11 @@
+---
+- name: Update repositories cache
+  apt:
+    update_cache: yes
+    cache_valid_time: "{{ cache_check_time }}"
+
+- name: Install necessary tools
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ tools }}"

@@ -6,22 +6,7 @@
     - vars/project_vars.yml
     - vars/general_vars.yml
   tasks:
-    - name: All groups - Update repositories cache
-      apt:
-        update_cache: yes
-        cache_valid_time: 3600
-      tags: all
-
-    - name: All groups - Install necessary tools 
-      apt:
-        pkg:
-          - curl
-          - vim
-          - htop
-          - google-cloud-sdk
-        state: present
-      tags: all
-    
+  
     - name: Web Group - Install Tools
       apt:
         pkg: "{{group_packages.webservers.apt}}"

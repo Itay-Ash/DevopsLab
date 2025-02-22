@@ -1,5 +1,8 @@
 ---
-- name: Running configure_repos.yml
-  import_playbook: configure_repos.yml
-- name: Running setup_web.yml
-  import_playbook: setup_web.yml
+- name: Configure all servers
+  hosts: all
+  gather_facts: no
+  vars_files:
+    - vars/project_vars.yml
+  roles:
+    - common

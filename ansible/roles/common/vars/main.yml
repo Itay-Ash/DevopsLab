@@ -1,0 +1,9 @@
+# Cache updating
+cache_check_time: 3600
+
+# Packages to download
+tools:
+  - curl
+  - vim
+  - htop
+  - google-cloud-sdk

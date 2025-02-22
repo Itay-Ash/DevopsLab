@@ -1,5 +1,3 @@
-ansible_path: /usr/ansible
-
 group_packages:
   webservers:
     apt:
