@@ -6,6 +6,7 @@ BUCKET_NAME_SECRET="ansible-bucket-name-secret"
 DOWNLOAD_DIR="/usr/ansible"
 GENERAL_LOG_FILE="/var/log/startup_script.log"
 BUCKET_LOG_FILE="/var/log/bucket_download.log"
+WAIT_FOR_MESSAGE_TIME=1
 TIMEOUT=30
 
 # If user doesn't exist yet, add it.
@@ -62,32 +63,37 @@ fetch_and_replace_files() {
 # Fetch files upon VM startup
 fetch_and_replace_files
 
-check_for_message_stream(){
+check_for_message_stream() {
     echo "[$(date)] Pulling messages from $SUBSCRIPTION_NAME..." >> "$BUCKET_LOG_FILE"
     MESSAGES=$(gcloud pubsub subscriptions pull "$SUBSCRIPTION_NAME" --format="json")
 
-    if [[ "$MESSAGES" != "[]" ]]; then
-        while [[ "$MESSAGES" != "[]" ]]
-        do
-            ACK_ID=$(echo "$MESSAGES" | jq -r '.[].ackId')
-            if [[ -n "$ACK_ID" ]]; then
-                gcloud pubsub subscriptions ack "$SUBSCRIPTION_NAME" --ack-ids="$ACK_ID" >> "$BUCKET_LOG_FILE" 2>&1
-                echo "[$(date)] Acknowledged message with ack ID: $ACK_ID" >> "$BUCKET_LOG_FILE"
-            sleep 1
-            echo "[$(date)] Pulling messages from $SUBSCRIPTION_NAME..." >> "$BUCKET_LOG_FILE"
-            MESSAGES=$(gcloud pubsub subscriptions pull "$SUBSCRIPTION_NAME" --format="json")
-        done
-        true
+    if [[ "$MESSAGES" == "[]" ]]; then
+        return 1
     fi
-    false
+
+    while [[ "$MESSAGES" != "[]" && -n "$MESSAGES" ]]; do
+        ACK_ID=$(echo "$MESSAGES" | jq -r '.[].ackId')
+
+        if [[ -n "$ACK_ID" ]]; then
+            gcloud pubsub subscriptions ack "$SUBSCRIPTION_NAME" --ack-ids="$ACK_ID" >> "$BUCKET_LOG_FILE" 2>&1
+            echo "[$(date)] Acknowledged message with ack ID: $ACK_ID" >> "$BUCKET_LOG_FILE"
+        fi
+
+        sleep $WAIT_FOR_MESSAGE_TIME
+        echo "[$(date)] Pulling messages from $SUBSCRIPTION_NAME..." >> "$BUCKET_LOG_FILE"
+        MESSAGES=$(gcloud pubsub subscriptions pull "$SUBSCRIPTION_NAME" --format="json")
+    done
+
+    echo "[$(date)] No messages found." >> "$BUCKET_LOG_FILE"
+    return 0
 }
 
-# Start pulling messages from the Pub/Sub subscription
+# Infinitely pull messages from the Pub/Sub subscription
 while true; do
-    if [ check_for_message_stream ]
+    if check_for_message_stream; then
         fetch_and_replace_files
     else
-        echo "[$(date)] No messages found. Sleeping for 1 seconds..." >> "$BUCKET_LOG_FILE"
-        sleep 1
+        echo "[$(date)] No messages found. Sleeping for "$WAIT_FOR_MESSAGE_TIME" seconds... " >> "$BUCKET_LOG_FILE"
+        sleep $WAIT_FOR_MESSAGE_TIME
     fi
 done
