@@ -1,13 +1,3 @@
-CREATE TABLE trivia_questions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    question TEXT NOT NULL,
-    option_a TEXT NOT NULL,
-    option_b TEXT NOT NULL,
-    option_c TEXT NOT NULL,
-    option_d TEXT NOT NULL,
-    correct_option CHAR(1) NOT NULL
-);
-
 INSERT INTO trivia_questions (question, option_a, option_b, option_c, option_d, correct_option) VALUES
 ('What is the capital of France?', 'Berlin', 'Madrid', 'Paris', 'Rome', 'C'),
 ('What is 2 + 2?', '3', '4', '5', '6', 'B'),
