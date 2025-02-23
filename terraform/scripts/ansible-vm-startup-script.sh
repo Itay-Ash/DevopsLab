@@ -62,21 +62,29 @@ fetch_and_replace_files() {
 # Fetch files upon VM startup
 fetch_and_replace_files
 
-# Start pulling messages from the Pub/Sub subscription
-while true; do
+check_for_message_stream(){
     echo "[$(date)] Pulling messages from $SUBSCRIPTION_NAME..." >> "$BUCKET_LOG_FILE"
     MESSAGES=$(gcloud pubsub subscriptions pull "$SUBSCRIPTION_NAME" --format="json")
 
     if [[ "$MESSAGES" != "[]" ]]; then
-        # Acknowledge the message
-        ACK_ID=$(echo "$MESSAGES" | jq -r '.[].ackId')
-        if [[ -n "$ACK_ID" ]]; then
-            gcloud pubsub subscriptions ack "$SUBSCRIPTION_NAME" --ack-ids="$ACK_ID" >> "$BUCKET_LOG_FILE" 2>&1
-            echo "[$(date)] Acknowledged message with ack ID: $ACK_ID" >> "$BUCKET_LOG_FILE"
-        else
-            echo "[$(date)] No ack ID found in message." >> "$BUCKET_LOG_FILE"
-        fi
-        #Download all files again
+        while [[ "$MESSAGES" != "[]" ]]
+        do
+            ACK_ID=$(echo "$MESSAGES" | jq -r '.[].ackId')
+            if [[ -n "$ACK_ID" ]]; then
+                gcloud pubsub subscriptions ack "$SUBSCRIPTION_NAME" --ack-ids="$ACK_ID" >> "$BUCKET_LOG_FILE" 2>&1
+                echo "[$(date)] Acknowledged message with ack ID: $ACK_ID" >> "$BUCKET_LOG_FILE"
+            sleep 1
+            echo "[$(date)] Pulling messages from $SUBSCRIPTION_NAME..." >> "$BUCKET_LOG_FILE"
+            MESSAGES=$(gcloud pubsub subscriptions pull "$SUBSCRIPTION_NAME" --format="json")
+        done
+        true
+    fi
+    false
+}
+
+# Start pulling messages from the Pub/Sub subscription
+while true; do
+    if [ check_for_message_stream ]
         fetch_and_replace_files
     else
         echo "[$(date)] No messages found. Sleeping for 1 seconds..." >> "$BUCKET_LOG_FILE"
