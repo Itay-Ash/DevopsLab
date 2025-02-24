@@ -1,0 +1,8 @@
+---
+- name: Change my.conf
+  ansible.builtin.template:
+    src: templates/my.cnf.j2
+    dest: /etc/mysql/my.cnf
+  notify: Restart mysql service
+
+- ansible.builtin.meta: flush_handlers
