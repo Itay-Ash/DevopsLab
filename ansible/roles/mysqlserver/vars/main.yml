@@ -1,6 +1,9 @@
 # Packages to download
 tools:
-  - mysql-server
+  apt:
+    - mysql-server
+  pip:
+    - PyMySQL
 
 # External repository details
 mysql_repository:

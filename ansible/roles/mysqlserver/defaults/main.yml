@@ -1,3 +1,11 @@
+# Packages to download
+tools:
+  apt:
+    - mysql-server
+  pip:
+    - PyMySQL
+
+# External repository details
 mysql_repository:
   deb_url:
     https://repo.mysql.com/mysql-apt-config_0.8.33-1_all.deb
@@ -5,6 +13,3 @@ mysql_repository:
     md5:e1716b19b84b92f32e94dfd34892322c
   deb_file:
     /tmp/mysql-apt-config_0.8.33-1_all.deb
-
-tools:
-  - mysql-server
