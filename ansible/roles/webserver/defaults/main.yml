@@ -2,6 +2,5 @@
 tools:
   apt:
     - nginx
-    - pip
   pip:
     - google-cloud-storage

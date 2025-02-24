@@ -5,5 +5,5 @@ cache_check_time: 3600
 tools:
   - curl
   - vim
-  - htop
+  - pip
   - google-cloud-sdk

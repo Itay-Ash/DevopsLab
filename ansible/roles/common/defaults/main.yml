@@ -4,3 +4,4 @@ cache_check_time: 3600
 # Packages to download
 tools:
   - google-cloud-sdk
+  - pip
