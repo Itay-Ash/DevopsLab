@@ -4,3 +4,6 @@
 
 - name: Download mysql specific tools
   ansible.builtin.import_tasks: tools_setup.yml
+
+- name: Adds file configuration
+  ansible.builtin.import_tasks: config_mysql.yml
