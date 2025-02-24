@@ -13,3 +13,6 @@ mysql_repository:
     md5:e1716b19b84b92f32e94dfd34892322c
   deb_file:
     /tmp/mysql-apt-config_0.8.33-1_all.deb
+
+# MySql variables
+mysql_socket_path: /run/mysqld/mysqld.sock
