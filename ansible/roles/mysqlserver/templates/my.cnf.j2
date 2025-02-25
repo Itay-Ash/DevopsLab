@@ -1,5 +1,8 @@
 [mysqld]
-socket={{ mysql_socket_path }}
+pid-file        = {{ mysqld.pid_file_path }}
+socket          = {{ mysqld.socket_path }}
+datadir         = {{ mysqld.datadir_path }}
+log-error       = {{ mysqld.log_error_path }}
 
 [client]
-socket={{ mysql_socket_path }}
+socket={{ client.socket_path }}

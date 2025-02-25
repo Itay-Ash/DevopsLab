@@ -14,5 +14,15 @@ mysql_repository:
   deb_file:
     /tmp/mysql-apt-config_0.8.33-1_all.deb
 
-# MySql variables
-mysql_socket_path: /run/mysqld/mysqld.sock
+# users
+mysql_linux_user: mysql
+
+# my.cnf.j2 vars
+mysqld:
+  pid_file_path: /var/run/mysqld/mysqld.pid
+  socket_path: /run/mysqld/mysqld.sock
+  datadir_path: /mnt/mysql-disk/mysql
+  log_error_path: /var/log/mysql/error.log
+
+client:
+  socket_path: "{{mysqld.socket_path}}"
