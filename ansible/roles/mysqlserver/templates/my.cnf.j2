@@ -6,3 +6,6 @@ log-error       = {{ mysqld.log_error_path }}
 
 [client]
 socket={{ client.socket_path }}
+
+[mysql]
+prompt="\u@\h [\d]> "
