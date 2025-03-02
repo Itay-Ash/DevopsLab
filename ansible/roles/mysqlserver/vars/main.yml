@@ -4,6 +4,7 @@ tools:
     - mysql-server
   pip:
     - PyMySQL
+    - google-auth
 
 # External repository details
 mysql_repository:
@@ -16,6 +17,9 @@ mysql_repository:
 
 # users
 mysql_linux_user: mysql
+
+# secrets
+mysql_root_password_secret_name: Mysql-Root-Password
 
 # my.cnf.j2 vars
 mysqld:

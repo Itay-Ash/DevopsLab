@@ -15,3 +15,11 @@
   notify: Restart mysql service
 
 - ansible.builtin.meta: flush_handlers
+
+- name: Pull mysql root password from gcp secrets
+  google.cloud.gcp_secret_manager:
+    name: "{{ mysql_root_password_secret_name }}"
+    project: "{{ project }}"
+    auth_kind: "machineaccount"
+    state: present
+  register: mysql_root_password

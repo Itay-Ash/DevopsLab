@@ -4,6 +4,7 @@ tools:
     - mysql-server
   pip:
     - PyMySQL
+    - google-auth
 
 # External repository details
 mysql_repository:
@@ -13,3 +14,19 @@ mysql_repository:
     md5:e1716b19b84b92f32e94dfd34892322c
   deb_file:
     /tmp/mysql-apt-config_0.8.33-1_all.deb
+
+# users
+mysql_linux_user: mysql
+
+# secrets
+mysql_root_password_secret_name: Mysql-Root-Password
+
+# my.cnf.j2 vars
+mysqld:
+  pid_file_path: /var/run/mysqld/mysqld.pid
+  socket_path: /run/mysqld/mysqld.sock
+  datadir_path: /mnt/mysql-disk/mysql
+  log_error_path: /var/log/mysql/error.log
+
+client:
+  socket_path: "{{mysqld.socket_path}}"
