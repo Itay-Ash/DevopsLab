@@ -6,6 +6,7 @@ BUCKET_NAME_SECRET="ansible-bucket-name-secret"
 DOWNLOAD_DIR="/usr/ansible"
 GENERAL_LOG_FILE="/var/log/startup_script.log"
 BUCKET_LOG_FILE="/var/log/bucket_download.log"
+ANSIBLE_COLLECTION_PATH="/usr/share/ansible/collections"
 WAIT_FOR_MESSAGE_TIME=1
 TIMEOUT=30
 
@@ -30,7 +31,10 @@ if ! command -v jq &>/dev/null || ! command -v gsutil &>/dev/null || ! command -
     export DEBIAN_FRONTEND=noninteractive
     echo "[$(date)] Installing necessary tools..." >> "$GENERAL_LOG_FILE"
     apt-get update && apt-get install -y jq google-cloud-sdk ansible >> "$GENERAL_LOG_FILE" 2>&1
-    ansible-galaxy collection install google.cloud >> "$GENERAL_LOG_FILE" 2>&1
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py >> "$GENERAL_LOG_FILE" 2>&1
+    python3 get-pip.py >> "$GENERAL_LOG_FILE" 2>&1
+    pip install google-auth >> "$GENERAL_LOG_FILE" 2>&1
+    ansible-galaxy collection install google.cloud --force -p "$ANSIBLE_COLLECTION_PATH"
     export DEBIAN_FRONTEND=$ORIGINAL_DEBIAN_FRONTEND
 fi
 
