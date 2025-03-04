@@ -40,9 +40,14 @@
       set_fact:
         result: !!null
 
-- name: Removes anonymous user account for localhost
+- name: Removes anonymous user account
   community.mysql.mysql_user:
     login_password: "{{ mysql_root_password.value }}"
     name: ''
-    host: localhost
     state: absent
+
+- name: Allowing root login only localy
+  community.mysql.mysql_query:
+    login_password: "{{ mysql_root_password.value }}"
+    query: DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+  register: result
