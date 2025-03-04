@@ -6,3 +6,9 @@
 - name: Delete secret vars
   set_fact:
     mysql_root_password: !!null
+  no_log: True
+
+- name: Delete users var
+  set_fact:
+    mysql_users: !!null
+  no_log: True
