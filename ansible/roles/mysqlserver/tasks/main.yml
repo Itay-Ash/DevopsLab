@@ -7,3 +7,6 @@
 
 - name: Add file configuration
   ansible.builtin.import_tasks: config_mysql.yml
+
+- name: Add mysql users
+  ansible.builtin.import_tasks: add_users.yml
