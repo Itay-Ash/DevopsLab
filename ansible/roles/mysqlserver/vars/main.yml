@@ -5,6 +5,7 @@ tools:
   pip:
     - PyMySQL
     - google-auth
+    - cryptography
 
 # External repository details
 mysql_repository:

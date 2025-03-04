@@ -39,3 +39,10 @@
     - name: Remove result var
       set_fact:
         result: !!null
+
+- name: Removes anonymous user account for localhost
+  community.mysql.mysql_user:
+    login_password: "{{ mysql_root_password.value }}"
+    name: ''
+    host: localhost
+    state: absent
