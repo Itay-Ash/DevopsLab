@@ -1,0 +1,27 @@
+- name: Set Root Password
+  block:
+    - name: Set Root Password (Only works if no password is set)
+      community.mysql.mysql_query:
+        query: ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY "{{ mysql_root_password.value }}"
+        login_unix_socket: "{{ mysqld.socket_path }}"
+      register: result
+      no_log: True
+      failed_when:
+        - result.changed == false
+        - '"using password: NO" not in result.msg'
+  always:
+    - name: Remove result var
+      set_fact:
+        result: !!null
+
+- name: Restricting root login to local access only
+  community.mysql.mysql_query:
+    login_password: "{{ mysql_root_password.value }}"
+    query: DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+  register: result
+
+- name: Remove anonymous user accounts
+  community.mysql.mysql_user:
+    login_password: "{{ mysql_root_password.value }}"
+    name: ''
+    state: absent

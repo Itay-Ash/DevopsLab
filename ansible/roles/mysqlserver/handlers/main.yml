@@ -2,3 +2,7 @@
   service:
     name: mysql
     state: restarted
+
+- name: Delete secret vars
+  set_fact:
+    mysql_root_password: !!null

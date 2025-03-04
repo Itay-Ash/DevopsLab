@@ -5,8 +5,14 @@
 - name: Download mysql specific tools
   ansible.builtin.import_tasks: tools_setup.yml
 
-- name: Add file configuration
-  ansible.builtin.import_tasks: config_mysql.yml
+- name: Setup my.cnf
+  ansible.builtin.import_tasks: set_my_cnf.yml
+
+- name: Pull all needed secrets
+  ansible.builtin.import_tasks: pull_secrets.yml
+
+- name: Setup Mysql
+  ansible.builtin.import_tasks: setup_mysql.yml
 
 - name: Add mysql users
   ansible.builtin.import_tasks: add_users.yml
