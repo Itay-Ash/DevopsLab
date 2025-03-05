@@ -25,3 +25,9 @@
     login_password: "{{ mysql_root_password.value }}"
     name: ''
     state: absent
+
+- name: Create a database for the web server
+  community.mysql.mysql_db:
+    login_password: "{{ mysql_root_password.value }}"
+    name: web
+    state: present

@@ -6,6 +6,7 @@ tools:
     - PyMySQL
     - google-auth
     - cryptography
+    - google-cloud-storage
 
 # External repository details
 mysql_repository:
@@ -18,7 +19,6 @@ mysql_repository:
 
 # users
 mysql_linux_user: mysql
-mysql_user: devopslab
 
 # secrets
 mysql_root_password_secret_name: Mysql-Root-Password
@@ -32,3 +32,13 @@ mysqld:
 
 client:
   socket_path: "{{mysqld.socket_path}}"
+
+# Mysql code files path
+mysql_paths:
+  schema: /usr/db/schema
+  data: /usr/db/data
+
+# Cloud
+mysql_bucket_paths:
+  schema:  DB/schema
+  data: DB/data

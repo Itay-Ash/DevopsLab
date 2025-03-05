@@ -16,3 +16,6 @@
 
 - name: Add mysql users
   ansible.builtin.import_tasks: add_users.yml
+
+- name: Fetch mysql files from cloud and run them
+  ansible.builtin.import_tasks: fetch_and_dump_mysql_scripts.yml
