@@ -7,7 +7,7 @@ DOWNLOAD_DIR="/usr/ansible"
 GENERAL_LOG_FILE="/var/log/startup_script.log"
 BUCKET_LOG_FILE="/var/log/bucket_download.log"
 ANSIBLE_COLLECTION_PATH="/usr/share/ansible/collections"
-WAIT_FOR_MESSAGE_TIME=1
+WAIT_FOR_MESSAGE_TIME=0.3
 TIMEOUT=30
 
 # If user doesn't exist yet, add it.
