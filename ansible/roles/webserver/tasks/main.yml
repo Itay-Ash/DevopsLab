@@ -2,8 +2,5 @@
 - name: Download webserver specific tools
   ansible.builtin.import_tasks: tools_setup.yml
 
-- name: Fetch Frontend files
-  ansible.builtin.import_tasks: fetch_frontend_files.yml
-
-- name: Fetch Backend files
-  ansible.builtin.import_tasks: fetch_backend_files.yml
+- name: Fetch Backend and Frontend files
+  ansible.builtin.import_tasks: fetch_backend_and_frontend_files.yml
