@@ -1,0 +1,5 @@
+- name: Add nginx public dns configuration file
+  ansible.builtin.template:
+    src: trivia.servegame.com.j2
+    dest: /etc/nginx/sites-available/trivia.servegame.com
+  notify: Restart nginx service
