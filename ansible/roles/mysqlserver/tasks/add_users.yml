@@ -22,8 +22,8 @@
   community.mysql.mysql_query:
     login_password: "{{ mysql_root_password.value }}"
     query:
-    - CREATE USER "{{ web_mysql_user.username }}"@"127.0.0.1" IDENTIFIED WITH caching_sha2_password BY "{{ web_mysql_user.password }}"
-    - GRANT SELECT on *.* TO "{{ web_mysql_user.username }}"@'127.0.0.1' WITH GRANT OPTION;
+    - CREATE USER "{{ web_mysql_user.username }}"@"%" IDENTIFIED WITH caching_sha2_password BY "{{ web_mysql_user.password }}"
+    - GRANT SELECT on *.* TO "{{ web_mysql_user.username }}"@"%" WITH GRANT OPTION;
     - flush privileges;
     single_transaction: True
   when: web_mysql_user.username not in mysql_users.query_result[0] | map(attribute='user') | list

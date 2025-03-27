@@ -3,7 +3,9 @@ pid-file        = {{ mysqld.pid_file_path }}
 socket          = {{ mysqld.socket_path }}
 datadir         = {{ mysqld.datadir_path }}
 log-error       = {{ mysqld.log_error_path }}
-bind-address    = 127.0.0.1
+bind-address    = {{ mysql_server_dns }},localhost
+port            = 3306
+
 [client]
 socket={{ client.socket_path }}
 
