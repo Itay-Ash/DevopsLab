@@ -8,7 +8,7 @@
     owner: "{{ mysql_linux_user }}"
     group: "{{ mysql_linux_user }}"
 
-- name: Change my.conf
+- name: Change my.cnf
   ansible.builtin.template:
     src: templates/my.cnf.j2
     dest: /etc/mysql/my.cnf
