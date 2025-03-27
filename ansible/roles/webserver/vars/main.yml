@@ -20,3 +20,4 @@ server_port: 80
 bucket_paths:
     backend:  Web/backend
     frontend: Web/frontend
+backed_env_file_secret_name: Backend-Env-File
