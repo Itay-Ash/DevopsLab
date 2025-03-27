@@ -4,3 +4,9 @@
 
 - name: Fetch Backend and Frontend files
   ansible.builtin.import_tasks: fetch_backend_and_frontend_files.yml
+
+- name: Setup nginx
+  ansible.builtin.import_tasks: setup_nginx.yml
+
+- name: Setup and execute backend
+  ansible.builtin.import_tasks: run_backend.yml

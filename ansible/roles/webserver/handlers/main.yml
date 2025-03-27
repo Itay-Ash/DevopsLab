@@ -1,0 +1,14 @@
+- name: Restart nginx service
+  service:
+    name: nginx
+    state: restarted
+
+- name: Delete secret vars
+  set_fact:
+    backend_env_file: !!null
+  no_log: True
+
+- name: Delete backend .env file
+  ansible.builtin.file:
+    path: "{{nginx_paths.backend}}/.env"
+    state: absent
