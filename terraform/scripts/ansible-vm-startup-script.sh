@@ -34,7 +34,7 @@ if ! command -v jq &>/dev/null || ! command -v gsutil &>/dev/null || ! command -
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py >> "$GENERAL_LOG_FILE" 2>&1
     python3 get-pip.py >> "$GENERAL_LOG_FILE" 2>&1
     pip install google-auth >> "$GENERAL_LOG_FILE" 2>&1
-    ansible-galaxy collection install google.cloud --force -p "$ANSIBLE_COLLECTION_PATH"
+    ansible-galaxy collection install google.cloud community.general:4.8.11 --force -p "$ANSIBLE_COLLECTION_PATH"
     export DEBIAN_FRONTEND=$ORIGINAL_DEBIAN_FRONTEND
 fi
 
