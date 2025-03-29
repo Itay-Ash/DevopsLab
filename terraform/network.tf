@@ -57,7 +57,7 @@ resource "google_compute_address" "web_server_public_ip" {
   description = "Static public IP for the web server"
 }
 
-resource "google_compute_address" "jenkins_public_ip" {
+resource "google_compute_address" "jenkins_server_public_ip" {
   name    = "jenkins-public-ip"
   region  = var.region
   description = "Static public IP for Jenkins CI/CD server"
