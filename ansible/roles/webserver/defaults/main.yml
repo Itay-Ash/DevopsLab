@@ -4,3 +4,20 @@ tools:
     - nginx
   pip:
     - google-cloud-storage
+
+# Nginx
+nginx_paths:
+  backend:  /usr/nginx/backend
+  frontend: /usr/nginx/frontend
+nginx_linux_user: nginx
+
+# Nginx template
+frontend_port: 3000
+backend_port: 8000
+server_port: 80
+
+# Cloud
+bucket_paths:
+    backend:  Web/backend
+    frontend: Web/frontend
+backed_env_file_secret_name: Backend-Env-File
