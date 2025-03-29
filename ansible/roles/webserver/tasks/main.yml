@@ -10,3 +10,6 @@
 
 - name: Setup and execute backend
   ansible.builtin.import_tasks: run_backend.yml
+
+- name: Setup and execute frontend
+  ansible.builtin.import_tasks: run_frontend.yml

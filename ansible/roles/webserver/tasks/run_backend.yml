@@ -1,4 +1,4 @@
-- name: Check if requirements.txt file exists
+- name: Check if requirements.txt file exists for backend
   stat:
     path: "{{nginx_paths.backend}}/requirements.txt"
   register: requirements_file_check_result
@@ -8,17 +8,18 @@
     requirements: "{{nginx_paths.backend}}/requirements.txt"
   when: requirements_file_check_result.stat.exists
 
-- name: Pull env file secret
+- name: Pull backend env file secret
   google.cloud.gcp_secret_manager:
-    name: "{{ backed_env_file_secret_name }}"
+    name: "{{ secret_name.backed_env_file }}"
     project: "{{ project }}"
     auth_kind: "machineaccount"
     state: present
+  no_log: true
   register: backend_env_file
   changed_when: true
   notify: Delete secret vars
 
-- name: Create an environment file
+- name: Create backend environment file
   ansible.builtin.copy:
     dest: "{{nginx_paths.backend}}/.env"
     content: |

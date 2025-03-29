@@ -2,6 +2,7 @@
 tools:
   apt:
     - nginx
+    - npm
   pip:
     - google-cloud-storage
 
@@ -20,4 +21,6 @@ server_port: 80
 bucket_paths:
     backend:  Web/backend
     frontend: Web/frontend
-backed_env_file_secret_name: Backend-Env-File
+secret_name:
+  backed_env_file: Backend-Env-File
+  frontend_env_file: Frontend-Env-File
