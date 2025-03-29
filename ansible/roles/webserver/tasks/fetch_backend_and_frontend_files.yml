@@ -1,4 +1,26 @@
 ---
+- name: List all backend files
+  shell: >
+    gsutil ls gs://"{{ code_bucket_name }}"/{{bucket_paths.backend}} |
+    grep -v /$ |
+    awk -F/ '{print $NF}'
+  register: backend_files
+
+- name: List all frontend folders
+  shell: >
+    gsutil ls -R gs://code-bucket-devopslab/Web/frontend 
+    | grep /:
+    | awk -Ffrontend/ '{print substr ($NF, 1, length($NF)-2)}'
+  register: frontend_folders
+
+- name: List all frontend files
+  shell: >
+    gsutil ls -R gs://code-bucket-devopslab/Web/frontend 
+    | grep -v /: 
+    | awk -Ffrontend/ '{print $NF}'
+    | sed '/^$/d'
+  register: frontend_files
+
 - name: Create backend directory
   ansible.builtin.file:
     path: "{{ nginx_paths.backend }}"
@@ -7,27 +29,14 @@
     owner: "{{ nginx_linux_user }}"
     group: "{{ nginx_linux_user }}"
 
-- name: Create frontend directory
+- name: Create all frontend directories
   ansible.builtin.file:
-    path: "{{ nginx_paths.frontend }}"
+    path: "{{ nginx_paths.frontend }}/{{item}}"
     state: directory
     mode: '0755'
     owner: "{{ nginx_linux_user }}"
     group: "{{ nginx_linux_user }}"
-
-- name: List all backend files
-  shell: >
-    gsutil ls gs://"{{ code_bucket_name }}"/{{bucket_paths.backend}} |
-    grep -v /$ |
-    awk -F/ '{print $NF}'
-  register: backend_files
-
-- name: List all frontend files
-  shell: >
-    gsutil ls gs://"{{ code_bucket_name }}"/{{bucket_paths.frontend}} |
-    grep -v /$ |
-    awk -F/ '{print $NF}'
-  register: frontend_files
+  loop: "{{ frontend_folders.stdout_lines }}"
 
 - name: Fetch all backend files
   google.cloud.gcp_storage_object:

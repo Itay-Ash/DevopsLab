@@ -1,0 +1,7 @@
+{
+  "short_name": "Trivia",
+  "name": "Trivia-Website",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone"
+}
