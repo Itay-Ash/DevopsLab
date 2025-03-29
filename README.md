@@ -40,8 +40,8 @@ This document captures my journey through creating a fully integrated DevOps lab
     - [x] **Web server VM**: Install NGINX.
     - [x] **Database server VM**: Install MySQL.
     - [x] **CI/CD server VM**: Install Jenkins.
-  - [ ] Run Ansible playbooks to configure all VMs.
-    - [ ] **Web server VM**: Configure and run NGINX.
+  - [x] Run Ansible playbooks to configure all VMs.
+    - [x] **Web server VM**: Configure and run NGINX.
     - [x] **Database server VM**: Configure and run MySQL.
     - [x] **CI/CD server VM**: Configure and run Jenkins.
   - [x] Optimize Ansible runtime.
