@@ -13,7 +13,7 @@ async function fetchquestions(): Promise<void> {
   if (questions.length > 0) return; // Prevent unnecessary re-fetching
 
   try {
-    const response = await fetch(process.env.REACT_APP_API_URL + "/api/questions", {
+    const response = await fetch(process.env.REACT_APP_API_URL + "/questions", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

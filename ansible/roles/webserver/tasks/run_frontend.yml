@@ -16,7 +16,7 @@
 
 - name: Create frontend environment file
   ansible.builtin.copy:
-    dest: "{{nginx_paths.backend}}/.env"
+    dest: "{{nginx_paths.frontend}}/.env"
     content: |
       {{frontend_env_file.value}}
   notify: Delete frontend .env file
