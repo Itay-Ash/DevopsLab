@@ -126,24 +126,34 @@ resource "google_storage_bucket_object" "db_files" {
 #               PUB/SUBs               #
 ########################################
 
+# Create topic (similar to message stream) for ansible bucket changes
 resource "google_pubsub_topic" "ansible_bucket_topic" {
   name = "ansible-bucket-topic"
 }
 
+# Import the data for gcp's storage account
+data "google_storage_project_service_account" "gcs_account" {
+}
+
+# Give gcp's storage account premissions to publish to the topic
 resource "google_pubsub_topic_iam_member" "ansible_bucket_publisher" {
   topic = google_pubsub_topic.ansible_bucket_topic.name
 
   role   = "roles/pubsub.publisher"
-  member = "serviceAccount:${var.gcp_storage_iam_account_email}"
+  member = "serviceAccount:${data.google_storage_project_service_account.gcs_account.email_address}"
 }
 
+# Create notifications in the topic based on ansible bucket changes
 resource "google_storage_notification" "bucket_notification" {
   bucket                  = google_storage_bucket.ansible_bucket.name
   topic                   = google_pubsub_topic.ansible_bucket_topic.id
   event_types             = ["OBJECT_FINALIZE", "OBJECT_DELETE"]
   payload_format          = "JSON_API_V1"
+
+  depends_on = [ google_pubsub_topic_iam_member.ansible_bucket_publisher ]
 }
 
+# Create subscription to follow for new messages.
 resource "google_pubsub_subscription" "ansible_bucket_subscription" {
   name  = "ansible-bucket-subscription"
   topic = google_pubsub_topic.ansible_bucket_topic.name
