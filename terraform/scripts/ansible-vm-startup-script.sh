@@ -3,9 +3,10 @@
 # Variables
 SUBSCRIPTION_NAME="ansible-bucket-subscription"
 BUCKET_NAME_SECRET="ansible-bucket-name-secret"
-DOWNLOAD_DIR="/usr/ansible"
+ANSIBLE_DIR="/usr/ansible"
 GENERAL_LOG_FILE="/var/log/startup_script.log"
 BUCKET_LOG_FILE="/var/log/bucket_download.log"
+ANSIBLE_PLAYBOOK_LOG_FILE="/var/log/ansible_playbook.log"
 ANSIBLE_COLLECTION_PATH="/usr/share/ansible/collections"
 WAIT_FOR_MESSAGE_TIME=0.3
 TIMEOUT=30
@@ -17,12 +18,13 @@ if ! id -u ansible &>/dev/null; then
 fi
 
 # Create a directory for ansible files
-mkdir -p "$DOWNLOAD_DIR"
-chown -R ansible:ansible "$DOWNLOAD_DIR"
+mkdir -p "$ANSIBLE_DIR"
+chown -R ansible:ansible "$ANSIBLE_DIR"
 
 # Create log files
 touch "$GENERAL_LOG_FILE"
-touch "$BUCKET_LOG_FILE"
+touch  "$BUCKET_LOG_FILE"
+echo "" > "$ANSIBLE_PLAYBOOK_LOG_FILE"
 
 # Install necessary tools if not already installed
 if ! command -v jq &>/dev/null || ! command -v gsutil &>/dev/null || ! command -v ansible &>/dev/null; then
@@ -54,18 +56,22 @@ fi
 
 # Fetch all files from the bucket and replace any existing ones
 fetch_and_replace_files() {
-    sudo -u ansible rm -r "$DOWNLOAD_DIR"/*
-    echo "[$(date)] Removed all files from "$DOWNLOAD_DIR"" >> "$BUCKET_LOG_FILE"
+    sudo -u ansible rm -r "$ANSIBLE_DIR"/*
+    echo "[$(date)] Removed all files from "$ANSIBLE_DIR"" >> "$BUCKET_LOG_FILE"
     echo "[$(date)] Initiating download of all files from bucket: $BUCKET_NAME" >> "$BUCKET_LOG_FILE"
-    gsutil -m cp -r gs://"$BUCKET_NAME"/ansible/* "$DOWNLOAD_DIR" >> "$BUCKET_LOG_FILE" 2>&1
-    chown -R ansible:ansible "$DOWNLOAD_DIR"
-    chmod -Rf +x "$DOWNLOAD_DIR"
+    gsutil -m cp -r gs://"$BUCKET_NAME"/ansible/* "$ANSIBLE_DIR" >> "$BUCKET_LOG_FILE" 2>&1
+    chown -R ansible:ansible "$ANSIBLE_DIR"
+    chmod -Rf +x "$ANSIBLE_DIR"
     echo "[$(date)] Replaced all files" >> "$BUCKET_LOG_FILE"
     wall -n "Replaced all ansible files"
 }
 
 # Fetch files upon VM startup
 fetch_and_replace_files
+
+# Run ansible playbook on startup
+(cd "$ANSIBLE_DIR" && ansible-playbook site.yml -v >> "$ANSIBLE_PLAYBOOK_LOG_FILE" 2>&1)
+
 
 check_for_message_stream() {
     echo "[$(date)] Pulling messages from $SUBSCRIPTION_NAME..." >> "$BUCKET_LOG_FILE"
