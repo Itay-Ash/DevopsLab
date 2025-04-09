@@ -3,6 +3,7 @@ tools:
   apt:
     - nginx
     - npm
+    - ufw
   pip:
     - google-cloud-storage
 
@@ -10,12 +11,16 @@ tools:
 nginx_paths:
   backend:  /usr/nginx/backend
   frontend: /usr/nginx/frontend
+  sites_available: /etc/nginx/sites-available
+  sites_enabled: /etc/nginx/sites-enabled/
 nginx_linux_user: nginx
+
 
 # Nginx template
 frontend_port: 3000
 backend_port: 8000
 server_port: 80
+web_nginx_template_file_name: trivia.servegame.com
 
 # Cloud
 bucket_paths:
@@ -24,3 +29,8 @@ bucket_paths:
 secret_name:
   backed_env_file: Backend-Env-File
   frontend_env_file: Frontend-Env-File
+
+# Local fw
+firewall_allow_ports:
+  - 22
+  - "{{server_port}}"

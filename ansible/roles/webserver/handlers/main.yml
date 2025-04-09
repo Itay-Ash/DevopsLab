@@ -17,3 +17,7 @@
   ansible.builtin.file:
     path: "{{nginx_paths.frontend}}/.env"
     state: absent
+
+- name: Enable local fw
+  community.general.ufw:
+    state: enabled

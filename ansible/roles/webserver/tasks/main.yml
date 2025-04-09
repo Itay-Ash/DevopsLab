@@ -13,3 +13,6 @@
 
 - name: Setup and execute frontend
   ansible.builtin.import_tasks: run_frontend.yml
+
+- name: Configure local firewall
+  ansible.builtin.import_tasks: configure_local_fw.yml
