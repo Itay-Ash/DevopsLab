@@ -4,6 +4,7 @@ all:
     ansible_ssh_executable: "{{ ansible_path }}/scripts/gcp-ssh-wrapper.sh"
     ansible_scp_executable: "{{ ansible_path }}/scripts/gcp-scp-wrapper.sh"
     ansible_ssh_common_args: "--internal-ip --zone={{ zone }} --strict-host-key-checking=no"
+    ansible_python_interpreter: "/usr/bin/python3"
 
 webservers:
   hosts:

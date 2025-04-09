@@ -2,22 +2,27 @@
 # This is a wrapper script allowing to use GCP's IAP SSH option to connect
 # to our servers.
 
-cmd="${@: -1: 1}"  # Grabs the last argument sent, the command to execute.
-host="${@: -2: 1}" # Grabs the second to last argument, the host itself.
+destination="${@: -1: 1}"  # Grabs the last argument sent, the destination server + path.
+source="${@: -2: 1}" # Grabs the second to last argument, the source path.
 
-# Only takes arguments with --, starts at the last argument and stops after gathering all -- arguments.
+# Remove [] around our source, as gcloud scp doesn't understand this syntax
+destination=$(echo "${destination}" | tr -d '[]')
+
+# Only takes arguments with --, starts at the last argument.
+# Finds which user is used to connect to the remote machine.
+# Stops after gathering all -- arguments and user.
 declare -a opts
+user=""
 for (( i=$# - 3; i>=1; i-- )); do
     ssh_arg="${!i}"
     if [[ "${ssh_arg}" == --* ]]; then
         opts+=("${ssh_arg}")
-    elif [ ${#opts[@]} -gt 0 ]; then
+    elif [[ "${ssh_arg}" == *User* ]]; then
+        user=$(echo "${ssh_arg}" | cut -d'=' -f2 | tr -d '"')
+    elif [[ ${#opts[@]} -gt 0 && -n "$user" ]]; then
         break
     fi
 done
 
-# Remove [] around our host, as gcloud scp doesn't understand this syntax
-cmd=$(echo "${cmd}" | tr -d '[]')
-
 # Execute the command
-exec gcloud compute scp "${opts[@]}" "${host}" "${cmd}"
+exec gcloud compute scp "${opts[@]}" "${source}" "${user}"@"${destination}"
