@@ -24,5 +24,6 @@
 
 - name: Configure https using certbot
   shell: |
-    certbot --nginx -d "{{web_nginx_template_file_name}}" --email "{{email_for_certificate}}" --agree-tos
+    certbot --nginx -d "{{web_nginx_template_file_name}}" --email "{{email_for_certificate}}" --agree-tos --non-interactive
+  no_log: true
   notify: Restart nginx service
