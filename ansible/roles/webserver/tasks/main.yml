@@ -17,5 +17,5 @@
 - name: Configure local firewall
   ansible.builtin.import_tasks: configure_local_fw.yml
 
-- name: Setup a certificate
-  ansible.builtin.import_tasks: setup_certificate.yml
+- name: Update public dns from no-ip using a ddns key and setup a certificate 
+  ansible.builtin.import_tasks: setup_dns_and_certificate.yml
