@@ -5,14 +5,17 @@
 - name: Fetch Backend and Frontend files
   ansible.builtin.import_tasks: fetch_backend_and_frontend_files.yml
 
-- name: Setup nginx
-  ansible.builtin.import_tasks: setup_nginx.yml
-
 - name: Setup and execute backend
   ansible.builtin.import_tasks: run_backend.yml
 
 - name: Setup and execute frontend
   ansible.builtin.import_tasks: run_frontend.yml
+
+- name: Setup nginx
+  ansible.builtin.import_tasks: setup_nginx.yml
+
+- name: Setup a certificate
+  ansible.builtin.import_tasks: setup_certificate.yml
 
 - name: Configure local firewall
   ansible.builtin.import_tasks: configure_local_fw.yml

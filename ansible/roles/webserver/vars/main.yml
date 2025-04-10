@@ -4,6 +4,8 @@ tools:
     - nginx
     - npm
     - ufw
+    - certbot
+    - python3-certbot-nginx
   pip:
     - google-cloud-storage
 
@@ -19,7 +21,7 @@ nginx_linux_user: nginx
 # Nginx template
 frontend_port: 3000
 backend_port: 8000
-server_port: 80
+unsafe_server_port: 80
 web_nginx_template_file_name: trivia.servegame.com
 
 # Cloud
@@ -33,4 +35,5 @@ secret_name:
 # Local fw
 firewall_allow_ports:
   - 22
-  - "{{server_port}}"
+  - "{{unsafe_server_port}}"
+  - 443

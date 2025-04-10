@@ -1,12 +1,11 @@
-- name: Add nginx public dns configuration file
+- name: Add trivia website configuration file
   ansible.builtin.template:
     src: "{{web_nginx_template_file_name}}.j2"
     dest: "{{nginx_paths.sites_available}}/{{web_nginx_template_file_name}}"
 
 # Nginx's conf file looks for sites files in sites-enabled not sites-available
-- name: Create dns configuration file symbolic link
+- name: Add trivia website configuration file symbolic link
   ansible.builtin.file:
     src: "{{nginx_paths.sites_available}}/{{web_nginx_template_file_name}}"
     dest: "{{nginx_paths.sites_enabled}}/{{web_nginx_template_file_name}}"
     state: link
-  notify: Restart nginx service
