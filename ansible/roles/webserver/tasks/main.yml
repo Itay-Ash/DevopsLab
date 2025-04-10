@@ -14,8 +14,8 @@
 - name: Setup nginx
   ansible.builtin.import_tasks: setup_nginx.yml
 
-- name: Setup a certificate
-  ansible.builtin.import_tasks: setup_certificate.yml
-
 - name: Configure local firewall
   ansible.builtin.import_tasks: configure_local_fw.yml
+
+- name: Setup a certificate
+  ansible.builtin.import_tasks: setup_certificate.yml

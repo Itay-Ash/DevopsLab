@@ -9,3 +9,4 @@
     src: "{{nginx_paths.sites_available}}/{{web_nginx_template_file_name}}"
     dest: "{{nginx_paths.sites_enabled}}/{{web_nginx_template_file_name}}"
     state: link
+  notify: Restart nginx service
