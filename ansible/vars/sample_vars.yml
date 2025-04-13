@@ -1,0 +1,27 @@
+# Project
+ansible_path: /usr/ansible
+ansible_user: #user
+zone: #zone
+region: #region
+project: #project
+
+# Buckets
+code_bucket_name: #bucket_name
+
+# Users
+devopslab_mysql_user:
+  username: #user
+  password: #password
+web_mysql_user:
+  username: #user
+  password: #password
+
+# DNS
+mysql_server_dns: #mysql_server_dns
+email_for_certificate: #email
+
+ddns_user:
+  username: #user
+  password: #password
+
+# This is file is for git documenting, the values are in project_vars.yml which is untracked by git

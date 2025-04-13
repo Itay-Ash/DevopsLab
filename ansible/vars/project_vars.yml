@@ -1,5 +1,0 @@
-ansible_path: /usr/ansible
-ansible_user: #user
-code_bucket_name: #bucket
-zone: #zone
-# Sensitive variables are hidden to maintain project security.
