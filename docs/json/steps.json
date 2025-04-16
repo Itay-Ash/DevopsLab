@@ -26,16 +26,22 @@
         "title": "Step 2: Configure VMs with Ansible (Automation & Consistency) 🔄",
         "objective": "Use Ansible to automate the installation and configuration of services on the VMs.",
         "action": [
-            "Create an Ansible inventory listing Terraform-provisioned VMs (e.g., web, DB, CI/CD servers).",
-            "Write playbooks to install necessary services:",
-            "Web server VM: Install NGINX, PHP, etc.",
-            "DB server VM: Install MySQL or PostgreSQL.",
-            "CI/CD VM: Install Jenkins.",
-            "Run Ansible playbooks to configure all VMs."
+            "Enhance Terraform infrastructure:",  
+            "- Provision an Ansible VM.",
+            "- Create a bucket for Ansible code and dynamically update files on the Ansible VM.",
+            "- Create a bucket to store all necessary scripts for other VMs.",
+            "Configure an Ansible inventory for Terraform-provisioned VMs (web, database, and CI/CD servers).",
+            "Write a playbook to install, configure and run necessary services:",
+            "- Web server VM: NGINX.",
+            "- Database server VM: MySQL.",
+            "- CI/CD server VM: Jenkins.",
+            "-  Optimize Ansible runtime.",
+            "Create and modify the ansible.cfg file.",
+            "Create and modify wrappers for GCP SSH and SCP."
         ],
         "key-connection": "Ansible ensures all machines are consistently configured, minimizing manual intervention and maintaining uniformity.",
         "image": "icons/ansible.png",
-        "issue": ""
+        "issue": "https://github.com/OwwFire/DevopsLab/issues/6"
     },
     {
         "title": "Step 3: Set Up Jenkins for CI/CD (Automation Integration) 🧩",
