@@ -37,14 +37,10 @@ This document captures my journey through creating a fully integrated DevOps lab
     - [x] Create a bucket for Ansible code and dynamically update files on the Ansible VM.  
     - [x] Create a bucket to store all necessary scripts for other VMs.
   - [x] Configure an Ansible inventory for Terraform-provisioned VMs (web, database, and CI/CD servers).
-  - [x] Write a playbook to install necessary services:
-    - [x] **Web server VM**: Install NGINX.
-    - [x] **Database server VM**: Install MySQL.
-    - [x] **CI/CD server VM**: Install Jenkins.
-  - [x] Run Ansible playbooks to configure all VMs.
-    - [x] **Web server VM**: Configure and run NGINX.
-    - [x] **Database server VM**: Configure and run MySQL.
-    - [x] **CI/CD server VM**: Configure and run Jenkins.
+  - [x] Write a playbook to install, configure and run necessary services:
+    - [x] **Web server VM**: NGINX.
+    - [x] **Database server VM**: MySQL.
+    - [x] **CI/CD server VM**: Jenkins.
   - [x] Optimize Ansible runtime.
     - [x] Create and modify the `ansible.cfg` file.
     - [x] Create and modify wrappers for GCP SSH and SCP.
