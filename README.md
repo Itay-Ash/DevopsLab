@@ -7,7 +7,7 @@ This document captures my journey through creating a fully integrated DevOps lab
 ## 🛠️ Step-by-Step DevOps Lab Setup: Connected Workflow
 
 ## Step 1: Set Up the Infrastructure with Terraform (Provisioning) 🏗️  
-[View Related Issue(https://github.com/Itay-Ash/DevopsLab/issues/5)
+[View Documentation](https://github.com/OwwFire/DevopsLab/issues/5)
 - **Objective**: Use Terraform to provision the base infrastructure for the lab.
 - **Action**:
   - [x] Create a `main.tf` file specifying VMs:
@@ -22,13 +22,14 @@ This document captures my journey through creating a fully integrated DevOps lab
     - [x] Set a static public IP for each vm.
   - [x] Create a `dns.tf` file specifying networking and security groups:
     - [x] Set a static private DMS record for each VM.
-  - [x] Set a public DNS record for the web VM (using public provider).
-  - [x] Set a firewall policy.
+- [x] Set a public DNS record for the web VM (using public provider).
+- [x] Set a firewall policy.
 - **Key Connection**: This forms the base infrastructure for all subsequent steps, ensuring that VMs are up and networked properly.
 
 ---
 
 ### Step 2: Configure VMs with Ansible (Automation & Consistency) 🔄
+[View Documentation](https://github.com/OwwFire/DevopsLab/issues/6)
 - **Objective**: Use Ansible to automate the installation and configuration of services on the VMs.
 - **Action**:
   - [x] Enhance Terraform infrastructure:  
