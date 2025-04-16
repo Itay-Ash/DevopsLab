@@ -1,0 +1,21 @@
+---
+- name: Add mysql repo
+  ansible.builtin.import_tasks: repo_setup.yml
+
+- name: Download mysql specific tools
+  ansible.builtin.import_tasks: tools_setup.yml
+
+- name: Setup my.cnf
+  ansible.builtin.import_tasks: set_my_cnf.yml
+
+- name: Pull all needed secrets
+  ansible.builtin.import_tasks: pull_secrets.yml
+
+- name: Setup Mysql
+  ansible.builtin.import_tasks: setup_mysql.yml
+
+- name: Add mysql users
+  ansible.builtin.import_tasks: add_users.yml
+
+- name: Fetch mysql files from cloud and run them
+  ansible.builtin.import_tasks: fetch_and_import_sql_scripts.yml

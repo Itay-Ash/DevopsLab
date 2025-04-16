@@ -1,0 +1,8 @@
+- name: Allow all needed ports
+  community.general.ufw:
+    rule: allow
+    port: "{{item}}"
+    proto: tcp
+  no_log: True
+  loop: "{{firewall_allow_ports}}"
+  notify: Enable local fw

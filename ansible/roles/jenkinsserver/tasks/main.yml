@@ -1,0 +1,9 @@
+---
+- name: Add jenkins repo
+  ansible.builtin.import_tasks: repo_setup.yml
+
+- name: Download jenkins specific tools
+  ansible.builtin.import_tasks: tools_setup.yml
+
+- name: Run jenkins 
+  ansible.builtin.import_tasks: run_jenkins.yml

@@ -1,0 +1,3 @@
+---
+- name: Download necessary tools
+  ansible.builtin.import_tasks: tools_setup.yml

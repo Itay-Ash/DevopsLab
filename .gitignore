@@ -170,6 +170,14 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# Ansible logs and output
+*.retry
+ansible.log
+
+# SSH keys
+*.pem
+*.key
+
 #My files
 terraform-details.json
 
@@ -177,3 +185,6 @@ terraform-details.json
 docs/images/*.psd
 #external
 external/*
+
+# Vars template is in sample_vars.yml
+project_vars.yml

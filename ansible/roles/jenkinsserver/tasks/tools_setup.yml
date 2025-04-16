@@ -1,0 +1,6 @@
+---
+- name: Install Apt Tools, Including Jenkins
+  apt:
+    name: " {{ item }} "
+    state: present
+  loop: "{{ tools }}"

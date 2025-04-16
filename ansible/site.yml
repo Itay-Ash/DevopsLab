@@ -1,0 +1,37 @@
+---
+- name: Configure all servers
+  hosts: all
+  gather_facts: no
+  become: true
+  vars_files:
+    - vars/project_vars.yml
+  roles:
+    - common
+
+- name: Configure mysql servers
+  hosts: mysqlservers
+  gather_facts: no
+  become: true
+  vars_files:
+    - vars/project_vars.yml
+  roles:
+    - mysqlserver
+
+- name: Configure web servers
+  hosts: webservers
+  gather_facts: no
+  become: true
+  vars_files:
+    - vars/project_vars.yml
+  roles:
+    - webserver
+
+- name: Configure jenkins servers
+  hosts: jenkinsservers
+  gather_facts: no
+  become: true
+  vars_files:
+    - vars/project_vars.yml
+  roles:
+    - jenkinsserver
+

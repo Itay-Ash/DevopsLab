@@ -1,0 +1,30 @@
+- name: Check if requirements.txt file exists for backend
+  stat:
+    path: "{{nginx_paths.backend}}/requirements.txt"
+  register: requirements_file_check_result
+
+- name: Install python requirements for backend if requirements.txt exists
+  ansible.builtin.pip:
+    requirements: "{{nginx_paths.backend}}/requirements.txt"
+  when: requirements_file_check_result.stat.exists
+
+- name: Pull backend env file secret
+  google.cloud.gcp_secret_manager:
+    name: "{{ secret_name.backed_env_file }}"
+    project: "{{ project }}"
+    auth_kind: "machineaccount"
+    state: present
+  no_log: true
+  register: backend_env_file
+  changed_when: true
+  notify: Delete secret vars
+
+- name: Create backend environment file
+  ansible.builtin.copy:
+    dest: "{{nginx_paths.backend}}/.env"
+    content: |
+      {{backend_env_file.value}}
+  notify: Delete backend .env file
+
+- name: Execute backend via python
+  ansible.builtin.shell: "nohup python3 {{nginx_paths.backend}}/app.py >/dev/null 2>&1 &"

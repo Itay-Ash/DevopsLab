@@ -1,0 +1,30 @@
+- name: Gather all users
+  community.mysql.mysql_query:
+    login_password: "{{ mysql_root_password.value }}"
+    query: SELECT user from mysql.user
+  no_log: True
+  register: mysql_users
+  changed_when: true
+  notify: Delete users var
+
+- name: Add Devopslab User
+  community.mysql.mysql_query:
+    login_password: "{{ mysql_root_password.value }}"
+    query:
+    - CREATE USER "{{ devopslab_mysql_user.username }}"@"localhost" IDENTIFIED WITH caching_sha2_password BY "{{ devopslab_mysql_user.password }}"
+    - GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT on *.* TO "{{ devopslab_mysql_user.username }}"@'localhost' WITH GRANT OPTION;
+    - flush privileges;
+    single_transaction: True
+  when: devopslab_mysql_user.username not in mysql_users.query_result[0] | map(attribute='user') | list
+  no_log: True
+
+- name: Add web User
+  community.mysql.mysql_query:
+    login_password: "{{ mysql_root_password.value }}"
+    query:
+    - CREATE USER "{{ web_mysql_user.username }}"@"%" IDENTIFIED WITH caching_sha2_password BY "{{ web_mysql_user.password }}"
+    - GRANT SELECT on *.* TO "{{ web_mysql_user.username }}"@"%" WITH GRANT OPTION;
+    - flush privileges;
+    single_transaction: True
+  when: web_mysql_user.username not in mysql_users.query_result[0] | map(attribute='user') | list
+  no_log: True

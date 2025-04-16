@@ -13,10 +13,17 @@ resource "google_compute_instance" "web_vm" {
     subnetwork = google_compute_subnetwork.private_subnet.self_link
     network_ip = google_compute_address.web_server_private_ip.address
     access_config {
-
+      nat_ip = google_compute_address.web_server_public_ip.address
     }
-
   }
+
+  metadata_startup_script = file("scripts/web-vm-startup-script.sh")
+
+  service_account {
+    email  = var.web_vm_iam_account_email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
+
   tags = ["web-server", "web"]
   allow_stopping_for_update = true
 }
@@ -41,8 +48,16 @@ resource "google_compute_instance" "mysql_vm" {
   network_interface {
     subnetwork = google_compute_subnetwork.private_subnet.self_link
     network_ip = google_compute_address.mysql_server_private_ip.address
+    access_config {
+
+    }
   }
   metadata_startup_script = file("scripts/sql-vm-startup-script.sh")
+
+  service_account {
+    email  = var.mysql_vm_iam_account_email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
 
   tags = ["mysql-server", "db"]
   allow_stopping_for_update = true
@@ -69,11 +84,41 @@ resource "google_compute_instance" "jenkins_vm" {
     subnetwork = google_compute_subnetwork.private_subnet.self_link
     network_ip = google_compute_address.jenkins_server_private_ip.address
     access_config {
-      
+      nat_ip = google_compute_address.jenkins_server_public_ip.address
     }
   }
   metadata_startup_script = file("scripts/jenkins-vm-startup-script.sh")
-
+  
   tags = ["jenkins-server", "ci-cd"]
+  allow_stopping_for_update = true
+}
+
+resource "google_compute_instance" "ansible_vm" {
+  name         = "ansible-server"
+  machine_type = "e2-medium"
+  zone         = var.zone
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"
+    }
+  }
+
+  network_interface {
+    subnetwork = google_compute_subnetwork.private_subnet.self_link
+    network_ip = google_compute_address.ansible_server_private_ip.address
+    access_config {
+
+    }
+  }
+
+    metadata_startup_script = file("scripts/ansible-vm-startup-script.sh")
+
+    service_account {
+    email  = var.ansible_vm_iam_account_email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
+
+  tags = ["ansible-server", "ansible"]
   allow_stopping_for_update = true
 }
