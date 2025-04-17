@@ -6,6 +6,7 @@
     project: "{{project}}"
     auth_kind: "application"
   register: public_address_info
+  no_log: true
 
 - name: Setting a fact for public ip address
   ansible.builtin.set_fact:

@@ -21,3 +21,4 @@
 - name: Enable local fw
   community.general.ufw:
     state: enabled
+  no_log: True
