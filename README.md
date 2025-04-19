@@ -52,7 +52,7 @@ This document captures my journey through creating a fully integrated DevOps lab
 ### Step 3: Set Up Jenkins for CI/CD (Automation Integration) 🧩
 - **Objective**: Install and configure Jenkins to automate the build, test, and deployment processes.
 - **Action**:
-  - [ ] Access the Jenkins VM (created in Step 1, configured in Step 2).
+  - [ ] Create a bucket for Jenkins code and dynamically update files on the Jenkins VM.  
   - [ ] Install required plugins for Docker, GitHub, Ansible, and Terraform.
   - Create a Jenkins pipeline to:
     - [ ] Pull code from a Git repository.
