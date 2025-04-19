@@ -58,6 +58,10 @@ variable "ansible_bucket_name" {
   type = string
 }
 
+variable "jenkins_bucket_name" {
+  type = string
+}
+
 variable "code_bucket_name" {
   type = string
 }

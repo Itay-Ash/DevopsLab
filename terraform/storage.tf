@@ -25,9 +25,20 @@ resource "google_compute_disk" "jenkins_data_disk" {
 ########################################
 #               Buckets                #
 ########################################
+# Preventing destroy for testing to be easier
 
 resource "google_storage_bucket" "ansible_bucket" {
   name     = var.ansible_bucket_name
+  location = var.location
+  force_destroy = true
+
+  lifecycle {
+    prevent_destroy = false
+  }
+}
+
+resource "google_storage_bucket" "jenkins_bucket" {
+  name     = var.jenkins_bucket_name
   location = var.location
   force_destroy = true
 
@@ -46,9 +57,11 @@ resource "google_storage_bucket" "code_bucket" {
   }
 }
 
+
 # Create an env variable for folders locations
 locals {
   ansibleFiles = fileset("../ansible", "**")
+  jenkinsFiles = fileset("../jenkins", "**")
   frontendFiles = fileset("../code/web/frontend", "**") 
   backendFiles = fileset("../code/web/backend", "**")
   dbFiles =  fileset("../code/db", "**")
@@ -59,6 +72,12 @@ resource "google_storage_bucket_object" "ansible_folder" {
   name   = "ansible/" 
   content = " "
   bucket = google_storage_bucket.ansible_bucket.name
+}
+
+resource "google_storage_bucket_object" "jenkins_folder" {
+  name   = "jenkins/" 
+  content = " "
+  bucket = google_storage_bucket.jenkins_bucket.name
 }
 
 resource "google_storage_bucket_object" "code_folder" {
@@ -93,6 +112,15 @@ resource "google_storage_bucket_object" "ansible_files" {
   name   = "${google_storage_bucket_object.ansible_folder.name}${each.value}"
   bucket = google_storage_bucket.ansible_bucket.name
   source = "${path.module}/../ansible/${each.value}"
+}
+
+# Upload jenkins folder files
+resource "google_storage_bucket_object" "jenkins_files" {
+  for_each = local.jenkinsFiles
+
+  name   = "${google_storage_bucket_object.jenkins_folder.name}${each.value}"
+  bucket = google_storage_bucket.jenkins_bucket.name
+  source = "${path.module}/../jenkins/${each.value}"
 }
 
 # Upload frontend folder files
