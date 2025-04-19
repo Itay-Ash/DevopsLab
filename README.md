@@ -52,13 +52,16 @@ This document captures my journey through creating a fully integrated DevOps lab
 ### Step 3: Set Up Jenkins for CI/CD (Automation Integration) 🧩
 - **Objective**: Install and configure Jenkins to automate the build, test, and deployment processes.
 - **Action**:
-  - [ ] Create a bucket for Jenkins code and dynamically update files on the Jenkins VM.  
-  - [ ] Install required plugins for Docker, GitHub, Ansible, and Terraform.
-  - Create a Jenkins pipeline to:
+  - [x] Create a bucket for Jenkins code and dynamically update files on the Jenkins VM. 
+  - [ ] Install required plugins using Ansible. 
+  - Create a CI Jenkins pipeline on branch `web-dev` to:
+    - [ ] Check backend code.
+    - [ ] Check frontend code.
+  - Create a CD Jenkins pipeline on branch `web-dev` to:
     - [ ] Pull code from a Git repository.
     - [ ] Build a Docker image.
     - [ ] Deploy the image to the web server VM.
-  - [ ] Configure Jenkins to trigger on every Git push (via webhooks or polling).
+
 - **Key Connection**: Jenkins brings the entire CI/CD process together, automating code-to-deployment steps for streamlined updates.
 
 ---
