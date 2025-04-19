@@ -74,12 +74,6 @@ resource "google_compute_instance" "jenkins_vm" {
     }
   }
 
-    attached_disk {
-    source      = google_compute_disk.jenkins_data_disk.id
-    device_name = "jenkins-data"
-    mode        = "READ_WRITE"
-  }
-
   network_interface {
     subnetwork = google_compute_subnetwork.private_subnet.self_link
     network_ip = google_compute_address.jenkins_server_private_ip.address
@@ -88,6 +82,11 @@ resource "google_compute_instance" "jenkins_vm" {
     }
   }
   metadata_startup_script = file("scripts/jenkins-vm-startup-script.sh")
+
+  service_account {
+    email  = var.jenkins_vm_iam_account_email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
   
   tags = ["jenkins-server", "ci-cd"]
   allow_stopping_for_update = true
@@ -112,9 +111,9 @@ resource "google_compute_instance" "ansible_vm" {
     }
   }
 
-    metadata_startup_script = file("scripts/ansible-vm-startup-script.sh")
+  metadata_startup_script = file("scripts/ansible-vm-startup-script.sh")
 
-    service_account {
+  service_account {
     email  = var.ansible_vm_iam_account_email
     scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }

@@ -12,16 +12,6 @@ resource "google_compute_disk" "mysql_data_disk" {
   }
 }
 
-resource "google_compute_disk" "jenkins_data_disk" {
-  name  = "jenkins-data-disk"
-  type  = "pd-ssd"
-  zone  = var.zone
-  size  = 35
-  labels = {
-    usage = "jenkins-data"
-  }
-}
-
 ########################################
 #               Buckets                #
 ########################################
