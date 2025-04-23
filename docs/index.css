@@ -316,6 +316,25 @@ body, h1, ul, li, a {
     z-index: 0;
 }
 
+.watch-section {
+    padding: 0;
+    padding-bottom: 4.4vh;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.watch-container {
+    padding: 0;
+    margin: 0;
+    width:100%;
+    text-align:center;
+}
+
+.watch-video {
+    height: 60vh;
+    width: 60vw;
+}
+
 .about-section {
     padding: 2.2vh;
     max-width: 60vw;
@@ -572,6 +591,10 @@ blockquote {
     .section-title {
         margin-bottom: 2vh;
     }
+
+    .watch-video {
+        width: 90vw;
+    }
     
     .about-text {
         font-size: 2.5vw;
@@ -642,6 +665,10 @@ blockquote {
 
     .section-title {
         font-size: 3vh;
+    }
+    
+    .watch-video {
+        width: 85vw;
     }
     
     .about-text {

@@ -70,6 +70,30 @@ $(document).ready(function () {
             scrollTop: $(targetId).offset().top
         }, delay); 
     });
+
+    //Watch section apperance animation
+
+    const watchSection = $('#watch');
+    const watchTitle = $('#watch-title');
+    const watchVideo = $('.watch-video');
+    const watchSeparator = $('#watch-separator')
+
+    function watchSectionApperance(){
+        const scrollPosition = $(window).scrollTop();
+        const sectionOffset = watchSection.offset().top - window.innerHeight / 2;
+
+        if (scrollPosition > sectionOffset) {
+            watchTitle.addClass('visible');
+
+            setTimeout(() => {
+                        $(watchVideo).addClass('visible');
+                }, 500);
+            };
+
+            setTimeout(() => {
+                watchSeparator.addClass('visible');
+            }, 1500)
+    }
     
     //About section apperance animation
     const aboutSection = $('#about');
@@ -402,6 +426,7 @@ $(document).ready(function () {
     
     //Sections appearnces
     $(window).on('scroll', function () {
+        watchSectionApperance();
         aboutSectionApperance();
         progressSectionApperance();
     });
