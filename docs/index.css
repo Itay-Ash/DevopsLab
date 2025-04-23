@@ -303,6 +303,11 @@ body, h1, ul, li, a {
     transform: translateY(0);
 }
 
+.hero-buttons button:nth-child(3) {
+    animation: fadeIn 1.5s ease-out 1.4s forwards;
+    transform: translateY(0);
+}
+
 /* Blur Effect */
 .hero:after {
     content: '';
@@ -318,6 +323,7 @@ body, h1, ul, li, a {
 
 .watch-section {
     padding: 0;
+    padding-top: 2.2vh;
     padding-bottom: 4.4vh;
     margin: 0 auto;
     text-align: center;
@@ -656,6 +662,14 @@ blockquote {
 
     .hero-subtitle{
         font-size: 1.4vh;
+    }
+
+    .hero-buttons button:nth-child(2) {
+        display: none;
+    }
+    
+    .hero-buttons button:nth-child(3) {
+        display: none;
     }
 
     .step{
