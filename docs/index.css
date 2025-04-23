@@ -641,7 +641,7 @@ blockquote {
     
 }
 
-@media (max-width: 768px) { 
+@media (max-width: 767px) { 
     .navbar-logo{
         width: 35vw;
         height: 2.20vh;
