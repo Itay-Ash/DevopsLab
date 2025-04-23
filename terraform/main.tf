@@ -121,4 +121,6 @@ resource "google_compute_instance" "ansible_vm" {
 
   tags = ["ansible-server", "ansible"]
   allow_stopping_for_update = true
+
+    depends_on = [ google_compute_instance.web_vm, google_compute_instance.jenkins_vm, google_compute_instance.mysql_vm ]
 }
