@@ -57,7 +57,7 @@
         ],
         "key-connection": "Jenkins brings the entire CI/CD process together, automating code-to-deployment steps for streamlined updates.",
         "image": "icons/jenkins.png",
-        "issue": ""
+        "issue": "in-progress"
     },
     {
         "title": "Step 4: Containerize the Application with Docker (Isolation & Portability) 🐳",

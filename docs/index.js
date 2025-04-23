@@ -21,6 +21,7 @@ $(document).ready(function () {
     $('.step.completed').each(function(index) {
         $(this).css('background-color', colors[index]);
     });
+    $('.step.in-progress').css('background-color', 'yellow');
 
     //Adding progress bar and navbar-title animations
     const navbarCenter = $('.navbar-center')
@@ -156,37 +157,36 @@ $(document).ready(function () {
             $("#step-actions").append("<li>" + action + "</li>");
         });
 
-        // Update documentation icon visibility and link
-        if (step.issue) {
-            $("#documentation-link")
-                .attr("href", step.issue)
-                .show(); // Show the icon if issue exists
-        } else {
-            $("#documentation-link").hide(); // Hide the icon if no issue
-        }
-
         // Update step indicators
         const selectedStepButton = chooseActiveButton(currentStep, direction);
         $(".step-btn").removeClass("active");
         $(".step-btn").eq(selectedStepButton).addClass("active");
 
         // Update completion bar
-        if (step.issue) {
+        if(step.issue === "in-progress")
+        {
+            $("#completion-bar")
+                .removeClass("completed")
+                .removeClass("not-completed")
+                .addClass("in-progress")
+                .text("STEP IN PROGRESS")
+                $("#documentation-link").hide(); // Hide the doc icon
+        }
+        else if (step.issue) {
+            $("#documentation-link")
+            .attr("href", step.issue)
+            .show(); // Show the icon if issue exists
             $("#completion-bar")
                 .removeClass("not-completed")
+                .removeClass("in-progress")
                 .addClass("completed")
-                .text("STEP COMPLETED");
-
-            // Add clickable issue link if exists
-            if (step.issue) {
-                $("#completion-bar")
-                    .css("cursor", "pointer")
-                    .off("click")
-                    .on("click", function () {
-                        window.open(step.issue, "_blank");
-                    });
-            }
+                .text("STEP COMPLETED") // Mark the completion bar as completed
+                .css("cursor", "pointer")
+                .on("click", function () {
+                    window.open(step.issue, "_blank");
+                });
         } else {
+            $("#documentation-link").hide(); // Hide the doc icon if no issue
             $("#completion-bar")
                 .removeClass("completed")
                 .addClass("not-completed")

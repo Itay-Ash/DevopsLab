@@ -108,6 +108,10 @@ body, h1, ul, li, a {
     transform: scale(1.2);
 }
 
+.step.in-progress {
+    transform: scale(1.1);
+}
+
 .step:not(:last-child)::after {
     content: "";
     width: 0.65vw;
@@ -531,6 +535,12 @@ body, h1, ul, li, a {
 
 #completion-bar.completed {
     background-color: #28a745;
+    text-shadow: 0.03vw 0.03vw black;
+    color: white;
+}
+
+#completion-bar.in-progress {
+    background-color: rgb(189, 189, 14);
     text-shadow: 0.03vw 0.03vw black;
     color: white;
 }
