@@ -433,10 +433,11 @@ body, h1, ul, li, a {
 
 /* Step Buttons */
 .step-btn {
+    padding: 0;
     background: none;
     border: 0.22vh solid #007FFF; /* Light blue border */
-    width: 1vw;
-    height: 1vw;
+    width: 1.5vw;
+    height: 1.5vw;
     border-radius: 50vw;
     margin: 0 0.55vh;
     cursor: pointer;
