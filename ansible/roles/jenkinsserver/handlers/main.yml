@@ -1,4 +1,26 @@
+- name: Delete secret vars
+  set_fact:
+    jenkins_root_password: !!null
+  no_log: True
+
+- name: Delete init admin password var
+  set_fact:
+    admin_password: !!null
+  no_log: True
+  listen: 'Delete init admin password contents'
+  
+- name: Delete init admin password file
+  ansible.builtin.file:
+    path: "{{ jenkins_home_dir }}/secrets/initialAdminPassword"
+    state: absent
+  listen: 'Delete init admin password contents'
+
 - name: Restart jenkins service
   service:
     name: jenkins
     state: restarted
+
+- name: Delete init.groovy.d
+  ansible.builtin.file:
+    path: "{{ jenkins_init_script_dir }}"
+    state: absent

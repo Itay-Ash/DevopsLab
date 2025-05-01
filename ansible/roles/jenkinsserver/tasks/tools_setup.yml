@@ -3,4 +3,10 @@
   apt:
     name: " {{ item }} "
     state: present
-  loop: "{{ tools }}"
+  loop: "{{ tools.apt }}"
+
+- name: Install Pip Tools
+  ansible.builtin.pip:
+    name: " {{ item }} "
+    state: present
+  loop: "{{ tools.pip }}"

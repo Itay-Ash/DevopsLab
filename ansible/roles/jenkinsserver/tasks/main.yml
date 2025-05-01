@@ -5,5 +5,8 @@
 - name: Download jenkins specific tools
   ansible.builtin.import_tasks: tools_setup.yml
 
-- name: Run jenkins 
-  ansible.builtin.import_tasks: run_jenkins.yml
+- name: Pull secrets from gcp cloud
+  ansible.builtin.import_tasks: pull_secrets.yml
+
+- name: Setup Jenkins
+  ansible.builtin.import_tasks: setup_jenkins.yml

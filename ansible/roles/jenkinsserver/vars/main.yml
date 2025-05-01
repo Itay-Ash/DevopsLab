@@ -1,7 +1,10 @@
 # Packages to download
 tools:
-  - openjdk-17-jre
-  - jenkins
+  apt:
+    - openjdk-17-jre
+    - jenkins
+  pip:
+    - google-auth
 
 # External repository details
 jenkins_repository:
@@ -15,3 +18,13 @@ jenkins_repository_key:
     https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
   file_path:
       /usr/share/keyrings/jenkins-keyring.asc
+
+# User
+jenkins_linux_user: jenkins
+
+# Cloud
+jenkins_root_password_secret_name: Jenkins-root-password
+
+# Jenkins setup
+jenkins_home_dir: /var/lib/jenkins
+jenkins_init_script_dir: /var/lib/jenkins/init.groovy.d/

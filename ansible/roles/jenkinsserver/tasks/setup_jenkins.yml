@@ -1,0 +1,74 @@
+- name: Update JENKINS_JAVA_OPTIONS
+  become: true
+  lineinfile:
+    path: "/etc/default/jenkins"
+    regexp: ".*-Djava.awt.headless=true.*"
+    line: 'JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Djenkins.install.runSetupWizard=false"'
+  notify: 'Restart jenkins service'
+
+# The file will disable the setup wizard compltely (-Djenkins.install.runSetupWizard=false does not work fully)
+- name: Add a setupwizard state file
+  ansible.builtin.copy:
+    dest: "{{ jenkins_home_dir }}/jenkins.install.UpgradeWizard.state"
+    content: 'disabled'
+    mode: '0755'
+    owner: "{{ jenkins_linux_user }}"
+    group: "{{ jenkins_linux_user }}"
+
+- name: Add jenkins.yaml
+  ansible.builtin.template:
+    src: templates/jenkins.yaml.j2
+    dest: "{{ jenkins_home_dir }}/jenkins.yaml"
+  notify: 'Restart jenkins service'
+
+- name: Create init.groovy.d directory
+  ansible.builtin.file:
+    path: "{{ jenkins_init_script_dir }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ jenkins_linux_user }}"
+    group: "{{ jenkins_linux_user }}"
+  notify: 'Delete init.groovy.d'
+
+- name: Add create_admin_user.groovy
+  ansible.builtin.template:
+    src: templates/create_admin_user.groovy.j2
+    dest: "{{ jenkins_init_script_dir }}/create_admin_user.groovy"
+  notify: 'Delete init.groovy.d'
+
+- name: Add create_normal_user.groovy
+  ansible.builtin.template:
+    src: templates/create_normal_user.groovy.j2
+    dest: "{{ jenkins_init_script_dir }}/create_normal_user.groovy"
+  notify: 'Delete init.groovy.d'
+
+- name: Check if intial Admin password exists
+  ansible.builtin.stat:
+    path: "{{ jenkins_home_dir }}/secrets/initialAdminPassword"
+  register: initial_admin_file_check
+
+- name: Get intial Admin password
+  command: cat "{{ jenkins_home_dir }}/secrets/initialAdminPassword"
+  no_log: true
+  register: admin_password
+  notify: 'Delete init admin password contents'
+  when: initial_admin_file_check.stat.exists
+
+- name: Include plugins.yml
+  ansible.builtin.include_vars:
+    dir: vars
+    ignore_files:
+      - 'main.yml'
+    extensions:
+      - 'yml'
+  when: initial_admin_file_check.stat.exists
+
+- name: Install all controller plugins
+  community.general.jenkins_plugin:
+    name: "{{ item }}"
+    state: latest
+    url: "http://localhost:8080"
+    url_username: admin
+    url_password: "{{admin_password.stdout_lines | join('')}}"
+  loop: "{{ plugins.controller }}"
+  when: initial_admin_file_check.stat.exists

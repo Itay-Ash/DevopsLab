@@ -1,4 +1,0 @@
-- name: Run jenkins
-  ansible.builtin.debug: msg=''
-  changed_when: true
-  notify: 'Restart jenkins service'
