@@ -10,3 +10,6 @@
 
 - name: Setup Jenkins
   ansible.builtin.import_tasks: setup_jenkins.yml
+
+- name: Setup DNS and HTTPS
+  ansible.builtin.import_tasks: setup_dns_and_certificate.yml

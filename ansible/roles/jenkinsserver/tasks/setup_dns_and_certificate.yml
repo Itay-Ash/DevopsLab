@@ -1,0 +1,19 @@
+- name: get public ip address
+  gcp_compute_address_info:
+    filters:
+    - name = jenkins-server-public-ip
+    region: "{{region}}"
+    project: "{{project}}"
+    auth_kind: "application"
+  register: public_address_info
+  no_log: true
+
+- name: Setting a fact for public ip address
+  ansible.builtin.set_fact:
+    public_address:  "{{public_address_info.resources | map(attribute='address') | first }}" 
+
+- name: Change public DNS to public ip
+  ansible.builtin.uri:
+    url: https://dynupdate.no-ip.com/nic/update?hostname={{ddns_user.jenkins.dns}}&myip={{public_address}}
+    user: "{{ddns_user.jenkins.username}}"
+    password: "{{ddns_user.jenkins.password}}"

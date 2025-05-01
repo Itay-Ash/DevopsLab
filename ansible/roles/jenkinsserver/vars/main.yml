@@ -3,6 +3,7 @@ tools:
   apt:
     - openjdk-17-jre
     - jenkins
+    - certbot
   pip:
     - google-auth
 
