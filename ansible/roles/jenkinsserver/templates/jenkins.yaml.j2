@@ -116,7 +116,7 @@ unclassified:
   gitHubConfiguration:
     apiRateLimitChecker: ThrottleForNormalize
   gitHubPluginConfig:
-    hookUrl: "http://localhost:8080/github-webhook/"
+    hookUrl: "https://{{ ddns_user.jenkins.dns }}/github-webhook/"
   globalTimeOutConfiguration:
     operations:
     - "abortOperation"
@@ -132,7 +132,7 @@ unclassified:
     storage: "file"
   location:
     adminAddress: "address not configured yet <nobody@nowhere>"
-    url: "http://localhost:8080/"
+    url: "http://localhost:{{ jenkins_port }}/"
   mailer:
     charset: "UTF-8"
     useSsl: false

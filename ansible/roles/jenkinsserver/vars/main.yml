@@ -3,7 +3,9 @@ tools:
   apt:
     - openjdk-17-jre
     - jenkins
+    - nginx
     - certbot
+    - python3-certbot-nginx
   pip:
     - google-auth
 
@@ -25,6 +27,11 @@ jenkins_linux_user: jenkins
 
 # Cloud
 jenkins_root_password_secret_name: Jenkins-root-password
+
+# Nginx template
+jenkins_nginx_template_file_name: jenkins.conf
+jenkins_port: 8080
+unsafe_server_port: 80
 
 # Jenkins setup
 jenkins_home_dir: /var/lib/jenkins

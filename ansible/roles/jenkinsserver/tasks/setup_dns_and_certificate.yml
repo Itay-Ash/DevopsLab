@@ -17,3 +17,13 @@
     url: https://dynupdate.no-ip.com/nic/update?hostname={{ddns_user.jenkins.dns}}&myip={{public_address}}
     user: "{{ddns_user.jenkins.username}}"
     password: "{{ddns_user.jenkins.password}}"
+
+# Certbot automaticlly updates server configuration:
+# - runs the server on port 443 with certificate from let's encrypt 
+# - creates a 301 redirect on port 80.
+- ansible.builtin.meta: flush_handlers
+
+- name: Configure https using certbot
+  shell: |
+    certbot --nginx -d "{{ddns_user.jenkins.dns}}" --email "{{email_for_certificate}}" --agree-tos --non-interactive
+  no_log: true

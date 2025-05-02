@@ -1,0 +1,5 @@
+- name: Add Jenkins website Nginx configuration file
+  ansible.builtin.template:
+    src: "{{jenkins_nginx_template_file_name}}.j2"
+    dest: "/etc/nginx/conf.d/{{jenkins_nginx_template_file_name}}"
+  notify: 'Restart Nginx Service'

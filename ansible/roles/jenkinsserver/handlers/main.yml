@@ -20,6 +20,11 @@
     name: jenkins
     state: restarted
 
+- name: Restart Nginx Service
+  service:
+    name: jenkins
+    state: restarted
+
 - name: Delete init.groovy.d
   ansible.builtin.file:
     path: "{{ jenkins_init_script_dir }}"
