@@ -53,7 +53,11 @@ This document captures my journey through creating a fully integrated DevOps lab
 - **Objective**: Install and configure Jenkins to automate the build, test, and deployment processes.
 - **Action**:
   - [x] Create a bucket for Jenkins code and dynamically update files on the Jenkins VM. 
-  - [ ] Install required plugins using Ansible. 
+  - [x] Provision Jenkins using Ansible.
+    - [x] Manually set up Jenkins and disable the setup wizard.
+    - [x] Install required plugins.
+    - [x] Create a dynamic public DNS record.
+    - [x] Configure Nginx as a reverse proxy with SSL for Jenkins.
   - [ ] Create a CI Jenkins pipeline on branch `web-dev` to:
     - [ ] Check backend code.
     - [ ] Check frontend code.
