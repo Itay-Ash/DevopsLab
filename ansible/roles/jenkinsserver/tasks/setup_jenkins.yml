@@ -1,13 +1,5 @@
-- name: Update JENKINS_JAVA_OPTIONS
-  become: true
-  lineinfile:
-    path: "/etc/default/jenkins"
-    regexp: ".*-Djava.awt.headless=true.*"
-    line: 'JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Djenkins.install.runSetupWizard=false"'
-  notify: 'Restart jenkins service'
-
-# The file will disable the setup wizard compltely (-Djenkins.install.runSetupWizard=false does not work fully)
-- name: Add a setupwizard state file
+# The file will disable the setup wizard compltely (-Djenkins.install.runSetupWizard=false is more tricky to pull off)
+- name: Create a disabled setupwizard state file
   ansible.builtin.copy:
     dest: "{{ jenkins_home_dir }}/jenkins.install.UpgradeWizard.state"
     content: 'disabled'
@@ -36,10 +28,10 @@
     dest: "{{ jenkins_init_script_dir }}/create_admin_user.groovy"
   notify: 'Delete init.groovy.d'
 
-- name: Add create_normal_user.groovy
+- name: Add create_github_app_user.groovy
   ansible.builtin.template:
-    src: templates/create_normal_user.groovy.j2
-    dest: "{{ jenkins_init_script_dir }}/create_normal_user.groovy"
+    src: templates/create_github_app_user.groovy.j2
+    dest: "{{ jenkins_init_script_dir }}/create_github_app_user.groovy"
   notify: 'Delete init.groovy.d'
 
 - name: Check if intial Admin password exists

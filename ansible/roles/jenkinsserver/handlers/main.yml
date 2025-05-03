@@ -1,6 +1,7 @@
 - name: Delete secret vars
   set_fact:
-    jenkins_root_password: !!null
+    jenkins_root_password:  !!null
+    jenkins_github_app_key: !!null
   no_log: True
 
 - name: Delete init admin password var

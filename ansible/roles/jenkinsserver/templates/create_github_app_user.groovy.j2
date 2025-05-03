@@ -1,0 +1,20 @@
+import jenkins.model.Jenkins
+import com.cloudbees.plugins.credentials.domains.Domain
+import com.cloudbees.plugins.credentials.CredentialsScope
+import org.jenkinsci.plugins.github_branch_source.GitHubAppCredentials
+import hudson.util.Secret
+
+instance = Jenkins.get()
+domain = Domain.global()
+store = instance.getExtensionList("com.cloudbees.plugins.credentials.SystemCredentialsProvider")[0].getStore()
+
+githubAppCreds = new GitHubAppCredentials(
+    CredentialsScope.GLOBAL,
+    "{{ jenkins_github_app.id }}",                               // ID of the credential
+    "{{ jenkins_github_app.description }}",                      // Description
+    "{{ jenkins_github_app.app_id }}",                           // GitHub App ID
+    Secret.fromString('''"{{ jenkins_github_app_key.value }}"''')      // Private key
+)
+
+store.addCredentials(domain, githubAppCreds)
+instance.save()

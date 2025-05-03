@@ -15,11 +15,10 @@ devopslab_mysql_user:
 web_mysql_user:
   username: #user
   password: #password
-devopslab_jenkins_user:
-  id: #io
+jenkins_github_app:
+  id: #id
   description: #description
-  username: #username
-  password: #password
+  app_id: #app_id
 
 # DNS
 mysql_server_dns: #mysql_server_dns
