@@ -6,6 +6,7 @@ tools:
     - nginx
     - certbot
     - python3-certbot-nginx
+    - git
   pip:
     - google-auth
 
@@ -27,6 +28,7 @@ jenkins_linux_user: jenkins
 
 # Cloud
 jenkins_root_password_secret_name: Jenkins-root-password
+jenkins_github_app_key_secret_name: Jenkis-github-app-private-key
 
 # Nginx template
 jenkins_nginx_template_file_name: jenkins.conf
