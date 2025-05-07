@@ -1,11 +1,22 @@
 import uvicorn
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import os
+from dotenv import load_dotenv
+load_dotenv()
 from app.trivia_app import get_questions_list
+from exceptions.env_exceptions import MissingEnvVariableError
 
-api_port = os.environ["API_PORT"]
+def load_api_env_var():
+   global api_port
 
+   try:
+      api_port = os.environ["API_PORT"]
+   except Exception as e:
+   # Raises an error with the missing env variable
+      raise MissingEnvVariableError(e.args[0]) 
+
+load_api_env_var()
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,

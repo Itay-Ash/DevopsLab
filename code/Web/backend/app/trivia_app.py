@@ -8,7 +8,6 @@ def load_env_vars():
     global user, password, host, database
 
     print("Loading environment variables...")
-    load_dotenv()
     try:
         user = os.environ["DB_USERNAME"]
         password = os.environ["DB_PASSWORD"]
