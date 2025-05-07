@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
-from app.trivia_app import *
+from app.trivia_app import get_questions_list
 
 api_port = os.environ["API_PORT"]
 
@@ -14,6 +14,7 @@ app.add_middleware(
 
 @app.get("/api/questions")
 async def get_questions():
+   questions_list = get_questions_list()
    return questions_list
 
 if __name__ == "__main__":
