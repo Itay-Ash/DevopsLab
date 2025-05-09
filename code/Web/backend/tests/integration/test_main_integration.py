@@ -16,8 +16,14 @@ def example_db_question():
     "'option_a': 'Berlin', 'option_b': 'Madrid', 'option_c': 'Paris', 'option_d': 'Rome', " \
     "'correct_option': 'C'}"
 
-def assert_api_request(path:str ,status_code: int, excpected_reponse: str = None):
-    response = test_client.get(path)
+def assert_api_request(api_path:str ,status_code: int, excpected_reponse: str = None):
+    '''
+    Assersts API Request reponse, can assert both status code and JSON response.\n
+    :param api_path: The path for the API request.
+    :param status_code: The excpected status code in the response.
+    :param excpected_response: Checks if the string is inside the response JSON, can be left blank to avoid assertion.
+    '''
+    response = test_client.get(api_path)
     assert response.status_code == status_code
     if excpected_reponse != None:
         assert excpected_reponse in str(response.json())
