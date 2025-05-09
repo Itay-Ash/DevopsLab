@@ -21,6 +21,11 @@ app.add_middleware(
    CORSMiddleware,
    allow_origins=["*"]
 )
+
+@app.get("/api")
+async def get_api():
+   return "Up and kicking!"
+
 @app.get("/api/questions")
 async def get_questions():
    questions_list = get_questions_list()
