@@ -1,5 +1,4 @@
 import mysql.connector
-from dotenv import load_dotenv
 import os
 from exceptions.env_exceptions import MissingEnvVariableError
 import atexit
