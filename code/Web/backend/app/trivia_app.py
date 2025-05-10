@@ -1,7 +1,20 @@
 import mysql.connector
 import os
 from exceptions.env_exceptions import MissingEnvVariableError
+from exceptions.db_exceptions import InvalidQuery
 import atexit
+
+def connect_to_db():
+    global cnx, cursor
+
+    try:
+        cnx
+    except:
+        load_env_vars()
+        cnx = mysql.connector.connect(user=user, password=password,
+                                    host=host,
+                                    database=database)
+        cursor = cnx.cursor(dictionary=True)
 
 def load_env_vars():
     global user, password, host, database
@@ -17,6 +30,9 @@ def load_env_vars():
         raise MissingEnvVariableError(e.args[0]) 
 
 def run_query(query: str):
+    if query is None or not query.strip().lower().startswith("select"):
+        raise InvalidQuery(query)
+    connect_to_db()
     cursor.execute(query)
     result = cursor.fetchall()
     return result
@@ -27,14 +43,13 @@ def get_questions_list():
     questions_list = run_query(questions_query)
     return questions_list
 
-load_env_vars()
-cnx = mysql.connector.connect(user=user, password=password,
-                              host=host,
-                              database=database)
-cursor = cnx.cursor(dictionary=True)
-
 def exit_command():
-    print("Closing DB Connection...")
-    cnx.close()
+    try:
+        if cnx:
+            print("Closing DB Connection...")
+            cnx.close()
+    except:
+        # avoid error message in case of not having a connection at all
+        pass
 
 atexit.register(exit_command)
