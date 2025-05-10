@@ -51,5 +51,4 @@ def exit_command():
     except:
         # avoid error message in case of not having a connection at all
         pass
-
 atexit.register(exit_command)
