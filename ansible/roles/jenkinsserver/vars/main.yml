@@ -9,6 +9,7 @@ tools:
     - git
   pip:
     - google-auth
+    - pytest
 
 # External repository details
 jenkins_repository:
