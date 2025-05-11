@@ -13,7 +13,7 @@ githubAppCreds = new GitHubAppCredentials(
     "{{ jenkins_github_app.id }}",                               // ID of the credential
     "{{ jenkins_github_app.description }}",                      // Description
     "{{ jenkins_github_app.app_id }}",                           // GitHub App ID
-    Secret.fromString('''"{{ jenkins_github_app_key.value }}"''')      // Private key
+    Secret.fromString('''{{ jenkins_github_app_key.value  | replace('\"', '') }}''')      // Private key
 )
 
 store.addCredentials(domain, githubAppCreds)
