@@ -34,4 +34,3 @@ async def get_questions():
 if __name__ == "__main__":
    load_api_env_var()
    uvicorn.run("main:app", host="0.0.0.0", port=int(api_port), reload=True)
- 
