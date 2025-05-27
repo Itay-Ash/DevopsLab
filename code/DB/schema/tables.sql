@@ -1,4 +1,4 @@
-CREATE TABLE trivia_questions (
+CREATE TABLE IF NOT EXISTS trivia_questions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     question TEXT NOT NULL,
     option_a TEXT NOT NULL,
