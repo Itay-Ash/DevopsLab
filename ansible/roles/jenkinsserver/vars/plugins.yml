@@ -89,3 +89,4 @@ plugins:
     - theme-manager
     - dark-theme
     - configuration-as-code
+    - github-checks
