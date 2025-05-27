@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone-Repository') {
+            steps {
+                git branch: 'web-dev', credentialsId: 'Jenkins-Github-App-Creds', url: 'https://github.com/Itay-Ash/DevopsLab.git'
+                sh 'pip install -r code/Web/backend/requirements.txt'
+            }
+        }
+        stage('Run-Unit-Tests') {
+            steps {
+                sh 'pytest -rA code/Web/backend/tests/unit/.'
+            }
+        }
+        stage('Run-Integration-Tests') {
+            steps {
+                sh 'gcloud secrets versions access latest --secret="Backend-Env-File" >> code/Web/backend/.env'
+                sh 'pytest -rA code/Web/backend/tests/integration/.'
+                sh 'rm code/Web/backend/.env'
+            }
+        }
+    }
+}
