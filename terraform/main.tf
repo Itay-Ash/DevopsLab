@@ -92,6 +92,31 @@ resource "google_compute_instance" "jenkins_vm" {
   allow_stopping_for_update = true
 }
 
+resource "google_compute_instance" "docker_agent_vm" {
+  name         = "docker-agent-server"
+  machine_type = "e2-medium"
+  zone         = var.zone
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"
+    }
+  }
+
+  network_interface {
+    subnetwork = google_compute_subnetwork.private_subnet.self_link
+    network_ip = google_compute_address.docker_agent_server_private_ip.address
+  }
+
+  service_account {
+    email  = var.ansible_vm_iam_account_email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
+
+  tags = ["docker-agent-server", "ci-cd"]
+  allow_stopping_for_update = true
+}
+
 resource "google_compute_instance" "ansible_vm" {
   name         = "ansible-server"
   machine_type = "e2-medium"

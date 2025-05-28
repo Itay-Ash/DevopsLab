@@ -34,6 +34,10 @@ variable "jenkins_server_static_ip" {
   type = string
 }
 
+variable "docker_agent_server_static_ip" {
+  type = string
+}
+
 variable "ansible_server_static_ip" {
   type = string
 }
@@ -79,5 +83,9 @@ variable "mysql_vm_iam_account_email" {
 }
 
 variable "jenkins_vm_iam_account_email" {
+  type = string
+}
+
+variable "docker_agent_vm_iam_account_email" {
   type = string
 }
