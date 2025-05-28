@@ -1,23 +1,58 @@
 pipeline {
     agent any
     stages {
-        stage('Clone-Repository') {
+        stage('Clone Repository Branch') {
             steps {
                 git branch: 'web-dev', credentialsId: 'Jenkins-Github-App-Creds', url: 'https://github.com/Itay-Ash/DevopsLab.git'
                 sh 'pip install -r code/Web/backend/requirements.txt'
             }
         }
-        stage('Run-Unit-Tests') {
+        stage('Run Unit Tests') {
             steps {
-                sh 'pytest -rA code/Web/backend/tests/unit/.'
+                script {
+                    def resultFileName = 'unit-results.xml'
+                    def testOutput = sh(script: "pytest --junitxml=${resultFileName} --no-header -rA code/Web/backend/tests/unit/", returnStdout: true)
+                    def dataDict = importDataFromPytest(testOutput)
+                    
+                    junit testResults: resultFileName, skipPublishingChecks: true, skipMarkingBuildUnstable:true
+                    publishChecks name: "Unit Tests",                  
+                        title: "Unit Test Results: ${dataDict.passed}/${dataDict.total} passed",
+                        summary: "✅ Passed: ${dataDict.passed}, ❌ Failed: ${dataDict.failed}, " +
+                        "⚠️Skipped: ${dataDict.skipped}, 🔥 Errors: ${dataDict.errors}",
+                        text: testOutput
+                }
             }
         }
-        stage('Run-Integration-Tests') {
+        stage('Run Integration Tests') {
             steps {
                 sh 'gcloud secrets versions access latest --secret="Backend-Env-File" >> code/Web/backend/.env'
-                sh 'pytest -rA code/Web/backend/tests/integration/.'
+                script {
+                    def resultFileName = 'integration-results.xml'
+                    def testOutput = sh(script: "pytest --junitxml=${resultFileName} --no-header -rA code/Web/backend/tests/integration/", returnStdout: true)
+                    def dataDict = importDataFromPytest(testOutput)
+                    
+                    junit testResults: resultFileName, skipPublishingChecks: true, skipMarkingBuildUnstable:true
+                    publishChecks name: "Integration Tests",                  
+                        title: "Integration Test Results: ${dataDict.passed}/${dataDict.total} passed",
+                        summary: "✅ Passed: ${dataDict.passed}, ❌ Failed: ${dataDict.failed}, " +
+                        "⚠️Skipped: ${dataDict.skipped}, 🔥 Errors: ${dataDict.errors}",
+                        text: testOutput
+                }
                 sh 'rm code/Web/backend/.env'
             }
         }
     }
+}
+
+def importDataFromPytest(String pytestResult)
+{
+    def summarySubString = pytestResult.substring(pytestResult.indexOf(" short test summary info "))
+    def summaryDict = [
+    passed: summarySubString.count("PASSED"),
+    skipped: summarySubString.count("SKIPPED"),
+    failed: summarySubString.count("FAILED"),
+    errors: summarySubString.count("ERROR"),
+    ]
+    summaryDict['total'] = summaryDict['passed'] +  summaryDict['skipped'] +  summaryDict['failed'] +  summaryDict['errors']
+    return summaryDict
 }
