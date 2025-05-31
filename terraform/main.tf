@@ -106,6 +106,9 @@ resource "google_compute_instance" "docker_agent_vm" {
   network_interface {
     subnetwork = google_compute_subnetwork.private_subnet.self_link
     network_ip = google_compute_address.docker_agent_server_private_ip.address
+    access_config {
+
+    }
   }
 
   service_account {

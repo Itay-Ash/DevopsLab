@@ -15,7 +15,7 @@
   vars_files:
     - vars/project_vars.yml
   roles:
-    - mysqlserver
+    - { role: mysqlserver, tags: ['mysql'] }
 
 - name: Configure web servers
   hosts: webservers
@@ -24,7 +24,7 @@
   vars_files:
     - vars/project_vars.yml
   roles:
-    - webserver
+    - { role: webserver, tags: ['web'] }
 
 - name: Configure jenkins servers
   hosts: jenkinsservers
@@ -33,5 +33,14 @@
   vars_files:
     - vars/project_vars.yml
   roles:
-    - jenkinsserver
+    - { role: jenkinsserver, tags: ['jenkins'] }
 
+
+- name: Configure docker agents servers
+  hosts: dockeragentservers
+  gather_facts: no
+  become: true
+  vars_files:
+    - vars/project_vars.yml
+  roles:
+    - { role: dockeragentserver, tags: ['docker'] }

@@ -1,0 +1,11 @@
+tools:
+  - docker-ce
+
+docker_repository:
+  url: "https://download.docker.com/linux/ubuntu"
+  file: docker
+
+docker_repository_key:
+  url: "https://download.docker.com/linux/ubuntu/gpg"
+  folder_path: "/etc/apt/keyrings"
+  file_path: "/etc/apt/keyrings/docker.asc"
