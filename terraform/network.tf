@@ -9,7 +9,14 @@ resource "google_compute_network" "private_vpc" {
 
 resource "google_compute_subnetwork" "private_subnet" {
   name          = "private-subnet"
-  ip_cidr_range = var.ip_cidr_range
+  ip_cidr_range = var.main_ip_cidr_range
+  region        = var.region
+  network       = google_compute_network.private_vpc.id
+}
+
+resource "google_compute_subnetwork" "private_agent_subnet" {
+  name          = "private-agent-subnet"
+  ip_cidr_range = var.agent_ip_cidr_range
   region        = var.region
   network       = google_compute_network.private_vpc.id
 }
@@ -33,14 +40,6 @@ resource "google_compute_address" "mysql_server_private_ip" {
 resource "google_compute_address" "jenkins_server_private_ip" {
   name         = "jenkins-server-static-ip"
   address      = var.jenkins_server_static_ip
-  region       = var.region
-  address_type = "INTERNAL"
-  subnetwork   = google_compute_subnetwork.private_subnet.self_link
-}
-
-resource "google_compute_address" "docker_agent_server_private_ip" {
-  name         = "docker-agent-server-static-ip"
-  address      = var.docker_agent_server_static_ip
   region       = var.region
   address_type = "INTERNAL"
   subnetwork   = google_compute_subnetwork.private_subnet.self_link

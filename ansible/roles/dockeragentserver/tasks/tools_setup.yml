@@ -1,5 +1,0 @@
-- name: Install Apt Tools, Including Docker
-  ansible.builtin.apt:
-    name: " {{ item }} "
-    state: present
-  loop: "{{ tools }}"

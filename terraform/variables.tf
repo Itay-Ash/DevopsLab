@@ -18,7 +18,11 @@ variable "zone" {
   type = string
 }
 
-variable "ip_cidr_range" {
+variable "main_ip_cidr_range" {
+  type = string
+}
+
+variable "agent_ip_cidr_range" {
   type = string
 }
 
@@ -31,10 +35,6 @@ variable "mysql_server_static_ip" {
 }
 
 variable "jenkins_server_static_ip" {
-  type = string
-}
-
-variable "docker_agent_server_static_ip" {
   type = string
 }
 
