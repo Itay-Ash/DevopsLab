@@ -20,8 +20,3 @@ jenkinsservers:
   hosts:
     jenkins_vm:
       ansible_host: jenkins-server
-
-dockeragentservers:
-  hosts:
-    docker_agent_vm:
-      ansible_host: docker-agent-server
