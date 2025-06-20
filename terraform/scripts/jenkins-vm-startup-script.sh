@@ -10,7 +10,7 @@ TIMEOUT=30
 #If user doesn't exist yet, add it.
 if ! id -u jenkins &>/dev/null; then
   groupadd jenkins
-  useradd -r -g -d /home/jenkins jenkins -s /bin/false jenkins
+  useradd -r -g jenkins -d /home/jenkins -s /bin/false jenkins
 fi
 
 #Created jenkins directories
