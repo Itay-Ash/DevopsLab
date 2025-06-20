@@ -34,6 +34,12 @@
     dest: "{{ jenkins_init_script_dir }}/create_github_app_user.groovy"
   notify: 'Delete init.groovy.d'
 
+- name: Add create_google_service_account.groovy
+  ansible.builtin.template:
+    src: templates/create_google_service_account.groovy.j2
+    dest: "{{ jenkins_init_script_dir }}/create_google_service_account.groovy"
+  notify: 'Delete init.groovy.d'
+
 - name: Check if intial Admin password exists
   ansible.builtin.stat:
     path: "{{ jenkins_home_dir }}/secrets/initialAdminPassword"

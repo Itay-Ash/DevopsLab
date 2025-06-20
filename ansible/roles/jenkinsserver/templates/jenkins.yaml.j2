@@ -2,6 +2,40 @@ jenkins:
   authorizationStrategy:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false
+  clouds:
+  - computeEngine:
+      cloudName: "DevOpsLab-Cloud"
+      configurations:
+      - bootDiskAutoDelete: true
+        bootDiskSizeGb: 10
+        bootDiskSizeGbStr: "10"
+        bootDiskType: "https://www.googleapis.com/compute/v1/projects/{{ project }}/zones/{{ zone }}/diskTypes/hyperdisk-balanced"
+        description: "dockeragent"
+        javaExecPath: "java"
+        labelSet:
+        - name: "gcp-docker-agent"
+        labelString: "gcp-docker-agent"
+        labels: "gcp-docker-agent"
+        launchTimeoutSeconds: 300
+        launchTimeoutSecondsStr: "300"
+        mode: NORMAL
+        namePrefix: "dockeragent"
+        numExecutors: 1
+        numExecutorsStr: "1"
+        provisioningType:
+          standard:
+            maxRunDurationSeconds: 0
+        region: "https://www.googleapis.com/compute/v1/projects/{{ project }}/regions/{{ region }}"
+        retentionTimeMinutes: 6
+        retentionTimeMinutesStr: "6"
+        runAsUser: "jenkins-vm"
+        template: "https://www.googleapis.com/compute/v1/projects/{{ project }}/global/instanceTemplates/docker-agent-server"
+        useInternalAddress: true
+        zone: "https://www.googleapis.com/compute/v1/projects/{{ project }}/zones/{{ zone }}"
+      credentialsId: "Jenkins-Service-Account"
+      instanceCapStr: "1"
+      instanceId: "4e57541f-357c-4392-b5fa-407db1ab6385"
+      projectId: "{{ project }}"
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: false
@@ -10,6 +44,7 @@ jenkins:
   - "hudson.util.DoubleLaunchChecker"
   labelAtoms:
   - name: "built-in"
+  - name: "gcp-docker-agent"
   markupFormatter: "plainText"
   mode: NORMAL
   myViewsTabBar: "standard"

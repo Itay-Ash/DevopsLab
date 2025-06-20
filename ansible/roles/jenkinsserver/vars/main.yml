@@ -39,3 +39,6 @@ unsafe_server_port: 80
 # Jenkins setup
 jenkins_home_dir: /var/lib/jenkins
 jenkins_init_script_dir: /var/lib/jenkins/init.groovy.d/
+
+# Jenkins GCE
+google_service_account_id: Jenkins-Service-Account

@@ -90,3 +90,4 @@ plugins:
     - dark-theme
     - configuration-as-code
     - github-checks
+    - google-compute-engine
