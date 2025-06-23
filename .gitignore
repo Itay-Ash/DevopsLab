@@ -3,3 +3,7 @@
 !code
 !code/**/
 !code/**/*.*
+!dockerfile
+__pycache__
+.pytest_cache
+.env
