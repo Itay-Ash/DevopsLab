@@ -58,13 +58,13 @@ This document captures my journey through creating a fully integrated DevOps lab
     - [x] Install required plugins.
     - [x] Create a dynamic public DNS record.
     - [x] Configure Nginx as a reverse proxy with SSL for Jenkins.
-  - [ ] Create a CI Jenkins pipeline on branch `web-dev` to:
-    - [ ] Check backend code.
-    - [ ] Check frontend code.
-  - [ ] Create a CD Jenkins pipeline on branch `web-dev` to:
-    - [ ] Pull code from a Git repository.
-    - [ ] Build a Docker image.
-    - [ ] Deploy the image to the web server VM.
+  - [x] Automatically connect Jenkins to GCP Cloud.
+  - [ ] Create a CI Jenkins pipeline on branch `dev-backend`:
+    - [x] Create a docker agent based on template.
+    - [ ] Run a CI Test using pytest on push/merge.
+  - [ ] Create a CI Jenkins pipeline on branch `dev-frontend`:
+    - [ ] Create an agent based on template.
+    - [ ] Run a CI Test using pytest on push/merge.
 
 - **Key Connection**: Jenkins brings the entire CI/CD process together, automating code-to-deployment steps for streamlined updates.
 
